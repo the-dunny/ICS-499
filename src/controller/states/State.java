@@ -1,4 +1,4 @@
-package controller.States;
+package controller.states;
 
 public interface State {
 
