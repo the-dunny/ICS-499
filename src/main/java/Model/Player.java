@@ -1,8 +1,12 @@
 package Model;
 
+import java.util.List;
+
 public class Player {
     private String userName;
     private String password;
-    private float bestTime;
+    private Game currentGame;
+    private List<Score> bestScoreByLevel;
+    private Score bestFullGameScore;
 
 }
