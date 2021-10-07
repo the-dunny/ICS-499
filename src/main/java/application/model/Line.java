@@ -3,7 +3,12 @@ package application.model;
 public class Line {
     private Point start;
     private Point end;
-    
+
+    public Line() {
+	this.start = new Point();
+	this.end = new Point();
+    }
+
     /**
      * @return the start
      */

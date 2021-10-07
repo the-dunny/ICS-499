@@ -1,24 +1,61 @@
 package application.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Grid {
-    private List<Point> vertexes;
+    private List<List<Point>> vertexes;
     private List<Line> playerLines;
     private List<Point> deadVertexes;
     private Point start;
     private Point end;
-    
+
+    public Grid() {
+	this.vertexes = new ArrayList<List<Point>>();
+	this.playerLines = new ArrayList<Line>();
+	this.deadVertexes = new ArrayList<Point>();
+	this.start = new Point();
+	this.end = new Point();
+    }
+
+    public Grid(int size, boolean inner) {
+	if (inner) size = size - 1;
+	this.vertexes = new ArrayList<List<Point>>(size);
+	for (int i = 0; i < size; i++)
+	{
+	    List<Point> row = new ArrayList<Point>(size);
+	    for (int j = 0; j < size; j++) {
+		if (!inner) {
+		    if (i == 0 && j == 0) row.add(new Point(i, j, 1));
+		    else if (i == size-1 && j == size-1) row.add(new Point(i, j, 0));
+		    else row.add(new Point(i, j));   
+		} else {
+		    row.add(new Point());
+		}
+	    }
+	    this.vertexes.add(row);
+	}
+	// WIP
+	this.playerLines = new ArrayList<Line>();
+	this.deadVertexes = new ArrayList<Point>();
+	this.start = new Point();
+	this.end = new Point();
+    }
+
+    public ArrayList<List<Point>> generateGrid(int size) {
+	return null;
+    }
+
     /**
      * @return the vertexes
      */
-    public List<Point> getVertexes() {
+    public List<List<Point>> getVertexes() {
 	return vertexes;
     }
     /**
      * @param vertexes the vertexes to set
      */
-    public void setVertexes(List<Point> vertexes) {
+    public void setVertexes(List<List<Point>> vertexes) {
 	this.vertexes = vertexes;
     }
     /**
