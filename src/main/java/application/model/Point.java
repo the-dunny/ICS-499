@@ -157,9 +157,10 @@ public class Point {
     }
     @Override
     public String toString() {
+	//return x + "," + y; // debug
 	if (start) return "S";
 	if (end) return "E";
-	if (visited) return "!";
+	if (visited) return "#";
 	if (required) return "?";
 	if (dead) return "X";
 	return "O";

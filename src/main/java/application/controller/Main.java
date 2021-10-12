@@ -22,7 +22,6 @@ public class Main {
 	try {
 		game.RunGame();
 	} catch (InterruptedException e) {
-		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
     }
