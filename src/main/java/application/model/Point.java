@@ -159,7 +159,7 @@ public class Point {
     public String toString() {
 	if (start) return "S";
 	if (end) return "E";
-	if (visited) return "!";
+	if (visited) return "#";
 	if (required) return "?";
 	if (dead) return "X";
 	return "O";

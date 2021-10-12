@@ -6,14 +6,12 @@ import java.util.List;
 public class Grid {
     private List<List<Point>> vertexes;
     private List<Line> playerLines;
-    private List<Point> deadVertexes;
     private Point start;
     private Point end;
 
     public Grid() {
 	this.vertexes = new ArrayList<List<Point>>();
 	this.playerLines = new ArrayList<Line>();
-	this.deadVertexes = new ArrayList<Point>();
 	this.start = new Point();
 	this.end = new Point();
     }
@@ -37,7 +35,6 @@ public class Grid {
 	}
 	// WIP
 	this.playerLines = new ArrayList<Line>();
-	this.deadVertexes = new ArrayList<Point>();
 	this.start = new Point();
 	this.end = new Point();
     }
@@ -69,18 +66,6 @@ public class Grid {
      */
     public void setPlayerLines(List<Line> playerLines) {
 	this.playerLines = playerLines;
-    }
-    /**
-     * @return the deadVertexes
-     */
-    public List<Point> getDeadVertexes() {
-	return deadVertexes;
-    }
-    /**
-     * @param deadVertexes the deadVertexes to set
-     */
-    public void setDeadVertexes(List<Point> deadVertexes) {
-	this.deadVertexes = deadVertexes;
     }
     /**
      * @return the start
