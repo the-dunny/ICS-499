@@ -1,6 +1,5 @@
 package application.controller;
 
-import java.util.List;
 import java.util.Scanner;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,6 +43,7 @@ public class Game {
 	    System.out.println("BACKUP");
 	    getGridPoint(lastLocation.getX(), lastLocation.getY()).setVisited(false);
 	}
+	
 	getGridPoint(location.getX(), location.getY()).setVisited(true);
     }
 
