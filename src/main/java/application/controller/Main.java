@@ -15,7 +15,15 @@ public class Main {
 	springContext = SpringApplication.run(Main.class, args); // Disabled For Debug
 	
 	// Debug Maze Creation
+    
 	int size = 5;
-	System.out.println(new LinePuzzle(size));
+	LinePuzzle puzzle = new LinePuzzle(size);
+	Game game = new Game(puzzle);
+	try {
+		game.RunGame();
+	} catch (InterruptedException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
     }
 }
