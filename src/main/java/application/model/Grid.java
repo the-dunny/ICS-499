@@ -17,16 +17,23 @@ public class Grid {
     }
 
     public Grid(int size, boolean inner) {
-	if (inner) size = size - 1;
+	size -= 1;
+	if (inner) size -= 1;
 	this.vertexes = new ArrayList<List<Point>>(size);
-	for (int i = 0; i < size; i++)
+	for (int x = 0; x <= size; x++)
 	{
 	    List<Point> row = new ArrayList<Point>(size);
-	    for (int j = 0; j < size; j++) {
+	    for (int y = size; y >= 0; y--) {
 		if (!inner) {
-		    if (i == 0 && j == 0) row.add(new Point(i, j, 1));
-		    else if (i == size-1 && j == size-1) row.add(new Point(i, j, 0));
-		    else row.add(new Point(i, j));   
+		    if (x == 0 && y == size) {
+			this.end = new Point(x, y, 1);
+			row.add(this.end);
+		    }
+		    else if (x == size && y == 0) {
+			this.start = new Point(x, y, 0);
+			row.add(this.start);
+		    }
+		    else row.add(new Point(x, y));   
 		} else {
 		    row.add(new Point());
 		}
@@ -35,8 +42,6 @@ public class Grid {
 	}
 	// WIP
 	this.playerLines = new ArrayList<Line>();
-	this.start = new Point();
-	this.end = new Point();
     }
 
     public ArrayList<List<Point>> generateGrid(int size) {
@@ -90,6 +95,11 @@ public class Grid {
      */
     public void setEnd(Point end) {
 	this.end = end;
+    }
+    
+    public Point getPoint(int x, int y) {
+	System.out.println(x + "; " + y);
+	return this.vertexes.get(x).get(vertexes.size() - 1 - y);
     }
 
 }

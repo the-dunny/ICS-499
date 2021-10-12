@@ -46,14 +46,14 @@ public class LinePuzzle {
     @Override
     public String toString() {
 	String display = "";
-	for (int i = 0; i < mainGrid.getVertexes().size(); i++) {
-	    for (int j = 0; j < mainGrid.getVertexes().size(); j++) {
-		if (j != 0) display += "-----";
+	for (int j = 0; j < mainGrid.getVertexes().size(); j++) {
+	    for (int i = 0; i < mainGrid.getVertexes().size(); i++) {
+		if (i != 0) display += "-----";
 		display += mainGrid.getVertexes().get(i).get(j);
 	    }
-	    if (i < mainGrid.getVertexes().size()-1) display += "\n\s\s|\s\s";
+	    if (j < mainGrid.getVertexes().size() - 1) display += "\n\s\s|\s\s";
 	    for (int k = 0; k < innerGrid.getVertexes().size(); k++) {
-		if (i < innerGrid.getVertexes().size()) display += innerGrid.getVertexes().get(i).get(k) + "\s\s|\s\s";
+		if (j < innerGrid.getVertexes().size()) display += innerGrid.getVertexes().get(k).get(j) + "\s\s|\s\s";
 	    }
 	    display += "\n";
 	}
