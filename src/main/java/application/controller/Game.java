@@ -49,13 +49,11 @@ public class Game {
 
     private void ChangeLocation() {
 	if (getGridPoint(location.getX(), location.getY()).isTravel() == true) {
-	    System.out.println("Backing Up...");
 	    Point lastLocation = path.getLine().pop();
 	    path.getLine().pop();
 	    getGridPoint(lastLocation.getX(), lastLocation.getY()).setVisited(false);
 	}
 	getGridPoint(location.getX(), location.getY()).setVisited(true);
-	System.out.println(path.getLine());
     }
 
     private boolean Move(String nextLine) throws InterruptedException {
@@ -99,7 +97,7 @@ public class Game {
 	default:
 	    return false;
 	}
-	System.out.println(path.getLine().peek().getX() + ", " + path.getLine().peek().getY() + " -> " + location.getX() + ", " + location.getY());
+	//System.out.println(path.getLine().peek().getX() + ", " + path.getLine().peek().getY() + " -> " + location.getX() + ", " + location.getY());
 	return true;
     }
 
