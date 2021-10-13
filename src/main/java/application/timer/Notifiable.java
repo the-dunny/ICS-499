@@ -1,6 +1,7 @@
 package application.timer;
 
-import application.events.TimerRanOutEvent;
+import application.events.TimerStart;
+import application.events.TimerStop;
 import application.events.TimerTickedEvent;
 
 /**
@@ -8,6 +9,9 @@ import application.events.TimerTickedEvent;
  *
  */
 public interface Notifiable {
+	
     public void handleEvent(TimerTickedEvent event);
-    public void handleEvent(TimerRanOutEvent event);
+    public void handleEvent(TimerStart event);
+    public void handleEvent(TimerStop event);
+   
 }
