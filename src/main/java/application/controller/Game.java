@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import application.events.TimerStart;
 import application.events.TimerStop;
+import application.model.Line;
 import application.model.LinePuzzle;
 import application.model.Point;
 import application.states.GameContext;
@@ -14,8 +15,8 @@ import application.states.GameContext;
 @RestController
 public class Game {
     LinePuzzle game;
+    Line path;
     Point location;
-    Point lastLocation;
     Point end;
     Scanner scanner = new Scanner(System.in);
     GameContext gameContext = GameContext.instance();
@@ -27,6 +28,7 @@ public class Game {
 
     public Game(LinePuzzle puzzle) {
 	this.game = puzzle;
+	this.path = new Line();
 	setLocation(game.getMainGrid().getStart());
 	game.getMainGrid().getStart().setVisited(true);
 	this.end = game.getMainGrid().getEnd();
@@ -47,51 +49,57 @@ public class Game {
 
     private void ChangeLocation() {
 	if (getGridPoint(location.getX(), location.getY()).isTravel() == true) {
-	    System.out.println("BACKUP");
+	    System.out.println("Backing Up...");
+	    Point lastLocation = path.getLine().pop();
+	    path.getLine().pop();
 	    getGridPoint(lastLocation.getX(), lastLocation.getY()).setVisited(false);
 	}
-
 	getGridPoint(location.getX(), location.getY()).setVisited(true);
+	System.out.println(path.getLine());
     }
 
     private boolean Move(String nextLine) throws InterruptedException {
 	switch (nextLine.toUpperCase()) {
 
-	case "UP" :
+	case "UP":
 	    if (checkUp()) {
-		lastLocation = new Point(location.getX(), location.getY());
+		path.getLine().push(new Point(location.getX(), location.getY()));
 		location.setY(location.getY() + 1);
 	    } else {
 		System.out.println("Illegal Move");
+		return false;
 	    } break;
 
-	case "DOWN" : 
+	case "DOWN": 
 	    if (checkDown()) {
-		lastLocation = new Point(location.getX(), location.getY());
+		path.getLine().push(new Point(location.getX(), location.getY()));
 		location.setY(location.getY() - 1);
 	    } else {
 		System.out.println("Illegal Move");
+		return false;
 	    } break;
 
-	case "LEFT" : 
+	case "LEFT": 
 	    if (checkLeft()) {
-		lastLocation = new Point(location.getX(), location.getY());
+		path.getLine().push(new Point(location.getX(), location.getY()));
 		location.setX(location.getX() - 1);
 	    } else {
 		System.out.println("Illegal Move");
+		return false;
 	    } break;
 
-	case "RIGHT" :
+	case "RIGHT":
 	    if (checkRight()) {
-		lastLocation = new Point(location.getX(), location.getY());
+		path.getLine().push(new Point(location.getX(), location.getY()));
 		location.setX(location.getX() + 1);
 	    } else {
 		System.out.println("Illegal Move");
+		return false;
 	    } break;
-	default :
+	default:
 	    return false;
 	}
-	System.out.println(lastLocation.getX() + ", " + lastLocation.getY() + " -> " + location.getX() + ", " + location.getY());
+	System.out.println(path.getLine().peek().getX() + ", " + path.getLine().peek().getY() + " -> " + location.getX() + ", " + location.getY());
 	return true;
     }
 
@@ -101,6 +109,12 @@ public class Game {
 	    temp = true;
 	else 
 	    return temp;
+
+	if (getGridPoint(location.getX(), location.getY() + 1).isTravel()) 
+	    if (getGridPoint(location.getX(), location.getY() + 1) != getGridPoint(path.getLine().peek().getX(), path.getLine().peek().getY()))
+		temp = false;
+	    else
+		temp = true;
 
 	if (getGridPoint(location.getX(), location.getY() + 1).isDead()) 
 	    temp = false;
@@ -115,6 +129,12 @@ public class Game {
 	else 
 	    return temp;
 
+	if (getGridPoint(location.getX(), location.getY() - 1).isTravel()) 
+	    if (getGridPoint(location.getX(), location.getY() - 1) != getGridPoint(path.getLine().peek().getX(), path.getLine().peek().getY()))
+		temp = false;
+	    else
+		temp = true;
+
 	if (getGridPoint(location.getX(), location.getY() - 1).isDead()) 
 	    temp = false;
 
@@ -123,9 +143,16 @@ public class Game {
 
     private boolean checkLeft() {
 	boolean temp = false;
-	if (location.getX() > 0) temp = true;
+	if (location.getX() > 0) 
+	    temp = true;
 	else 
 	    return temp;
+
+	if (getGridPoint(location.getX() - 1, location.getY()).isTravel()) 
+	    if (getGridPoint(location.getX() - 1, location.getY()) != getGridPoint(path.getLine().peek().getX(), path.getLine().peek().getY()))
+		temp = false;
+	    else
+		temp = true;
 
 	if (getGridPoint(location.getX() - 1, location.getY()).isDead())
 	    temp = false;
@@ -139,6 +166,12 @@ public class Game {
 	    temp = true;
 	else 
 	    return temp;
+
+	if (getGridPoint(location.getX() + 1, location.getY()).isTravel()) 
+	    if (getGridPoint(location.getX() + 1, location.getY()) != getGridPoint(path.getLine().peek().getX(), path.getLine().peek().getY()))
+		temp = false;
+	    else
+		temp = true;
 
 	if (getGridPoint(location.getX() + 1, location.getY()).isDead()) 
 	    temp = false;

@@ -1,36 +1,26 @@
 package application.model;
 
+import java.util.Stack;
+
 public class Line {
-    private Point start;
-    private Point end;
+    private Stack<Point> line;
 
     public Line() {
-	this.start = new Point();
-	this.end = new Point();
+	this.setLine(new Stack<Point>());
     }
 
     /**
-     * @return the start
+     * @return the line
      */
-    public Point getStart() {
-	return start;
+    public Stack<Point> getLine() {
+	return line;
     }
+
     /**
-     * @param start the start to set
+     * @param line the line to set
      */
-    public void setStart(Point start) {
-	this.start = start;
+    public void setLine(Stack<Point> line) {
+	this.line = line;
     }
-    /**
-     * @return the end
-     */
-    public Point getEnd() {
-	return end;
-    }
-    /**
-     * @param end the end to set
-     */
-    public void setEnd(Point end) {
-	this.end = end;
-    }
+
 }
