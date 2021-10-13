@@ -19,7 +19,7 @@ public class Game {
     Point end;
     Scanner scanner = new Scanner(System.in);
     GameContext gameContext = GameContext.instance();
-    
+
     @GetMapping("/game")
     public String hostGame() {
 	return "Under Construction";
@@ -33,10 +33,10 @@ public class Game {
     }
 
     public void RunGame() throws InterruptedException {
-	while(!end.isTravel()) {
-		gameContext.handleEvent(TimerStart.instance());
+	while (!end.isTravel()) {
+	    gameContext.handleEvent(TimerStart.instance());
 	    System.out.println("\r" + game.toString() + "\nEnter Up, Down, Left or Right to Move");
-	    System.out.println("S is the Start, E is the end, O are points you can travel on, ! are taveled points and X is unpassable");
+	    System.out.println("S is the Start, E is the end, O are points you can travel on, ! are traveled points and X is unpassable");
 	    if (Move(scanner.nextLine()))
 		ChangeLocation();
 	}
@@ -50,7 +50,7 @@ public class Game {
 	    System.out.println("BACKUP");
 	    getGridPoint(lastLocation.getX(), lastLocation.getY()).setVisited(false);
 	}
-	
+
 	getGridPoint(location.getX(), location.getY()).setVisited(true);
     }
 
@@ -58,7 +58,7 @@ public class Game {
 	switch (nextLine.toUpperCase()) {
 
 	case "UP" :
-	    if(checkUp()) {
+	    if (checkUp()) {
 		lastLocation = new Point(location.getX(), location.getY());
 		location.setY(location.getY() + 1);
 	    } else {
@@ -66,7 +66,7 @@ public class Game {
 	    } break;
 
 	case "DOWN" : 
-	    if(checkDown()) {
+	    if (checkDown()) {
 		lastLocation = new Point(location.getX(), location.getY());
 		location.setY(location.getY() - 1);
 	    } else {
@@ -74,7 +74,7 @@ public class Game {
 	    } break;
 
 	case "LEFT" : 
-	    if(checkLeft()) {
+	    if (checkLeft()) {
 		lastLocation = new Point(location.getX(), location.getY());
 		location.setX(location.getX() - 1);
 	    } else {
@@ -82,7 +82,7 @@ public class Game {
 	    } break;
 
 	case "RIGHT" :
-	    if(checkRight()) {
+	    if (checkRight()) {
 		lastLocation = new Point(location.getX(), location.getY());
 		location.setX(location.getX() + 1);
 	    } else {
@@ -135,7 +135,7 @@ public class Game {
 
     private boolean checkRight() {
 	boolean temp = false;
-	if(location.getX() < getGridSize() - 1) 
+	if (location.getX() < getGridSize() - 1) 
 	    temp = true;
 	else 
 	    return temp;

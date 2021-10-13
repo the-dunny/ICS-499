@@ -8,21 +8,21 @@ import application.model.LinePuzzle;
 
 @SpringBootApplication
 public class Main {
-    
+
     private static ConfigurableApplicationContext springContext;
-    
+
     public static void main(String[] args) {
 	//springContext = SpringApplication.run(Main.class, args); // Disabled For Debug
-	
+
 	// Debug Maze Creation
-    
+
 	int size = 5;
 	LinePuzzle puzzle = new LinePuzzle(size);
 	Game game = new Game(puzzle);
 	try {
-		game.RunGame();
+	    game.RunGame();
 	} catch (InterruptedException e) {
-		e.printStackTrace();
+	    e.printStackTrace();
 	}
     }
 }
