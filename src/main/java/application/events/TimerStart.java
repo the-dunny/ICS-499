@@ -1,13 +1,14 @@
 package application.events;
 
-public class TimerRanOutEvent {
-    private static TimerRanOutEvent instance;
+public class TimerStart {
+	
+    private static TimerStart instance;
 
     /**
      * This is a singleton class. Hence the private constructor.
      */
 
-    private TimerRanOutEvent() {}
+    private TimerStart() {}
 
     /**
      * Returns the only instance of the class.
@@ -15,8 +16,9 @@ public class TimerRanOutEvent {
      * @return the only instance
      */
 
-    public static TimerRanOutEvent instance() {
-	if (instance == null) instance = new TimerRanOutEvent();
+    public static TimerStart instance() {
+	if (instance == null) instance = new TimerStart();
 	return instance;
     }
+
 }
