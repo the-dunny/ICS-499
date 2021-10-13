@@ -5,6 +5,7 @@ import java.beans.*;
 import application.events.TimerRanOutEvent;
 import application.events.TimerTickedEvent;
 
+//TODO - needs reworking
 public class Timer implements PropertyChangeListener {
     private int timeValue;
     private Notifiable client;
