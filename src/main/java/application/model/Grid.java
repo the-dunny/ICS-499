@@ -98,7 +98,6 @@ public class Grid {
     }
     
     public Point getPoint(int x, int y) {
-	System.out.println(x + "; " + y);
 	return this.vertexes.get(x).get(vertexes.size() - 1 - y);
     }
 
