@@ -1,13 +1,10 @@
 package application.states;
 
-
 import application.events.TimerStop;
 import application.events.TimerStart;
 import application.events.TimerTickedEvent;
 import application.timer.Notifiable;
 import application.timer.Timer;
-
-
 
 public class GameContext implements Notifiable{
 	private GameState currentState;
@@ -54,9 +51,6 @@ public class GameContext implements Notifiable{
 		this.currentState = currentState;
 	}
 
-
-
-
 	/**
 	 * Initializing StopState as the default state
 	 */
@@ -76,8 +70,6 @@ public class GameContext implements Notifiable{
 		currentState = nextState;
 		currentState.enter();
 	}
-
-
 
 	/**
 	 * handleEvent for when the the level starts. 
