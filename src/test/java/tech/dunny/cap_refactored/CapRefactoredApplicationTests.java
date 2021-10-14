@@ -1,10 +1,10 @@
-package tech.dunny.gameproject;
+package tech.dunny.cap_refactored;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class GameProjectApplicationTests {
+class CapRefactoredApplicationTests {
 
     @Test
     void contextLoads() {
