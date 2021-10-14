@@ -27,7 +27,7 @@ public class Clock implements Runnable {
     public void run() {
 	try {
 	    while (true) {
-		Thread.sleep(1000);
+		Thread.sleep(100);
 		this.propertyChangeSupport.firePropertyChange(null, null, null);
 	    }
 	} catch (InterruptedException ie) {}
