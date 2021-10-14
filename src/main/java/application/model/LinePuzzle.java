@@ -54,33 +54,39 @@ public class LinePuzzle {
     }
 
     /**
-     * generate a random maze using Prim's Algorithm
+     * generate a random "loose" maze using Prim's Algorithm.
      */
     public void primsMaze() {
-	LinkedList<int[]> nav = new LinkedList<>();
-	Random rand = new Random();
-
+	ArrayList<Grid> gridLayer = new ArrayList<Grid>();
 	int size = mainGrid.getVertexes().size();
-	int x = rand.nextInt(size);
-	int y = rand.nextInt(size);
+	gridLayer.add(new Grid(mainGrid.getVertexes().size(), false));
+	gridLayer.add(new Grid(mainGrid.getVertexes().size(), false));
+	for (Grid grid : gridLayer) {
+	    LinkedList<int[]> nav = new LinkedList<>();
+	    Random rand = new Random();
+	    
+	    int x = rand.nextInt(size);
+	    int y = rand.nextInt(size);
 
-	nav.add(new int[]{x, y, x, y});
-	while (!nav.isEmpty()) {
-	    final int[] f = nav.remove(rand.nextInt(nav.size()));
-	    x = f[2];
-	    y = f[3];
-	    if (mainGrid.getPoint(x, y).isDead())
-	    {
-		mainGrid.getPoint(f[0], f[1]).setDead(false);
-		mainGrid.getPoint(x, y).setDead(false);
-		if (x >= 2 && mainGrid.getPoint(x - 2, y).isDead()) nav.add(new int[]{x - 1, y, x - 2, y});
-		if (y >= 2 && mainGrid.getPoint(x,y-2).isDead()) nav.add(new int[]{x, y - 1, x, y - 2});
-		if (x < size - 2 && mainGrid.getPoint(x + 2, y).isDead()) nav.add(new int[]{x + 1, y, x + 2, y} );
-		if (y < size - 2 && mainGrid.getPoint(x, y + 2).isDead()) nav.add(new int[]{x, y + 1, x, y + 2});
+	    nav.add(new int[] {x, y, x, y});
+	    while (!nav.isEmpty()) {
+		final int[] f = nav.remove(rand.nextInt(nav.size()));
+		x = f[2];
+		y = f[3];
+		if (grid.getPoint(x, y).isDead())
+		{
+		    grid.getPoint(f[0], f[1]).setDead(false);
+		    grid.getPoint(x, y).setDead(false);
+		    if (x >= 2 && grid.getPoint(x - 2, y).isDead()) nav.add(new int[] {x - 1, y, x - 2, y});
+		    if (y >= 2 && grid.getPoint(x, y - 2).isDead()) nav.add(new int[] {x, y - 1, x, y - 2});
+		    if (x < size - 2 && grid.getPoint(x + 2, y).isDead()) nav.add(new int[] {x + 1, y, x + 2, y});
+		    if (y < size - 2 && grid.getPoint(x, y + 2).isDead()) nav.add(new int[] {x, y + 1, x, y + 2});
+		}
 	    }
+	    mainGrid.mergePaths(grid);
 	}
 
-	// If the Start and End points do not have paths, retry.
+	// If the start and end points of the final maze do not have paths, retry.
 	if (mainGrid.getPoint(size - 2, 0).isDead() && mainGrid.getPoint(size - 1, 1).isDead() 
 		|| mainGrid.getPoint(0, size - 1).isDead() && mainGrid.getPoint(1, size - 1).isDead()) {
 	    for (List<Point> row : mainGrid.getVertexes()) {

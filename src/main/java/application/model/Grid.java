@@ -5,13 +5,11 @@ import java.util.List;
 
 public class Grid {
     private List<List<Point>> vertexes;
-    private List<Line> playerLines;
     private Point start;
     private Point end;
 
     public Grid() {
 	this.vertexes = new ArrayList<List<Point>>();
-	this.playerLines = new ArrayList<Line>();
 	this.start = new Point();
 	this.end = new Point();
     }
@@ -40,8 +38,6 @@ public class Grid {
 	    }
 	    this.vertexes.add(row);
 	}
-	// WIP
-	this.playerLines = new ArrayList<Line>();
     }
 
     public ArrayList<List<Point>> generateGrid(int size) {
@@ -59,18 +55,6 @@ public class Grid {
      */
     public void setVertexes(List<List<Point>> vertexes) {
 	this.vertexes = vertexes;
-    }
-    /**
-     * @return the playerLines
-     */
-    public List<Line> getPlayerLines() {
-	return playerLines;
-    }
-    /**
-     * @param playerLines the playerLines to set
-     */
-    public void setPlayerLines(List<Line> playerLines) {
-	this.playerLines = playerLines;
     }
     /**
      * @return the start
@@ -95,6 +79,20 @@ public class Grid {
      */
     public void setEnd(Point end) {
 	this.end = end;
+    }
+    
+    /**
+     * @param grid to merge paths with another grid.
+     */
+    public void mergePaths(Grid grid) {
+	int size = vertexes.size() - 1;
+	for (int x = 0; x <= size; x++) {
+	    for (int y = size; y >= 0; y--) {
+		if (getPoint(x, y).isDead() && !grid.getPoint(x, y).isDead()) {
+		    getPoint(x, y).setDead(false);
+		}
+	    }
+	}
     }
     
     public Point getPoint(int x, int y) {
