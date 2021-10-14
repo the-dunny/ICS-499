@@ -28,7 +28,7 @@ public class Point {
 	this.setY(y);
 	this.setVisited(false);
 	this.setRequired(false);
-	this.setDead(false);
+	this.setDead(true);
 	this.setStart(false);
 	this.setEnd(false);
     }
@@ -39,14 +39,13 @@ public class Point {
      *<br>0 = Start Adjacent
      *<br>1 = End Adjacent
      *<br>2 = Required Point
-     *<br>3 = Dead Point
      */
     public Point(int x, int y, int flag) {
 	this.setX(x);
 	this.setY(y);
 	this.setVisited(false);
 	this.setRequired(false);
-	this.setDead(false);
+	this.setDead(true);
 	this.setStart(false);
 	this.setEnd(false);
 
@@ -58,10 +57,7 @@ public class Point {
 	    this.setEnd(true);
 	    break;
 	case 2:
-	    this.setRequired(required);
-	    break;
-	case 3:
-	    this.setDead(dead);
+	    this.setRequired(true);
 	    break;
 	default:
 	    break;
