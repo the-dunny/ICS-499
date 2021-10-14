@@ -29,6 +29,7 @@ public class Game {
     public Game(LinePuzzle puzzle) {
 	this.game = puzzle;
 	this.path = new Line();
+	game.generate();
 	setLocation(game.getMainGrid().getStart());
 	game.getMainGrid().getStart().setVisited(true);
 	this.end = game.getMainGrid().getEnd();
@@ -97,7 +98,6 @@ public class Game {
 	default:
 	    return false;
 	}
-	//System.out.println(path.getLine().peek().getX() + ", " + path.getLine().peek().getY() + " -> " + location.getX() + ", " + location.getY());
 	return true;
     }
 
