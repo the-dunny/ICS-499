@@ -127,12 +127,12 @@ public class Game {
 //	else 
 //	    return temp;
 //
-//	if (getGridPoint(location.getX(),//    LinePuzzle game;
-////		    Line path;
-////		    Point location;
-////		    Point end;
-////		    Scanner scanner = new Scanner(System.in);
-////		    GameContext gameContext = GameContext.instance(); location.getY() - 1).isTravel()) 
+////	if (getGridPoint(location.getX(),//    LinePuzzle game;
+//////		    Line path;
+//////		    Point location;
+//////		    Point end;
+//////		    Scanner scanner = new Scanner(System.in);
+//////		    GameContext gameContext = GameContext.instance(); location.getY() - 1).isTravel()) 
 //	    if (getGridPoint(location.getX(), location.getY() - 1) != getGridPoint(path.getLine().peek().getX(), path.getLine().peek().getY()))
 //		temp = false;
 //	    else

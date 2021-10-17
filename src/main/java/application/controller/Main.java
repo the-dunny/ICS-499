@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import application.model.LinePuzzle;
-//import org.springframework.context.ConfigurableApplicationContext;
-//
-//import application.model.LinePuzzle;
+import org.springframework.context.ConfigurableApplicationContext;
+
+import application.model.LinePuzzle;
 
 @SpringBootApplication
 public class Main {
@@ -20,7 +20,7 @@ public class Main {
     	
 	// Debug Maze Creation
 
-//	int size = 4;
+//	int size = 8;
 //	LinePuzzle puzzle = new LinePuzzle(size);
 //	Game game = new Game(puzzle);
 //	try {

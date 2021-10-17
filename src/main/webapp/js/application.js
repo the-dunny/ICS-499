@@ -11,6 +11,7 @@ linePuzzle.config(['$routeProvider', function($routeProvider) {
             templateUrl: 'templates/game-panel.html',
             controller: 'gameController',
             controller: 'paintController'
+
         }).
         otherwise({
             redirectTo: ''
