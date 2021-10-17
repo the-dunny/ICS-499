@@ -24,5 +24,4 @@ public class Player {
     private String userName;
     private String password;
     private int bestScore;
-
 }

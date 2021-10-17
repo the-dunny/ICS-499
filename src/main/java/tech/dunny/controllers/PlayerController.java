@@ -31,12 +31,17 @@ public class PlayerController {
         //return new ResponseEntity<>(playerService.getPlayer(id), HttpStatus.OK);
     }
 
-    @PostMapping(path = "player/add",
-    consumes = MediaType.APPLICATION_JSON_VALUE,
-    produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(path = "player/add" )
     public ResponseEntity<Player> createPlayer(@RequestParam String username, @RequestParam String password){
-        Player player = new Player(0L, username, password, 0);
-        playerService.addPlayer(player);
-        return new ResponseEntity(player, HttpStatus.CREATED);
+       playerService.addPlayer(new Player(
+               0L, username, password, 999
+       ));
+        return new ResponseEntity(HttpStatus.CREATED);
+    }
+
+    @RequestMapping(path = "player/delete")
+    public ResponseEntity<Player> deletePlayer(@RequestParam long id){
+        playerService.deleterPlayer(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -1,7 +1,4 @@
 package tech.dunny.services;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.FetchProfile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tech.dunny.model.Player;
@@ -12,13 +9,16 @@ import java.util.List;
 @Service
 public class PlayerServiceImpl implements PlayerService{
 
-    @Autowired
     private PlayerRepository playerRepo;
+
+    @Autowired
+    public PlayerServiceImpl(PlayerRepository pr){
+        this.playerRepo = pr;
+    }
 
     @Override
     public void addPlayer(Player player) {
-        if(player.playerID != null && player.getUserName() != null
-        && player.getPassword() != null){
+        if(player.playerID != null && player.getUserName() != null){
             playerRepo.save(player);
         }
     }
@@ -32,8 +32,8 @@ public class PlayerServiceImpl implements PlayerService{
     }
 
     @Override
-    public void deleterPlayer(Player player) {
-        if(playerRepo.existsById(player.playerID)) playerRepo.deleteById(player.playerID);
+    public void deleterPlayer(long id) {
+        if(checkExistance(id)) playerRepo.deleteById(id);
     }
 
     @Override
@@ -44,5 +44,12 @@ public class PlayerServiceImpl implements PlayerService{
     @Override
     public Player getPlayer(Long id) {
         return playerRepo.getById(id);
+    }
+
+    private boolean checkExistance(long id){
+        if(playerRepo.existsById(id)){
+            return true;
+        }
+        return false;
     }
 }
