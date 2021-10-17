@@ -16,7 +16,7 @@ public class Main {
 
 	// Debug Maze Creation
 
-	int size = 7;
+	int size = 8;
 	LinePuzzle puzzle = new LinePuzzle(size);
 	Game game = new Game(puzzle);
 	try {

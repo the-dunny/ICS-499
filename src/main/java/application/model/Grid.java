@@ -2,6 +2,7 @@ package application.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Grid {
     private List<List<Point>> vertexes;
@@ -15,19 +16,22 @@ public class Grid {
     }
 
     public Grid(int size, boolean inner) {
+	Random rand = new Random();
 	size -= 1;
 	if (inner) size -= 1;
+	int start_offset = rand.nextInt(size);
+	int end_offset = rand.nextInt(size);
 	this.vertexes = new ArrayList<List<Point>>(size);
 	for (int x = 0; x <= size; x++)
 	{
 	    List<Point> row = new ArrayList<Point>(size);
 	    for (int y = size; y >= 0; y--) {
 		if (!inner) {
-		    if (x == 0 && y == size) {
+		    if (x == 0 && y == size - end_offset) {
 			this.end = new Point(x, y, 1);
 			row.add(this.end);
 		    }
-		    else if (x == size && y == 0) {
+		    else if (x == size && y == start_offset) {
 			this.start = new Point(x, y, 0);
 			row.add(this.start);
 		    }

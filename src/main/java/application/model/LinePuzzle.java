@@ -128,10 +128,11 @@ public class LinePuzzle {
 	Line randomPath = new Line();
 	Point location = tmpGrid.getStart();
 	int size = tmpGrid.getVertexes().size();
+	int maxattempts = (size * size) * 4;
 	List<String> direction = new ArrayList<String>(Arrays.asList("N", "S", "E", "W"));
 	tmpGrid.mergePaths(mainGrid);
 
-	for (int i = 0; i < (size * size) * 4; i++) {
+	for (int i = 0; i < maxattempts; i++) {
 	    Random rand = new Random();
 	    switch (direction.get(rand.nextInt(direction.size()))) {
 	    case "N": {
@@ -244,12 +245,13 @@ public class LinePuzzle {
 	    if (direction.size() == 0) {
 		tmpGrid.getPoint(location.getX(), location.getY()).setVisited(false);
 		tmpGrid.getPoint(location.getX(), location.getY()).setDead(true);
-		randomPath.getLine().pop();
+		if (randomPath.getLine().size() != 1)
+		    randomPath.getLine().pop();
 		location = new Point(randomPath.getLine().peek().getX(), randomPath.getLine().peek().getY());
 		direction = new ArrayList<String>(Arrays.asList("N", "S", "E", "W"));
 	    }
 	}
-	return new Line();
+	return randomValidPath();
     }
 
     /**
@@ -262,7 +264,7 @@ public class LinePuzzle {
 	}
 	return true;
     }
-    
+
     /**
      * Returns true if the puzzle is valid.
      */
@@ -276,7 +278,7 @@ public class LinePuzzle {
 	}
 	return true;
     }
-    
+
     /**
      * Restarts the player back to the beginning.
      */
