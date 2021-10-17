@@ -124,7 +124,7 @@ public class LinePuzzle {
 
     /**
      * Return a random valid path on the main grid, returns empty if there's no available path.
-     */
+     */ 
     public Line randomValidPath() {
 	Grid tmpGrid = new Grid(mainGrid.getVertexes().size(), false);
 	Line randomPath = new Line();
