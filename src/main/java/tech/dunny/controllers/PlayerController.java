@@ -31,6 +31,11 @@ public class PlayerController {
         //return new ResponseEntity<>(playerService.getPlayer(id), HttpStatus.OK);
     }
 
+    @GetMapping("player/all")
+    public ResponseEntity getAllPlayers(){
+        return new ResponseEntity(playerService.getPlayers(), HttpStatus.OK);
+    }
+
     @RequestMapping(path = "player/add" )
     public ResponseEntity<Player> createPlayer(@RequestParam String username, @RequestParam String password){
        playerService.addPlayer(new Player(
