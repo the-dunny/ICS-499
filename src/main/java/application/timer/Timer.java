@@ -35,7 +35,7 @@ public class Timer implements PropertyChangeListener {
 
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
-		++timeValue;
+		timeValue = timeValue + 1_00;
 		client.handleEvent(new TimerTickedEvent(timeValue));
 
 	}

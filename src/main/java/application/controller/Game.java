@@ -44,8 +44,8 @@ public class Game {
 		ChangeLocation();
 	}
 	scanner.close();
-	gameContext.handleEvent(TimerStop.instance());
 	System.out.println("Level Complete");
+	gameContext.handleEvent(TimerStop.instance());
     }
 
     private void ChangeLocation() {

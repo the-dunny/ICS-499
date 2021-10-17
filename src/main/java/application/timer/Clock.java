@@ -25,11 +25,23 @@ public class Clock implements Runnable {
     }
 
     public void run() {
-	try {
-	    while (true) {
-		Thread.sleep(1000);
-		this.propertyChangeSupport.firePropertyChange(null, null, null);
-	    }
-	} catch (InterruptedException ie) {}
+
+        try {
+            long oneTenthSecondAdjusted = 100L;
+            while (true) {
+                long timeBeforeSleep = System.currentTimeMillis();
+                Thread.sleep(oneTenthSecondAdjusted);
+                this.propertyChangeSupport.firePropertyChange(null, null, null);
+                long timeAfterSleep = System.currentTimeMillis();
+                long actualElapsedTime = timeAfterSleep - timeBeforeSleep;
+
+                //correct drift that comes from Thread's sleep method
+                if(actualElapsedTime > 100L){
+                    oneTenthSecondAdjusted = 100L - (actualElapsedTime - 100L);
+                }else {
+                    oneTenthSecondAdjusted = 100L;
+                }
+            }
+        } catch (InterruptedException ie) {}
     }
 }

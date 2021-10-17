@@ -17,7 +17,7 @@ public abstract class GameState {
 	public abstract void leave();
 	
 	/**
-	 * handleEvent method for when DoorOpensEvent
+	 * handleEvent method for when TimerStart
 	 * occurs. 
 	 * @param event
 	 */
@@ -25,7 +25,7 @@ public abstract class GameState {
 	}
 	
 	/**
-	 * handleEvent method for when DoorOpensEvent
+	 * handleEvent method for when TimerStop
 	 * occurs. 
 	 * @param event
 	 */
@@ -33,7 +33,7 @@ public abstract class GameState {
 	}
 
 	/**
-	 * handleEvent method for when DoorOpensEvent
+	 * handleEvent method for when TimerTicketEvent
 	 * occurs. 
 	 * @param event
 	 */
