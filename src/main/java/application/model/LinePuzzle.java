@@ -2,6 +2,7 @@ package application.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EmptyStackException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -117,6 +118,7 @@ public class LinePuzzle {
 		mainGrid.getPoint(point.getX(), point.getY()).setRequired(true);
 	    }
 	}
+	System.out.println(path.getLine());
 	// TODO ZONES
     }
 
@@ -126,7 +128,7 @@ public class LinePuzzle {
     public Line randomValidPath() {
 	Grid tmpGrid = new Grid(mainGrid.getVertexes().size(), false);
 	Line randomPath = new Line();
-	Point location = tmpGrid.getStart();
+	Point location = new Point(mainGrid.getStart().getX(), mainGrid.getStart().getY());
 	int size = tmpGrid.getVertexes().size();
 	int maxattempts = (size * size) * 4;
 	List<String> direction = new ArrayList<String>(Arrays.asList("N", "S", "E", "W"));
@@ -245,9 +247,12 @@ public class LinePuzzle {
 	    if (direction.size() == 0) {
 		tmpGrid.getPoint(location.getX(), location.getY()).setVisited(false);
 		tmpGrid.getPoint(location.getX(), location.getY()).setDead(true);
-		if (randomPath.getLine().size() != 1)
-		    randomPath.getLine().pop();
-		location = new Point(randomPath.getLine().peek().getX(), randomPath.getLine().peek().getY());
+		try {
+		    randomPath.getLine().pop();  
+		    location = new Point(randomPath.getLine().peek().getX(), randomPath.getLine().peek().getY());
+		} catch (EmptyStackException ese) {
+		    return randomValidPath();
+		}
 		direction = new ArrayList<String>(Arrays.asList("N", "S", "E", "W"));
 	    }
 	}

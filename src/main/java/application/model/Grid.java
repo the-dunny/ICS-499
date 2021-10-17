@@ -32,6 +32,7 @@ public class Grid {
 			row.add(this.end);
 		    }
 		    else if (x == size && y == start_offset) {
+			System.out.println(x + ", " + y);
 			this.start = new Point(x, y, 0);
 			row.add(this.start);
 		    }
