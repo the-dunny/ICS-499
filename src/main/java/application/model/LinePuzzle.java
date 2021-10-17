@@ -262,6 +262,34 @@ public class LinePuzzle {
 	}
 	return true;
     }
+    
+    /**
+     * Returns true if the puzzle is valid.
+     */
+    public boolean isComplete() {
+	for (List<Point> row : mainGrid.getVertexes()) {
+	    for (Point point : row) {
+		if (point.isRequired() && !point.isTravel()) {
+		    return false;
+		}
+	    }
+	}
+	return true;
+    }
+    
+    /**
+     * Restarts the player back to the beginning.
+     */
+    public Point retry() {
+	for (List<Point> row : mainGrid.getVertexes()) {
+	    for (Point point : row) {
+		if (point.isTravel()) {
+		    point.setVisited(false);
+		}
+	    }
+	}
+	return mainGrid.getStart();
+    }
 
     @Override
     public String toString() {

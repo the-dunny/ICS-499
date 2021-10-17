@@ -39,9 +39,15 @@ public class Game {
 	while (!end.isTravel()) {
 	    gameContext.handleEvent(TimerStart.instance());
 	    System.out.println("\r" + game.toString() + "\nEnter Up, Down, Left or Right to Move");
-	    System.out.println("S is the Start, E is the end, O are points you can travel on, # are traveled points and X is unpassable");
+	    System.out.println("S is the Start, E is the end, O are points you can travel on, ! are required points, # are traveled points and X is unpassable");
 	    if (Move(scanner.nextLine()))
 		ChangeLocation();
+	    if (end.isTravel()) {
+		if (!game.isComplete()) {
+		    setLocation(game.retry());
+		    System.out.println("Invalid Solution");
+		}
+	    }
 	}
 	scanner.close();
 	System.out.println("Level Complete");
