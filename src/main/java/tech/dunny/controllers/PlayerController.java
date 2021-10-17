@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import tech.dunny.repositories.PlayerRepository;
 import tech.dunny.services.PlayerService;
 
 
 @RestController
 public class PlayerController {
+
 
     final
     PlayerService playerService;
@@ -22,12 +24,14 @@ public class PlayerController {
         this.playerService = playerService;
     }
 
-    @GetMapping("/player/{id}")
-    public ResponseEntity<Object> getPlayer(@PathVariable("id") Long id){
-        return new ResponseEntity<>(playerService.getPlayer(id), HttpStatus.OK);
+
+    @GetMapping("player/{id}")
+    public String getPlayer(@PathVariable("id") Long id){
+        return playerService.getPlayer(id).getUserName();
+        //return new ResponseEntity<>(playerService.getPlayer(id), HttpStatus.OK);
     }
 
-    @GetMapping("/test")
+    @GetMapping("test")
     public String testing(){
         return "testing testing 123";
     }

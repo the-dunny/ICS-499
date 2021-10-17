@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.Loader;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 
@@ -12,7 +14,6 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Player {
 
     @Id

@@ -1,4 +1,5 @@
 package tech.dunny.services;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tech.dunny.model.Player;
 import tech.dunny.repositories.PlayerRepository;
@@ -7,7 +8,9 @@ import java.util.List;
 
 @Service
 public class PlayerServiceImpl implements PlayerService{
-    private static PlayerRepository playerRepo;
+
+    @Autowired
+    private PlayerRepository playerRepo;
 
     @Override
     public void addPlayer(Player player) {
