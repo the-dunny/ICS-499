@@ -63,7 +63,6 @@ public class LinePuzzle {
      */
     public void primsMaze() {
 	ArrayList<Grid> gridLayer = new ArrayList<Grid>();
-	Line path = new Line();
 	int size = mainGrid.getVertexes().size();
 	int layerCount = 2;
 
