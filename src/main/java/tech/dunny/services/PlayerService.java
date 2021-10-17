@@ -1,10 +1,7 @@
 package tech.dunny.services;
 
-import org.springframework.http.ResponseEntity;
 import tech.dunny.model.Player;
-
 import java.util.List;
-
 
 public interface PlayerService {
     public abstract void addPlayer(Player player);

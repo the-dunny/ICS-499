@@ -13,7 +13,6 @@ import tech.dunny.model.Player;
 import tech.dunny.repositories.PlayerRepository;
 import tech.dunny.services.PlayerServiceImpl;
 
-
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 public class CapRefactoredApplication {
     public static void main(String... args) {

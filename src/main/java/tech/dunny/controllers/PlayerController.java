@@ -2,19 +2,14 @@ package tech.dunny.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import tech.dunny.model.Player;
-import tech.dunny.repositories.PlayerRepository;
 import tech.dunny.services.PlayerService;
 import tech.dunny.services.PlayerServiceImpl;
 
-
 @RestController
 public class PlayerController {
-
 
     final
     PlayerService playerService;
@@ -23,7 +18,6 @@ public class PlayerController {
     public PlayerController(PlayerServiceImpl playerService) {
         this.playerService = playerService;
     }
-
 
     @GetMapping("player/{id}")
     public ResponseEntity getPlayer(@PathVariable("id") Long id){
