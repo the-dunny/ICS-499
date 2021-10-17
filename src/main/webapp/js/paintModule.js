@@ -4,19 +4,19 @@ var paintModule = angular.module('paintModule', []);
 paintModule.controller('paintController', [
     function makeGrid() {
 
-        var mazeHeight = 8;
-        var mazeWidth = mazeHeight;
+        var gridHeight = 8;
+        var gridWidth = gridHeight;
 
         var rowIndex, colIndex;
 
         var table = document.createElement("table");
         var tbody = document.createElement("tbody");
 
-        for (rowIndex = 1; rowIndex <= mazeHeight; rowIndex++) {
+        for (rowIndex = 1; rowIndex <= gridHeight; rowIndex++) {
 
             var row = document.createElement("tr");
 
-            for (colIndex = 1; colIndex <= mazeWidth; colIndex++) {
+            for (colIndex = 1; colIndex <= gridWidth; colIndex++) {
 
                 var col = document.createElement("td");
                 if (rowIndex == 1 && colIndex == 1) {
@@ -24,7 +24,7 @@ paintModule.controller('paintController', [
                     col.style.backgroundColor = "red";
                     col.setAttribute("type", "finsih");
 
-                } else if (rowIndex == mazeHeight && colIndex == mazeWidth) {
+                } else if (rowIndex == gridHeight && colIndex == gridWidth) {
 
                     col.style.backgroundColor = "limegreen";
                     col.setAttribute("type", "start");
