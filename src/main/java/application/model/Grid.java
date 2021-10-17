@@ -95,6 +95,19 @@ public class Grid {
 	}
     }
     
+    /**
+     * Clears a maze setting them all to dead points, no required points, and no zones.
+     */
+    public void clear() {
+	for (List<Point> row : getVertexes()) {
+	    for (Point point : row) {
+		point.setDead(true);
+		point.setRequired(false);
+		// TODO Clear Zones
+	    }
+	}
+    }
+    
     public Point getPoint(int x, int y) {
 	return this.vertexes.get(x).get(vertexes.size() - 1 - y);
     }

@@ -156,9 +156,9 @@ public class Point {
 	//return x + "," + y; // debug
 	if (start) return "S";
 	if (end) return "E";
-	if (visited) return "#";
-	if (required) return "?";
 	if (dead) return "X";
+	if (visited) return "#";
+	if (required) return "!";
 	return "O";
     }
 }

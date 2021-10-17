@@ -1,6 +1,7 @@
 package application.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -15,7 +16,7 @@ public class LinePuzzle {
     }
 
     public LinePuzzle(int size) {
-	if (size < 5) size = 5;
+	if (size < 3) size = 3;
 	this.mainGrid = new Grid(size, false);
 	this.innerGrid = new Grid(size, true);
     }
@@ -49,26 +50,34 @@ public class LinePuzzle {
 	this.innerGrid = innerGrid;
     }  
 
+    /**
+     * Generate a LinePuzzle with obstacles and additional features.
+     */
     public void generate() {
 	primsMaze();
+	pointsAndZones();
     }
 
     /**
-     * generate a random "loose" maze using Prim's Algorithm.
+     * Generate a random "loose" maze using Prim's Algorithm.
      */
     public void primsMaze() {
 	ArrayList<Grid> gridLayer = new ArrayList<Grid>();
+	Line path = new Line();
 	int size = mainGrid.getVertexes().size();
-	gridLayer.add(new Grid(mainGrid.getVertexes().size(), false));
-	gridLayer.add(new Grid(mainGrid.getVertexes().size(), false));
+	int layerCount = 2;
+
+	for (int i = 0; i < layerCount; i++) gridLayer.add(new Grid(mainGrid.getVertexes().size(), false));
+
 	for (Grid grid : gridLayer) {
 	    LinkedList<int[]> nav = new LinkedList<>();
 	    Random rand = new Random();
-	    
+
 	    int x = rand.nextInt(size);
 	    int y = rand.nextInt(size);
 
 	    nav.add(new int[] {x, y, x, y});
+
 	    while (!nav.isEmpty()) {
 		final int[] f = nav.remove(rand.nextInt(nav.size()));
 		x = f[2];
@@ -83,21 +92,176 @@ public class LinePuzzle {
 		    if (y < size - 2 && grid.getPoint(x, y + 2).isDead()) nav.add(new int[] {x, y + 1, x, y + 2});
 		}
 	    }
+
 	    mainGrid.mergePaths(grid);
 	}
 
 	// If the start and end points of the final maze do not have paths, retry.
-	if (mainGrid.getPoint(size - 2, 0).isDead() && mainGrid.getPoint(size - 1, 1).isDead() 
-		|| mainGrid.getPoint(0, size - 1).isDead() && mainGrid.getPoint(1, size - 1).isDead()) {
-	    for (List<Point> row : mainGrid.getVertexes()) {
-		for (Point point : row) {
-		    point.setDead(true);
-		}
-	    }
+	if (!validatePuzzle()) {
+	    mainGrid.clear();
 	    primsMaze();
 	} else {
+	    mainGrid.getStart().setDead(false);
 	    mainGrid.getEnd().setDead(false);
 	}
+    }
+
+    /**
+     * Generate collectible points and capture zones.
+     */
+    public void pointsAndZones() {
+	Line path = randomValidPath();
+	int probability = 12 - (12 - mainGrid.getVertexes().size());
+	for (Point point : path.getLine()) {
+	    Random rand = new Random();
+	    if (rand.nextInt(probability) == 0) {
+		mainGrid.getPoint(point.getX(), point.getY()).setRequired(true);
+	    }
+	}
+	// TODO ZONES
+    }
+
+    /**
+     * Return a random valid path on the main grid, returns empty if there's no available path.
+     */
+    public Line randomValidPath() {
+	Grid tmpGrid = new Grid(mainGrid.getVertexes().size(), false);
+	Line randomPath = new Line();
+	Point location = tmpGrid.getStart();
+	int size = tmpGrid.getVertexes().size();
+	List<String> direction = new ArrayList<String>(Arrays.asList("N", "S", "E", "W"));
+	tmpGrid.mergePaths(mainGrid);
+
+	for (int i = 0; i < (size * size) * 4; i++) {
+	    Random rand = new Random();
+	    switch (direction.get(rand.nextInt(direction.size()))) {
+	    case "N": {
+		if (location.getY() >= size - 1) {
+		    direction.remove("N");
+		    break;
+		}
+
+		if (tmpGrid.getPoint(location.getX(), location.getY() + 1).isDead()) {
+		    direction.remove("N");
+		    break;
+		}
+
+		if (tmpGrid.getPoint(location.getX(), location.getY() + 1).isTravel()) {
+		    if (tmpGrid.getPoint(location.getX(), location.getY() + 1) 
+			    != tmpGrid.getPoint(randomPath.getLine().peek().getX(), randomPath.getLine().peek().getY())) {
+			direction.remove("N");
+			break;
+		    }
+		}
+
+		randomPath.getLine().push(new Point(location.getX(), location.getY()));
+		tmpGrid.getPoint(location.getX(), location.getY()).setVisited(true);
+		location.setY(location.getY() + 1);
+		direction = new ArrayList<String>(Arrays.asList("N", "E", "W"));
+		break;
+	    }
+	    case "S": {
+		if (location.getY() == 0) {
+		    direction.remove("S");
+		    break;
+		}
+
+		if (tmpGrid.getPoint(location.getX(), location.getY() - 1).isDead()) {
+		    direction.remove("S");
+		    break;
+		}
+
+		if (tmpGrid.getPoint(location.getX(), location.getY() - 1).isTravel()) {
+		    if (tmpGrid.getPoint(location.getX(), location.getY() - 1) 
+			    != tmpGrid.getPoint(randomPath.getLine().peek().getX(), randomPath.getLine().peek().getY())) {
+			direction.remove("S");
+			break;
+		    }   
+		}
+
+		randomPath.getLine().push(new Point(location.getX(), location.getY()));
+		tmpGrid.getPoint(location.getX(), location.getY()).setVisited(true);
+		location.setY(location.getY() - 1);
+		direction = new ArrayList<String>(Arrays.asList("S", "E", "W"));
+		break;
+	    }
+	    case "E":  {
+		if (location.getX() == size - 1) {
+		    direction.remove("E");
+		    break;
+		}
+
+		if (tmpGrid.getPoint(location.getX() + 1, location.getY()).isDead()) {
+		    direction.remove("E");
+		    break;
+		}
+
+		if (tmpGrid.getPoint(location.getX() + 1, location.getY()).isTravel()) {
+		    if (tmpGrid.getPoint(location.getX() + 1, location.getY()) 
+			    != tmpGrid.getPoint(randomPath.getLine().peek().getX(), randomPath.getLine().peek().getY())) {
+			direction.remove("E");
+			break;
+		    }   
+		}
+
+		randomPath.getLine().push(new Point(location.getX(), location.getY()));
+		tmpGrid.getPoint(location.getX(), location.getY()).setVisited(true);
+		location.setX(location.getX() + 1);
+		direction = new ArrayList<String>(Arrays.asList("N", "S", "E"));
+		break;
+	    }
+	    case "W": {
+		if (location.getX() == 0) {
+		    direction.remove("W");
+		    break;
+		}
+
+		if (tmpGrid.getPoint(location.getX() - 1, location.getY()).isDead()) {
+		    direction.remove("W");
+		    break;
+		}
+
+		if (tmpGrid.getPoint(location.getX() - 1, location.getY()).isTravel()) {
+		    if (tmpGrid.getPoint(location.getX() - 1, location.getY()) 
+			    != tmpGrid.getPoint(randomPath.getLine().peek().getX(), randomPath.getLine().peek().getY())) {
+			direction.remove("W");
+			break;
+		    }   
+		}
+
+		randomPath.getLine().push(new Point(location.getX(), location.getY()));
+		tmpGrid.getPoint(location.getX(), location.getY()).setVisited(true);
+		location.setX(location.getX() - 1);
+		direction = new ArrayList<String>(Arrays.asList("N", "S", "W"));
+		break;
+	    }
+	    }
+
+	    if (tmpGrid.getEnd().getX() == location.getX() && tmpGrid.getEnd().getY() == location.getY()) {
+		randomPath.getLine().push(new Point(location.getX(), location.getY()));
+		return randomPath;
+	    }
+
+	    if (direction.size() == 0) {
+		tmpGrid.getPoint(location.getX(), location.getY()).setVisited(false);
+		tmpGrid.getPoint(location.getX(), location.getY()).setDead(true);
+		randomPath.getLine().pop();
+		location = new Point(randomPath.getLine().peek().getX(), randomPath.getLine().peek().getY());
+		direction = new ArrayList<String>(Arrays.asList("N", "S", "E", "W"));
+	    }
+	}
+	return new Line();
+    }
+
+    /**
+     * Returns true if the puzzle is valid.
+     */
+    public boolean validatePuzzle() {
+	if (mainGrid.getPoint(mainGrid.getVertexes().size() - 2, 0).isDead() && mainGrid.getPoint(mainGrid.getVertexes().size() - 1, 1).isDead() 
+		|| mainGrid.getPoint(0, mainGrid.getVertexes().size() - 1).isDead() && mainGrid.getPoint(1, mainGrid.getVertexes().size() - 1).isDead()) {
+	    return false;
+	}
+	return true;
     }
 
     @Override

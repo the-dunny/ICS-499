@@ -39,7 +39,7 @@ public class Game {
 	while (!end.isTravel()) {
 	    gameContext.handleEvent(TimerStart.instance());
 	    System.out.println("\r" + game.toString() + "\nEnter Up, Down, Left or Right to Move");
-	    System.out.println("S is the Start, E is the end, O are points you can travel on, ! are traveled points and X is unpassable");
+	    System.out.println("S is the Start, E is the end, O are points you can travel on, # are traveled points and X is unpassable");
 	    if (Move(scanner.nextLine()))
 		ChangeLocation();
 	}
@@ -109,7 +109,8 @@ public class Game {
 	    return temp;
 
 	if (getGridPoint(location.getX(), location.getY() + 1).isTravel()) 
-	    if (getGridPoint(location.getX(), location.getY() + 1) != getGridPoint(path.getLine().peek().getX(), path.getLine().peek().getY()))
+	    if (getGridPoint(location.getX(), location.getY() + 1) 
+		    != getGridPoint(path.getLine().peek().getX(), path.getLine().peek().getY()))
 		temp = false;
 	    else
 		temp = true;
@@ -128,7 +129,8 @@ public class Game {
 	    return temp;
 
 	if (getGridPoint(location.getX(), location.getY() - 1).isTravel()) 
-	    if (getGridPoint(location.getX(), location.getY() - 1) != getGridPoint(path.getLine().peek().getX(), path.getLine().peek().getY()))
+	    if (getGridPoint(location.getX(), location.getY() - 1) 
+		    != getGridPoint(path.getLine().peek().getX(), path.getLine().peek().getY()))
 		temp = false;
 	    else
 		temp = true;
@@ -147,7 +149,8 @@ public class Game {
 	    return temp;
 
 	if (getGridPoint(location.getX() - 1, location.getY()).isTravel()) 
-	    if (getGridPoint(location.getX() - 1, location.getY()) != getGridPoint(path.getLine().peek().getX(), path.getLine().peek().getY()))
+	    if (getGridPoint(location.getX() - 1, location.getY()) 
+		    != getGridPoint(path.getLine().peek().getX(), path.getLine().peek().getY()))
 		temp = false;
 	    else
 		temp = true;
@@ -166,7 +169,8 @@ public class Game {
 	    return temp;
 
 	if (getGridPoint(location.getX() + 1, location.getY()).isTravel()) 
-	    if (getGridPoint(location.getX() + 1, location.getY()) != getGridPoint(path.getLine().peek().getX(), path.getLine().peek().getY()))
+	    if (getGridPoint(location.getX() + 1, location.getY()) 
+		    != getGridPoint(path.getLine().peek().getX(), path.getLine().peek().getY()))
 		temp = false;
 	    else
 		temp = true;
@@ -190,7 +194,7 @@ public class Game {
     }
 
     public void setLocation(Point location) {
-	this.location = location;
+	this.location = new Point(location.getX(), location.getY());
     }
 
     public LinePuzzle getGame() {
