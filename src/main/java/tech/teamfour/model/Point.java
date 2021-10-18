@@ -1,4 +1,4 @@
-package application.model;
+package tech.teamfour.model;
 
 public class Point {
     private int x;
@@ -13,24 +13,24 @@ public class Point {
      * No argument constructor
      */
     public Point() {
-	this.setVisited(false);
-	this.setRequired(false);
-	this.setDead(true);
-	this.setStart(false);
-	this.setEnd(false);
+        this.setVisited(false);
+        this.setRequired(false);
+        this.setDead(true);
+        this.setStart(false);
+        this.setEnd(false);
     }
-    
+
     /**
      * Initialize the point.
      */
     public Point(int x, int y) {
-	this.setX(x);
-	this.setY(y);
-	this.setVisited(false);
-	this.setRequired(false);
-	this.setDead(true);
-	this.setStart(false);
-	this.setEnd(false);
+        this.setX(x);
+        this.setY(y);
+        this.setVisited(false);
+        this.setRequired(false);
+        this.setDead(true);
+        this.setStart(false);
+        this.setEnd(false);
     }
 
     /**
@@ -41,124 +41,124 @@ public class Point {
      *<br>2 = Required Point
      */
     public Point(int x, int y, int flag) {
-	this.setX(x);
-	this.setY(y);
-	this.setVisited(false);
-	this.setRequired(false);
-	this.setDead(true);
-	this.setStart(false);
-	this.setEnd(false);
+        this.setX(x);
+        this.setY(y);
+        this.setVisited(false);
+        this.setRequired(false);
+        this.setDead(true);
+        this.setStart(false);
+        this.setEnd(false);
 
-	switch (flag) {
-	case 0:
-	    this.setStart(true);
-	    break;
-	case 1:
-	    this.setEnd(true);
-	    break;
-	case 2:
-	    this.setRequired(true);
-	    break;
-	default:
-	    break;
-	}
+        switch (flag) {
+            case 0:
+                this.setStart(true);
+                break;
+            case 1:
+                this.setEnd(true);
+                break;
+            case 2:
+                this.setRequired(true);
+                break;
+            default:
+                break;
+        }
     }
 
     /**
      * @return the x
      */
     public int getX() {
-	return x;
+        return x;
     }
     /**
      * @param x the x to set
      */
     public void setX(int x) {
-	this.x = x;
+        this.x = x;
     }
     /**
      * @return the y
      */
     public int getY() {
-	return y;
+        return y;
     }
     /**
      * @param y the y to set
      */
     public void setY(int y) {
-	this.y = y;
+        this.y = y;
     }
     /**
      * @return the visited
      */
     public boolean isTravel() {
-	return visited;
+        return visited;
     }
     /**
      * @param visited the visited to set
      */
     public void setVisited(boolean visited) {
-	this.visited = visited;
+        this.visited = visited;
     }
 
     /**
      * @return the required
      */
     public boolean isRequired() {
-	return required;
+        return required;
     }
 
     /**
      * @param required the required to set
      */
     public void setRequired(boolean required) {
-	this.required = required;
+        this.required = required;
     }
     /**
      * @return the dead
      */
     public boolean isDead() {
-	return dead;
+        return dead;
     }
 
     /**
      * @param dead the dead to set
      */
     public void setDead(boolean dead) {
-	this.dead = dead;
+        this.dead = dead;
     }
     /**
      * @return the start
      */
     public boolean isStart() {
-	return start;
+        return start;
     }
     /**
      * @param start the start to set
      */
     public void setStart(boolean start) {
-	this.start = start;
+        this.start = start;
     }
     /**
      * @return the end
      */
     public boolean isEnd() {
-	return end;
+        return end;
     }
     /**
      * @param end the end to set
      */
     public void setEnd(boolean end) {
-	this.end = end;
+        this.end = end;
     }
     @Override
     public String toString() {
-	//return x + "," + y; // debug
-	if (start) return "S";
-	if (end) return "E";
-	if (visited) return "#";
-	if (required) return "?";
-	if (dead) return "X";
-	return "O";
+        //return x + "," + y; // debug
+        if (start) return "S";
+        if (end) return "E";
+        if (visited) return "#";
+        if (required) return "?";
+        if (dead) return "X";
+        return "O";
     }
 }
