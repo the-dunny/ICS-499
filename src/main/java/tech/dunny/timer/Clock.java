@@ -1,6 +1,7 @@
-package application.timer;
+package tech.dunny.timer;
 
-import java.beans.*;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 public class Clock implements Runnable {
     private Thread thread = new Thread(this);

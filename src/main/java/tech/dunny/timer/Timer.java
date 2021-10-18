@@ -1,8 +1,10 @@
-package application.timer;
+package tech.dunny.timer;
 
-import java.beans.*;
 
-import application.events.TimerTickedEvent;
+import tech.dunny.events.TimerTickedEvent;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 public class Timer implements PropertyChangeListener {
 	private int timeValue;

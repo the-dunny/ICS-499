@@ -1,14 +1,14 @@
-package application.events;
+package tech.dunny.events;
 
-public class TimerStop {
+public class TimerStart {
 	
-    private static TimerStop instance;
+    private static TimerStart instance;
 
     /**
      * This is a singleton class. Hence the private constructor.
      */
 
-    private TimerStop() {}
+    private TimerStart() {}
 
     /**
      * Returns the only instance of the class.
@@ -16,8 +16,8 @@ public class TimerStop {
      * @return the only instance
      */
 
-    public static TimerStop instance() {
-	if (instance == null) instance = new TimerStop();
+    public static TimerStart instance() {
+	if (instance == null) instance = new TimerStart();
 	return instance;
     }
 
