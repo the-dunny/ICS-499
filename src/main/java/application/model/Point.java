@@ -23,6 +23,19 @@ public class Point {
     /**
      * Initialize the point.
      */
+    public Point(Point point) {
+	this.setX(point.getX());
+	this.setY(point.getY());
+	this.setVisited(false);
+	this.setRequired(false);
+	this.setDead(true);
+	this.setStart(false);
+	this.setEnd(false);
+    }
+    
+    /**
+     * Initialize the point.
+     */
     public Point(int x, int y) {
 	this.setX(x);
 	this.setY(y);

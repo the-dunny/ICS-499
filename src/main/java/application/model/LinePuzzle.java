@@ -143,14 +143,13 @@ public class LinePuzzle {
 		    break;
 		}
 
-		if (tmpGrid.getPoint(location.getX(), location.getY() + 1).isDead()) {
+		if (tmpGrid.getNorth(location).isDead()) {
 		    direction.remove("N");
 		    break;
 		}
 
-		if (tmpGrid.getPoint(location.getX(), location.getY() + 1).isTravel()) {
-		    if (tmpGrid.getPoint(location.getX(), location.getY() + 1) 
-			    != tmpGrid.getPoint(randomPath.getLine().peek().getX(), randomPath.getLine().peek().getY())) {
+		if (tmpGrid.getNorth(location).isTravel()) {
+		    if (tmpGrid.getNorth(location) != tmpGrid.getPoint(randomPath.getLine().peek().getX(), randomPath.getLine().peek().getY())) {
 			direction.remove("N");
 			break;
 		    }
@@ -168,14 +167,13 @@ public class LinePuzzle {
 		    break;
 		}
 
-		if (tmpGrid.getPoint(location.getX(), location.getY() - 1).isDead()) {
+		if (tmpGrid.getSouth(location).isDead()) {
 		    direction.remove("S");
 		    break;
 		}
 
-		if (tmpGrid.getPoint(location.getX(), location.getY() - 1).isTravel()) {
-		    if (tmpGrid.getPoint(location.getX(), location.getY() - 1) 
-			    != tmpGrid.getPoint(randomPath.getLine().peek().getX(), randomPath.getLine().peek().getY())) {
+		if (tmpGrid.getSouth(location).isTravel()) {
+		    if (tmpGrid.getSouth(location) != tmpGrid.getPoint(randomPath.getLine().peek().getX(), randomPath.getLine().peek().getY())) {
 			direction.remove("S");
 			break;
 		    }   
@@ -193,14 +191,13 @@ public class LinePuzzle {
 		    break;
 		}
 
-		if (tmpGrid.getPoint(location.getX() + 1, location.getY()).isDead()) {
+		if (tmpGrid.getEast(location).isDead()) {
 		    direction.remove("E");
 		    break;
 		}
 
-		if (tmpGrid.getPoint(location.getX() + 1, location.getY()).isTravel()) {
-		    if (tmpGrid.getPoint(location.getX() + 1, location.getY()) 
-			    != tmpGrid.getPoint(randomPath.getLine().peek().getX(), randomPath.getLine().peek().getY())) {
+		if (tmpGrid.getEast(location).isTravel()) {
+		    if (tmpGrid.getEast(location) != tmpGrid.getPoint(randomPath.getLine().peek().getX(), randomPath.getLine().peek().getY())) {
 			direction.remove("E");
 			break;
 		    }   
@@ -218,14 +215,13 @@ public class LinePuzzle {
 		    break;
 		}
 
-		if (tmpGrid.getPoint(location.getX() - 1, location.getY()).isDead()) {
+		if (tmpGrid.getWest(location).isDead()) {
 		    direction.remove("W");
 		    break;
 		}
 
-		if (tmpGrid.getPoint(location.getX() - 1, location.getY()).isTravel()) {
-		    if (tmpGrid.getPoint(location.getX() - 1, location.getY()) 
-			    != tmpGrid.getPoint(randomPath.getLine().peek().getX(), randomPath.getLine().peek().getY())) {
+		if (tmpGrid.getWest(location).isTravel()) {
+		    if (tmpGrid.getWest(location) != tmpGrid.getPoint(randomPath.getLine().peek().getX(), randomPath.getLine().peek().getY())) {
 			direction.remove("W");
 			break;
 		    }   

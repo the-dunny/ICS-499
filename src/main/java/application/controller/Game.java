@@ -55,20 +55,19 @@ public class Game {
     }
 
     private void ChangeLocation() {
-	if (getGridPoint(location.getX(), location.getY()).isTravel() == true) {
+	if (game.getMainGrid().getPoint(location).isTravel() == true) {
 	    Point lastLocation = path.getLine().pop();
 	    path.getLine().pop();
-	    getGridPoint(lastLocation.getX(), lastLocation.getY()).setVisited(false);
+	    game.getMainGrid().getPoint(lastLocation).setVisited(false);
 	}
-	getGridPoint(location.getX(), location.getY()).setVisited(true);
+	game.getMainGrid().getPoint(location).setVisited(true);
     }
 
     private boolean Move(String nextLine) throws InterruptedException {
 	switch (nextLine.toUpperCase()) {
-
 	case "UP":
 	    if (checkUp()) {
-		path.getLine().push(new Point(location.getX(), location.getY()));
+		path.getLine().push(new Point(location));
 		location.setY(location.getY() + 1);
 	    } else {
 		System.out.println("Illegal Move");
@@ -77,7 +76,7 @@ public class Game {
 
 	case "DOWN": 
 	    if (checkDown()) {
-		path.getLine().push(new Point(location.getX(), location.getY()));
+		path.getLine().push(new Point(location));
 		location.setY(location.getY() - 1);
 	    } else {
 		System.out.println("Illegal Move");
@@ -86,7 +85,7 @@ public class Game {
 
 	case "LEFT": 
 	    if (checkLeft()) {
-		path.getLine().push(new Point(location.getX(), location.getY()));
+		path.getLine().push(new Point(location));
 		location.setX(location.getX() - 1);
 	    } else {
 		System.out.println("Illegal Move");
@@ -95,7 +94,7 @@ public class Game {
 
 	case "RIGHT":
 	    if (checkRight()) {
-		path.getLine().push(new Point(location.getX(), location.getY()));
+		path.getLine().push(new Point(location));
 		location.setX(location.getX() + 1);
 	    } else {
 		System.out.println("Illegal Move");
@@ -114,14 +113,13 @@ public class Game {
 	else 
 	    return temp;
 
-	if (getGridPoint(location.getX(), location.getY() + 1).isTravel()) 
-	    if (getGridPoint(location.getX(), location.getY() + 1) 
-		    != getGridPoint(path.getLine().peek().getX(), path.getLine().peek().getY()))
+	if (game.getMainGrid().getNorth(location).isTravel()) 
+	    if (game.getMainGrid().getNorth(location) != game.getMainGrid().getPoint(path.getLine().peek()))
 		temp = false;
 	    else
 		temp = true;
 
-	if (getGridPoint(location.getX(), location.getY() + 1).isDead()) 
+	if (game.getMainGrid().getNorth(location).isDead()) 
 	    temp = false;
 
 	return temp;
@@ -134,14 +132,13 @@ public class Game {
 	else 
 	    return temp;
 
-	if (getGridPoint(location.getX(), location.getY() - 1).isTravel()) 
-	    if (getGridPoint(location.getX(), location.getY() - 1) 
-		    != getGridPoint(path.getLine().peek().getX(), path.getLine().peek().getY()))
+	if (game.getMainGrid().getSouth(location).isTravel()) 
+	    if (game.getMainGrid().getSouth(location) != game.getMainGrid().getPoint(path.getLine().peek()))
 		temp = false;
 	    else
 		temp = true;
 
-	if (getGridPoint(location.getX(), location.getY() - 1).isDead()) 
+	if (game.getMainGrid().getSouth(location).isDead()) 
 	    temp = false;
 
 	return temp;
@@ -154,14 +151,13 @@ public class Game {
 	else 
 	    return temp;
 
-	if (getGridPoint(location.getX() - 1, location.getY()).isTravel()) 
-	    if (getGridPoint(location.getX() - 1, location.getY()) 
-		    != getGridPoint(path.getLine().peek().getX(), path.getLine().peek().getY()))
+	if (game.getMainGrid().getWest(location).isTravel()) 
+	    if (game.getMainGrid().getWest(location) != game.getMainGrid().getPoint(path.getLine().peek()))
 		temp = false;
 	    else
 		temp = true;
 
-	if (getGridPoint(location.getX() - 1, location.getY()).isDead())
+	if (game.getMainGrid().getWest(location).isDead())
 	    temp = false;
 
 	return temp;
@@ -174,14 +170,13 @@ public class Game {
 	else 
 	    return temp;
 
-	if (getGridPoint(location.getX() + 1, location.getY()).isTravel()) 
-	    if (getGridPoint(location.getX() + 1, location.getY()) 
-		    != getGridPoint(path.getLine().peek().getX(), path.getLine().peek().getY()))
+	if (game.getMainGrid().getEast(location).isTravel())
+	    if (game.getMainGrid().getEast(location) != game.getMainGrid().getPoint(path.getLine().peek()))
 		temp = false;
 	    else
 		temp = true;
 
-	if (getGridPoint(location.getX() + 1, location.getY()).isDead()) 
+	if (game.getMainGrid().getEast(location).isDead())
 	    temp = false;
 
 	return temp;
@@ -191,16 +186,12 @@ public class Game {
 	return game.getMainGrid().getVertexes().size();
     }
 
-    public Point getGridPoint(int x, int y) {
-	return game.getMainGrid().getPoint(x, y);
-    }
-
     public Point getLocation() {
 	return location;
     }
 
     public void setLocation(Point location) {
-	this.location = new Point(location.getX(), location.getY());
+	this.location = new Point(location);
     }
 
     public LinePuzzle getGame() {

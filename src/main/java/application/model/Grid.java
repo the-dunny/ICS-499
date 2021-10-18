@@ -85,7 +85,23 @@ public class Grid {
     public void setEnd(Point end) {
 	this.end = end;
     }
-    
+
+    public Point getNorth(Point point) {
+	return getPoint(point.getX(), point.getY() + 1);
+    }
+
+    public Point getSouth(Point point) {
+	return getPoint(point.getX(), point.getY() - 1);
+    }
+
+    public Point getEast(Point point) {
+	return getPoint(point.getX() + 1, point.getY());
+    }
+
+    public Point getWest(Point point) {
+	return getPoint(point.getX() - 1, point.getY());
+    }
+
     /**
      * @param grid to merge paths with another grid.
      */
@@ -99,7 +115,7 @@ public class Grid {
 	    }
 	}
     }
-    
+
     /**
      * Clears a maze setting them all to dead points, no required points, and no zones.
      */
@@ -111,6 +127,10 @@ public class Grid {
 		// TODO Clear Zones
 	    }
 	}
+    }
+
+    public Point getPoint(Point point) {
+	return this.vertexes.get(point.getX()).get(vertexes.size() - 1 - point.getY());
     }
     
     public Point getPoint(int x, int y) {
