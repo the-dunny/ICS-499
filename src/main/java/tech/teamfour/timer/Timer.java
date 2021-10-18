@@ -1,8 +1,10 @@
-package application.timer;
+package tech.teamfour.timer;
 
-import java.beans.*;
 
-import application.events.TimerTickedEvent;
+import tech.teamfour.events.TimerTickedEvent;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 public class Timer implements PropertyChangeListener {
 	private int timeValue;

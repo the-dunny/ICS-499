@@ -1,4 +1,4 @@
-package application.events;
+package tech.teamfour.events;
 
 public class TimerStart {
 	
