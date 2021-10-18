@@ -1,6 +1,6 @@
-package tech.dunny.services;
+package tech.teamfour.services;
 
-import tech.dunny.model.Player;
+import tech.teamfour.model.Player;
 import java.util.List;
 
 public interface PlayerService {
@@ -9,4 +9,5 @@ public interface PlayerService {
     public void deleterPlayer(long id);
     public List<Player> getPlayers();
     public Player getPlayer(Long id);
+    public List<Player> getHighScores();
 }

@@ -1,12 +1,12 @@
-package tech.dunny.controllers;
+package tech.teamfour.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tech.dunny.model.Player;
-import tech.dunny.services.PlayerService;
-import tech.dunny.services.PlayerServiceImpl;
+import tech.teamfour.model.Player;
+import tech.teamfour.services.PlayerService;
+import tech.teamfour.services.PlayerServiceImpl;
 
 @RestController
 public class PlayerController {
@@ -37,6 +37,9 @@ public class PlayerController {
        ));
         return new ResponseEntity(HttpStatus.CREATED);
     }
+
+    @GetMapping("player/highscores")
+    public ResponseEntity getSortedScores(){ return new ResponseEntity(playerService.getHighScores(), HttpStatus.OK);}
 
     @RequestMapping(path = "player/delete")
     public ResponseEntity<Player> deletePlayer(@RequestParam long id){

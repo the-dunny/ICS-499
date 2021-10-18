@@ -1,22 +1,13 @@
-package tech.dunny;
+package tech.teamfour;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.stereotype.Component;
-import tech.dunny.model.Player;
-import tech.dunny.repositories.PlayerRepository;
-import tech.dunny.services.PlayerServiceImpl;
 
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
-public class CapRefactoredApplication {
+public class GameApplication {
     public static void main(String... args) {
-        SpringApplication.run(CapRefactoredApplication.class, args);
+        SpringApplication.run(GameApplication.class, args);
     }
 }
 

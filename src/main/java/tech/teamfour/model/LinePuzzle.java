@@ -1,4 +1,4 @@
-package tech.dunny.model;
+package tech.teamfour.model;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

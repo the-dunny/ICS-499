@@ -1,7 +1,7 @@
-package tech.dunny.timer;
+package tech.teamfour.timer;
 
 
-import tech.dunny.events.TimerTickedEvent;
+import tech.teamfour.events.TimerTickedEvent;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;

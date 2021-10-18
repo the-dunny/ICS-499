@@ -1,8 +1,8 @@
-package tech.dunny.services;
+package tech.teamfour.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tech.dunny.model.Player;
-import tech.dunny.repositories.PlayerRepository;
+import tech.teamfour.model.Player;
+import tech.teamfour.repositories.PlayerRepository;
 
 import java.util.List;
 
@@ -44,6 +44,14 @@ public class PlayerServiceImpl implements PlayerService{
     @Override
     public Player getPlayer(Long id) {
         return playerRepo.getById(id);
+    }
+
+    @Override
+    public List<Player> getHighScores(){
+        List<Player> sortedPlayers = getPlayers();
+        sortedPlayers.sort((p1, p2)
+                -> ((Integer)p1.getBestScore()).compareTo((Integer)p2.getBestScore()));
+        return sortedPlayers;
     }
 
     private boolean checkExistance(long id){

@@ -1,4 +1,4 @@
-package tech.dunny.events;
+package tech.teamfour.events;
 
 public class TimerTickedEvent {
     private int time;
