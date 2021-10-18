@@ -1,7 +1,7 @@
-package tech.dunny.repositories;
+package tech.teamfour.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import tech.dunny.model.Player;
+import tech.teamfour.model.Player;
 
 public interface PlayerRepository extends JpaRepository<Player, Long> {
 

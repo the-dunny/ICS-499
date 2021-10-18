@@ -1,9 +1,9 @@
-package tech.dunny.timer;
+package tech.teamfour.timer;
 
 
-import tech.dunny.events.TimerStart;
-import tech.dunny.events.TimerStop;
-import tech.dunny.events.TimerTickedEvent;
+import tech.teamfour.events.TimerStart;
+import tech.teamfour.events.TimerStop;
+import tech.teamfour.events.TimerTickedEvent;
 
 /**
  * An entity that can be notified of timing events

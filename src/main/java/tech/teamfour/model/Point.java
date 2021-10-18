@@ -1,4 +1,4 @@
-package tech.dunny.model;
+package tech.teamfour.model;
 
 public class Point {
     private int x;

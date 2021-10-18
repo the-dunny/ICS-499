@@ -1,13 +1,9 @@
-package tech.dunny.model;
+package tech.teamfour.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.Loader;
 import org.hibernate.annotations.Proxy;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 
