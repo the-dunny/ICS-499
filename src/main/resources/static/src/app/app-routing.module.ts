@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TutorialsListComponent } from './components/tutorials-list/tutorials-list.component';
+import { PlayerListComponent } from './components/player-list/player-list.component';
+
+import { LevelComponent } from './components/level/level.component';
 
 
 
 const routes: Routes = [
   { path: '', redirectTo: '', pathMatch: 'full' },
-//  { path: 'newGame', component: TutorialsListComponent },
-  { path: 'bestScores', component: TutorialsListComponent }
+ { path: 'newGame', component: LevelComponent },
+  { path: 'bestScores', component: PlayerListComponent }
  
 ];
 

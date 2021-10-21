@@ -29,7 +29,11 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+            
+            "src/assets/js/makeGrid.js"
+            
+            ]
           },
           "configurations": {
             "production": {
