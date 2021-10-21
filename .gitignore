@@ -37,9 +37,9 @@ build/
 
 ### Nodes for Angular Development ###
 node_modules
-./src/main/resources/static/src/.bin
-./src/main/resources/static/src/.cache
-./src/main/resources/static/src/.cli-ngcc
-./src/main/resources/static/src/.package-lock.json
+/src/main/resources/static/src/.bin
+/src/main/resources/static/src/.cache
+/src/main/resources/static/src/.cli-ngcc
+/src/main/resources/static/src/.package-lock.json
 
 
