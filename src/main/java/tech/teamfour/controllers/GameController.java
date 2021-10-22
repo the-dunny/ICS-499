@@ -1,29 +1,46 @@
 package tech.teamfour.controllers;
 
-import java.util.Scanner;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import tech.teamfour.model.Line;
-import tech.teamfour.model.LinePuzzle;
-import tech.teamfour.model.Point;
+import tech.teamfour.services.GameServce;
+import tech.teamfour.services.GameServceImpl;
 
 // FOR DEBUG USE
 
 @RestController
-public class Game {
+public class GameController {
+    final GameServce gameServce;
+
+    @Autowired
+    public GameController(GameServceImpl gameServce) {
+        this.gameServce = gameServce;
+    }
+
+    @GetMapping("game/newGame")
+    public ResponseEntity getNewGame(@RequestParam(defaultValue = "5", required = false) int gridSize){
+        return new ResponseEntity<>(gameServce.getNewPuzzle(gridSize), HttpStatus.OK);
+    }
+
+    @GetMapping("game/currentGame")
+    public ResponseEntity getPlayerMove(@RequestParam int keyPressed){
+        boolean wasMoveSuccessful = gameServce.validatePlayerMove(keyPressed);
+        if(wasMoveSuccessful){
+            return new ResponseEntity(gameServce.getUpdatedPuzzle(), HttpStatus.OK);
+        }else{
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
+}
 //    LinePuzzle game;
 //    Line path;
 //    Point location;
 //    Point end;
 //    Scanner scanner = new Scanner(System.in);
-
-    @GetMapping("/game")
-    public String hostGame() {
-	return "Under Construction";
-    }
-
 //    public Game(LinePuzzle puzzle) {
 //	this.game = puzzle;
 //	this.path = new Line();
@@ -197,4 +214,4 @@ public class Game {
 //    public void setGame(LinePuzzle game) {
 //	this.game = game;
 //    }
-}
+//}
