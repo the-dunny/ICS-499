@@ -7,19 +7,21 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
 public class LinePuzzle {
     private Grid mainGrid;
     private Grid innerGrid;
-
-    public LinePuzzle() {
-	this.mainGrid = new Grid();
-	this.innerGrid = new Grid();
-    }
+    private Line path;
 
     public LinePuzzle(int size) {
 	if (size < 3) size = 3;
 	this.mainGrid = new Grid(size, false);
 	this.innerGrid = new Grid(size, true);
+	this.path = new Line();
     }
 
     public void travel(int x, int y) {
@@ -148,7 +150,7 @@ public class LinePuzzle {
 		    break;
 		}
 
-		if (tmpGrid.getNorth(location).isTravel()) {
+		if (tmpGrid.getNorth(location).isVisited()) {
 		    if (tmpGrid.getNorth(location) != tmpGrid.getPoint(randomPath.getLine().peek().getX(), randomPath.getLine().peek().getY())) {
 			direction.remove("N");
 			break;
@@ -172,7 +174,7 @@ public class LinePuzzle {
 		    break;
 		}
 
-		if (tmpGrid.getSouth(location).isTravel()) {
+		if (tmpGrid.getSouth(location).isVisited()) {
 		    if (tmpGrid.getSouth(location) != tmpGrid.getPoint(randomPath.getLine().peek().getX(), randomPath.getLine().peek().getY())) {
 			direction.remove("S");
 			break;
@@ -196,7 +198,7 @@ public class LinePuzzle {
 		    break;
 		}
 
-		if (tmpGrid.getEast(location).isTravel()) {
+		if (tmpGrid.getEast(location).isVisited()) {
 		    if (tmpGrid.getEast(location) != tmpGrid.getPoint(randomPath.getLine().peek().getX(), randomPath.getLine().peek().getY())) {
 			direction.remove("E");
 			break;
@@ -220,7 +222,7 @@ public class LinePuzzle {
 		    break;
 		}
 
-		if (tmpGrid.getWest(location).isTravel()) {
+		if (tmpGrid.getWest(location).isVisited()) {
 		    if (tmpGrid.getWest(location) != tmpGrid.getPoint(randomPath.getLine().peek().getX(), randomPath.getLine().peek().getY())) {
 			direction.remove("W");
 			break;
@@ -272,7 +274,7 @@ public class LinePuzzle {
     public boolean isComplete() {
 	for (List<Point> row : mainGrid.getVertexes()) {
 	    for (Point point : row) {
-		if (point.isRequired() && !point.isTravel()) {
+		if (point.isRequired() && !point.isVisited()) {
 		    return false;
 		}
 	    }
@@ -286,7 +288,7 @@ public class LinePuzzle {
     public Point retry() {
 	for (List<Point> row : mainGrid.getVertexes()) {
 	    for (Point point : row) {
-		if (point.isTravel()) {
+		if (point.isVisited()) {
 		    point.setVisited(false);
 		}
 	    }
