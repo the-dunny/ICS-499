@@ -4,18 +4,14 @@ import java.util.List;
 import java.util.Random;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class Grid {
     private List<List<Point>> vertexes;
     private Point start;
     private Point end;
-
-    public Grid() {
-	this.vertexes = new ArrayList<List<Point>>();
-	this.start = new Point();
-	this.end = new Point();
-    }
 
     public Grid(int size, boolean inner) {
 	Random rand = new Random();
@@ -97,7 +93,7 @@ public class Grid {
     public Point getPoint(Point point) {
 	return this.vertexes.get(point.getX()).get(vertexes.size() - 1 - point.getY());
     }
-    
+
     public Point getPoint(int x, int y) {
 	return this.vertexes.get(x).get(vertexes.size() - 1 - y);
     }
