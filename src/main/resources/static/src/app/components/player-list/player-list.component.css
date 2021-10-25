@@ -1,0 +1,9 @@
+table {
+  width: 100%;
+  font-family: arial, sans-serif;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
