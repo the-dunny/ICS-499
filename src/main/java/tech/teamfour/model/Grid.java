@@ -3,6 +3,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import lombok.Data;
+
+@Data
 public class Grid {
     private List<List<Point>> vertexes;
     private Point start;
@@ -46,43 +49,6 @@ public class Grid {
 
     public ArrayList<List<Point>> generateGrid(int size) {
 	return null;
-    }
-
-    /**
-     * @return the vertexes
-     */
-    public List<List<Point>> getVertexes() {
-	return vertexes;
-    }
-    /**
-     * @param vertexes the vertexes to set
-     */
-    public void setVertexes(List<List<Point>> vertexes) {
-	this.vertexes = vertexes;
-    }
-    /**
-     * @return the start
-     */
-    public Point getStart() {
-	return start;
-    }
-    /**
-     * @param start the start to set
-     */
-    public void setStart(Point start) {
-	this.start = start;
-    }
-    /**
-     * @return the end
-     */
-    public Point getEnd() {
-	return end;
-    }
-    /**
-     * @param end the end to set
-     */
-    public void setEnd(Point end) {
-	this.end = end;
     }
 
     public Point getNorth(Point point) {
