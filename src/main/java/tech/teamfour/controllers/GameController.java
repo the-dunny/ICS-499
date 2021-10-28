@@ -32,9 +32,27 @@ public class GameController {
         if(wasMoveSuccessful){
             return new ResponseEntity(gameServce.getUpdatedPuzzle(), HttpStatus.OK);
         }else{
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(gameServce.getUpdatedPuzzle(), HttpStatus.FORBIDDEN);
         }
     }
+
+    @GetMapping("game/currentTime")
+    public ResponseEntity getCurrentTime(){
+        return new ResponseEntity(gameServce.getTimerTime(), HttpStatus.OK);
+    }
+
+    @GetMapping("game/stopTimer")
+    public ResponseEntity stopTimer(){
+        gameServce.stopTimer();
+        return new ResponseEntity(new String("Timer stopped"), HttpStatus.OK);
+    }
+
+    @GetMapping("game/startTimer")
+    public ResponseEntity startTimer(){
+        gameServce.startTimer();
+        return new ResponseEntity(new String("Timer started"), HttpStatus.OK);
+    }
+
 }
 //    LinePuzzle game;
 //    Line path;

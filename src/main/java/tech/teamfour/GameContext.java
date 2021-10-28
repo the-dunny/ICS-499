@@ -3,18 +3,25 @@ package tech.teamfour;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import tech.teamfour.events.TimerStart;
+import tech.teamfour.events.TimerStop;
+import tech.teamfour.events.TimerTickedEvent;
 import tech.teamfour.model.Line;
 import tech.teamfour.model.LinePuzzle;
 import tech.teamfour.model.Point;
+import tech.teamfour.timer.Notifiable;
+import tech.teamfour.timer.Timer;
 
 @Data
 @NoArgsConstructor
-public class GameContext {
+public class GameContext implements Notifiable {
 
     private LinePuzzle game;
     private Line path;
-    private Point location;
+    public Point location;
     private Point end;
+    private Timer timer;
+    private int time;
 
     @Autowired
     public GameContext(LinePuzzle puzzle, Line line){
@@ -24,6 +31,8 @@ public class GameContext {
         setLocation(game.getMainGrid().getStart());
         game.getMainGrid().getStart().setVisited(true);
         this.end = game.getMainGrid().getEnd();
+        this.timer = new Timer(this, 0);
+        timer.start();
     }
 
     private void changeLocation(){
@@ -170,5 +179,24 @@ public class GameContext {
 
     public void setGame(LinePuzzle game) {
         this.game = game;
+    }
+
+    public int getTime(){
+        return timer.getTimeValue();
+    }
+
+    @Override
+    public void handleEvent(TimerTickedEvent event) {
+        this.time++;
+    }
+
+    @Override
+    public void handleEvent(TimerStart event) {
+        this.time = 0;
+    }
+
+    @Override
+    public void handleEvent(TimerStop event) {
+        this.timer.stop();
     }
 }

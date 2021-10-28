@@ -4,8 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tech.teamfour.GameContext;
 import tech.teamfour.enums.GameStateEnum;
+import tech.teamfour.events.TimerStart;
+import tech.teamfour.events.TimerStop;
 import tech.teamfour.model.Line;
 import tech.teamfour.model.LinePuzzle;
+import tech.teamfour.model.Point;
 
 @Service
 public class GameServceImpl implements GameServce{
@@ -20,8 +23,8 @@ public class GameServceImpl implements GameServce{
     }
 
     @Override
-    public LinePuzzle getUpdatedPuzzle() {
-        return gameContext.getGame();
+    public Point getUpdatedPuzzle() {
+        return gameContext.location;
     }
 
     @Override
@@ -53,5 +56,20 @@ public class GameServceImpl implements GameServce{
     @Override
     public GameStateEnum checkGameStatus() {
         return null;
+    }
+
+    @Override
+    public int getTimerTime(){
+        return gameContext.getTime();
+    }
+
+    @Override
+    public void stopTimer(){
+        this.gameContext.handleEvent(TimerStop.instance());
+    }
+
+    @Override
+    public void startTimer(){
+        this.gameContext.handleEvent(TimerStart.instance());
     }
 }
