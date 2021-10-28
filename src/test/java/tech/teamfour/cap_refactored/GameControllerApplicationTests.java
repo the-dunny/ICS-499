@@ -31,6 +31,8 @@ class GameControllerApplicationTests {
         assert p.getPassword().equalsIgnoreCase("TestPW");
         assert p.getUserName().equalsIgnoreCase("Test");
         assert p.getPlayerID() == 0L;
+        p.setBestScore(12345);
+        assert p.getBestScore() == 12345L;
     }
 
     @Test
@@ -45,7 +47,7 @@ class GameControllerApplicationTests {
         System.out.println(gc.location.getY());
         //assert (gc.location.getX() == 2);
         //assert (gc.location.getY() == 2);
-        assert (gc.getPath().getLine().peek().equals(gc.location));
+
     }
 
 }
