@@ -1,5 +1,7 @@
 package tech.teamfour.model;
 
+import java.util.Objects;
+
 public class Point {
     private int x;
     private int y;
@@ -173,5 +175,23 @@ public class Point {
 	if (visited) return "#";
 	if (required) return "!";
 	return "O";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Point point = (Point) o;
+        return x == point.x && y == point.y
+                && visited == point.visited
+                && required == point.required
+                && dead == point.dead
+                && start == point.start
+                && end == point.end;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y, visited, required, dead, start, end);
     }
 }

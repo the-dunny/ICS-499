@@ -32,7 +32,7 @@ public class GameController {
         if(wasMoveSuccessful){
             return new ResponseEntity(gameServce.getUpdatedPuzzle(), HttpStatus.OK);
         }else{
-            return new ResponseEntity(gameServce.getUpdatedPuzzle(), HttpStatus.FORBIDDEN);
+            return new ResponseEntity(new String("illegal move"), HttpStatus.FORBIDDEN);
         }
     }
 

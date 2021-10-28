@@ -43,7 +43,7 @@ public class GameContext implements Notifiable {
         }
         game.getMainGrid().getPoint(location).setVisited(true);
     }
-    public boolean move(String nextLine) throws InterruptedException {
+    public boolean move(String nextLine){
         switch (nextLine.toUpperCase()) {
             case "UP":
                 if (checkUp()) {
