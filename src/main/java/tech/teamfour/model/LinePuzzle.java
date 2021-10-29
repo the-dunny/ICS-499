@@ -7,19 +7,21 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
 public class LinePuzzle {
     private Grid mainGrid;
     private Grid innerGrid;
-
-    public LinePuzzle() {
-	this.mainGrid = new Grid();
-	this.innerGrid = new Grid();
-    }
+    private Line path;
 
     public LinePuzzle(int size) {
 	if (size < 3) size = 3;
-	this.mainGrid = new Grid(size, false);
-	this.innerGrid = new Grid(size, true);
+	this.mainGrid = new TravelGrid(size);
+	this.innerGrid = new ZoneGrid(size);
+	this.path = new Line();
     }
 
     public void travel(int x, int y) {
@@ -67,7 +69,7 @@ public class LinePuzzle {
 	int size = mainGrid.getVertexes().size();
 	int layerCount = 2;
 
-	for (int i = 0; i < layerCount; i++) gridLayer.add(new Grid(mainGrid.getVertexes().size(), false));
+	for (int i = 0; i < layerCount; i++) gridLayer.add(new TravelGrid(mainGrid.getVertexes().size()));
 
 	for (Grid grid : gridLayer) {
 	    LinkedList<int[]> nav = new LinkedList<>();
@@ -118,7 +120,6 @@ public class LinePuzzle {
 		mainGrid.getPoint(point.getX(), point.getY()).setRequired(true);
 	    }
 	}
-	System.out.println(path.getLine());
 	// TODO ZONES
     }
 
@@ -126,7 +127,7 @@ public class LinePuzzle {
      * Return a random valid path on the main grid, returns empty if there's no available path.
      */ 
     public Line randomValidPath() {
-	Grid tmpGrid = new Grid(mainGrid.getVertexes().size(), false);
+	Grid tmpGrid = new TravelGrid(mainGrid.getVertexes().size());
 	Line randomPath = new Line();
 	Point location = new Point(mainGrid.getStart().getX(), mainGrid.getStart().getY());
 	int size = tmpGrid.getVertexes().size();
@@ -148,7 +149,7 @@ public class LinePuzzle {
 		    break;
 		}
 
-		if (tmpGrid.getNorth(location).isTravel()) {
+		if (tmpGrid.getNorth(location).isVisited()) {
 		    if (tmpGrid.getNorth(location) != tmpGrid.getPoint(randomPath.getLine().peek().getX(), randomPath.getLine().peek().getY())) {
 			direction.remove("N");
 			break;
@@ -172,7 +173,7 @@ public class LinePuzzle {
 		    break;
 		}
 
-		if (tmpGrid.getSouth(location).isTravel()) {
+		if (tmpGrid.getSouth(location).isVisited()) {
 		    if (tmpGrid.getSouth(location) != tmpGrid.getPoint(randomPath.getLine().peek().getX(), randomPath.getLine().peek().getY())) {
 			direction.remove("S");
 			break;
@@ -196,7 +197,7 @@ public class LinePuzzle {
 		    break;
 		}
 
-		if (tmpGrid.getEast(location).isTravel()) {
+		if (tmpGrid.getEast(location).isVisited()) {
 		    if (tmpGrid.getEast(location) != tmpGrid.getPoint(randomPath.getLine().peek().getX(), randomPath.getLine().peek().getY())) {
 			direction.remove("E");
 			break;
@@ -220,7 +221,7 @@ public class LinePuzzle {
 		    break;
 		}
 
-		if (tmpGrid.getWest(location).isTravel()) {
+		if (tmpGrid.getWest(location).isVisited()) {
 		    if (tmpGrid.getWest(location) != tmpGrid.getPoint(randomPath.getLine().peek().getX(), randomPath.getLine().peek().getY())) {
 			direction.remove("W");
 			break;
@@ -272,7 +273,7 @@ public class LinePuzzle {
     public boolean isComplete() {
 	for (List<Point> row : mainGrid.getVertexes()) {
 	    for (Point point : row) {
-		if (point.isRequired() && !point.isTravel()) {
+		if (point.isRequired() && !point.isVisited()) {
 		    return false;
 		}
 	    }
@@ -286,7 +287,7 @@ public class LinePuzzle {
     public Point retry() {
 	for (List<Point> row : mainGrid.getVertexes()) {
 	    for (Point point : row) {
-		if (point.isTravel()) {
+		if (point.isVisited()) {
 		    point.setVisited(false);
 		}
 	    }
@@ -302,9 +303,9 @@ public class LinePuzzle {
 		if (i != 0) display += "-----";
 		display += mainGrid.getVertexes().get(i).get(j);
 	    }
-	    //if (j < mainGrid.getVertexes().size() - 1) display += "\n|\s\s";
+	    if (j < mainGrid.getVertexes().size() - 1) display += "\n|\s\s";
 	    for (int k = 0; k < innerGrid.getVertexes().size(); k++) {
-		//if (j < innerGrid.getVertexes().size()) display += innerGrid.getVertexes().get(k).get(j) + "\s\s|\s\s";
+		if (j < innerGrid.getVertexes().size()) display += innerGrid.getVertexes().get(k).get(j) + "\s\s|\s\s";
 	    }
 	    display += "\n";
 	}

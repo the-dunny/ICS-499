@@ -1,4 +1,4 @@
-exports.makeGrid = function makeGrid() {
+export function makeGrid() {
 
 
 
