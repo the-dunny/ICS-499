@@ -82,12 +82,12 @@ public class Point {
 
     @Override
     public String toString() {
-	return x + "," + y; // debug
-//	if (start) return "S";
-//	if (end) return "E";
-//	if (dead) return "X";
-//	if (visited) return "#";
-//	if (required) return "!";
-//	return "O";
+	//return x + "," + y; // debug
+	if (start) return "S";
+	if (end) return "E";
+	if (dead) return "X";
+	if (visited) return "#";
+	if (required) return "!";
+	return "O";
     }
 }
