@@ -20,4 +20,70 @@ public class ZoneGrid extends Grid {
 	    this.vertexes.add(row);
 	}
     }
+
+    /**
+     * @param path is the travel path.
+     * @param point is the current point.
+     * <br>Check to see if there is a valid move north of the grid.
+     */
+    public boolean checkUp(Point point) {
+	boolean temp = false;
+	if (point.getY() < getVertexes().size() - 1)
+	    temp = true;
+	else 
+	    return temp;
+
+	if (getUp(point).isVisited() || getUp(point).getZone() != 0) 
+	    temp = false;
+	else
+	    temp = true;
+
+	return temp;
+    }
+
+
+    public boolean checkDown(Point point) {
+	boolean temp = false;
+	if (point.getY() > 0) 
+	    temp = true; 
+	else 
+	    return temp;
+
+	if (getDown(point).isVisited() || getDown(point).getZone() != 0) 
+	    temp = false;
+	else
+	    temp = true;
+
+	return temp;
+    }
+
+    public boolean checkLeft(Point point) {
+	boolean temp = false;
+	if (point.getX() > 0) 
+	    temp = true;
+	else 
+	    return temp;
+
+	if (getLeft(point).isVisited() || getLeft(point).getZone() != 0) 
+	    temp = false;
+	else
+	    temp = true;
+
+	return temp;
+    }
+
+    public boolean checkRight(Point point) {
+	boolean temp = false;
+	if (point.getX() < getVertexes().size() - 1) 
+	    temp = true;
+	else 
+	    return temp;
+
+	if (getRight(point).isVisited() || getRight(point).getZone() != 0) 
+	    temp = false;
+	else
+	    temp = true;
+
+	return temp;
+    }
 }

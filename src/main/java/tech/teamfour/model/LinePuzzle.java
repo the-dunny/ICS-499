@@ -13,8 +13,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class LinePuzzle {
-    private Grid mainGrid;
-    private Grid innerGrid;
+    private TravelGrid mainGrid;
+    private ZoneGrid innerGrid;
     private Line path;
 
     public LinePuzzle(int size) {
@@ -27,31 +27,6 @@ public class LinePuzzle {
     public void travel(int x, int y) {
 	System.out.println(this.mainGrid);
     }
-
-    /**
-     * @return the mainGrid
-     */
-    public Grid getMainGrid() {
-	return mainGrid;
-    }
-    /**
-     * @param mainGrid the mainGrid to set
-     */
-    public void setMainGrid(Grid mainGrid) {
-	this.mainGrid = mainGrid;
-    }
-    /**
-     * @return the innerGrid
-     */
-    public Grid getInnerGrid() {
-	return innerGrid;
-    }
-    /**
-     * @param innerGrid the innerGrid to set
-     */
-    public void setInnerGrid(Grid innerGrid) {
-	this.innerGrid = innerGrid;
-    }  
 
     /**
      * Generate a LinePuzzle with obstacles and additional features.
@@ -113,7 +88,7 @@ public class LinePuzzle {
      */
     public void pointsAndZones() {
 	Line path = randomValidPath();
-	int probability = 12 - (12 - mainGrid.getVertexes().size());
+	int probability = 12 - (13 - mainGrid.getVertexes().size());
 	for (Point point : path.getLine()) {
 	    Random rand = new Random();
 	    if (rand.nextInt(probability) == 0) {
@@ -121,117 +96,77 @@ public class LinePuzzle {
 	    }
 	}
 	// TODO ZONES
+	ArrayList<ArrayList<Point>> zones = randomZones(path);
+	for (ArrayList<Point> zone : zones) {
+	    for (int j = 0; j < zone.size(); j++) {
+		if (j > innerGrid.getVertexes().size()) {
+		    zone.get(j).setZone(0);
+		}
+	    }
+	}
     }
 
     /**
      * Return a random valid path on the main grid, returns empty if there's no available path.
      */ 
     public Line randomValidPath() {
-	Grid tmpGrid = new TravelGrid(mainGrid.getVertexes().size());
+	TravelGrid tmpGrid = new TravelGrid(mainGrid.getVertexes().size());
 	Line randomPath = new Line();
 	Point location = new Point(mainGrid.getStart().getX(), mainGrid.getStart().getY());
 	int size = tmpGrid.getVertexes().size();
 	int maxattempts = (size * size) * 4;
-	List<String> direction = new ArrayList<String>(Arrays.asList("N", "S", "E", "W"));
+	List<String> direction = new ArrayList<String>(Arrays.asList("UP", "DOWN", "RIGHT", "LEFT"));
 	tmpGrid.mergePaths(mainGrid);
 
 	for (int i = 0; i < maxattempts; i++) {
 	    Random rand = new Random();
 	    switch (direction.get(rand.nextInt(direction.size()))) {
-	    case "N": {
-		if (location.getY() >= size - 1) {
-		    direction.remove("N");
+	    case "UP": {
+		if (!tmpGrid.checkUp(randomPath, location)) {
+		    direction.remove("UP");
 		    break;
-		}
-
-		if (tmpGrid.getNorth(location).isDead()) {
-		    direction.remove("N");
-		    break;
-		}
-
-		if (tmpGrid.getNorth(location).isVisited()) {
-		    if (tmpGrid.getNorth(location) != tmpGrid.getPoint(randomPath.getLine().peek().getX(), randomPath.getLine().peek().getY())) {
-			direction.remove("N");
-			break;
-		    }
 		}
 
 		randomPath.getLine().push(new Point(location.getX(), location.getY()));
 		tmpGrid.getPoint(location.getX(), location.getY()).setVisited(true);
 		location.setY(location.getY() + 1);
-		direction = new ArrayList<String>(Arrays.asList("N", "E", "W"));
+		direction = new ArrayList<String>(Arrays.asList("UP", "RIGHT", "LEFT"));
 		break;
 	    }
-	    case "S": {
-		if (location.getY() == 0) {
-		    direction.remove("S");
+	    case "DOWN": {
+		if (!tmpGrid.checkDown(randomPath, location)) {
+		    direction.remove("DOWN");
 		    break;
-		}
-
-		if (tmpGrid.getSouth(location).isDead()) {
-		    direction.remove("S");
-		    break;
-		}
-
-		if (tmpGrid.getSouth(location).isVisited()) {
-		    if (tmpGrid.getSouth(location) != tmpGrid.getPoint(randomPath.getLine().peek().getX(), randomPath.getLine().peek().getY())) {
-			direction.remove("S");
-			break;
-		    }   
 		}
 
 		randomPath.getLine().push(new Point(location.getX(), location.getY()));
 		tmpGrid.getPoint(location.getX(), location.getY()).setVisited(true);
 		location.setY(location.getY() - 1);
-		direction = new ArrayList<String>(Arrays.asList("S", "E", "W"));
+		direction = new ArrayList<String>(Arrays.asList("DOWN", "RIGHT", "LEFT"));
 		break;
 	    }
-	    case "E":  {
-		if (location.getX() == size - 1) {
-		    direction.remove("E");
+	    case "RIGHT":  {
+		if (!tmpGrid.checkRight(randomPath, location)) {
+		    direction.remove("DOWN");
 		    break;
-		}
-
-		if (tmpGrid.getEast(location).isDead()) {
-		    direction.remove("E");
-		    break;
-		}
-
-		if (tmpGrid.getEast(location).isVisited()) {
-		    if (tmpGrid.getEast(location) != tmpGrid.getPoint(randomPath.getLine().peek().getX(), randomPath.getLine().peek().getY())) {
-			direction.remove("E");
-			break;
-		    }   
 		}
 
 		randomPath.getLine().push(new Point(location.getX(), location.getY()));
 		tmpGrid.getPoint(location.getX(), location.getY()).setVisited(true);
 		location.setX(location.getX() + 1);
-		direction = new ArrayList<String>(Arrays.asList("N", "S", "E"));
+		direction = new ArrayList<String>(Arrays.asList("UP", "DOWN", "RIGHT"));
 		break;
 	    }
-	    case "W": {
-		if (location.getX() == 0) {
-		    direction.remove("W");
+	    case "LEFT": {
+		if (!tmpGrid.checkLeft(randomPath, location)) {
+		    direction.remove("DOWN");
 		    break;
-		}
-
-		if (tmpGrid.getWest(location).isDead()) {
-		    direction.remove("W");
-		    break;
-		}
-
-		if (tmpGrid.getWest(location).isVisited()) {
-		    if (tmpGrid.getWest(location) != tmpGrid.getPoint(randomPath.getLine().peek().getX(), randomPath.getLine().peek().getY())) {
-			direction.remove("W");
-			break;
-		    }   
 		}
 
 		randomPath.getLine().push(new Point(location.getX(), location.getY()));
 		tmpGrid.getPoint(location.getX(), location.getY()).setVisited(true);
 		location.setX(location.getX() - 1);
-		direction = new ArrayList<String>(Arrays.asList("N", "S", "W"));
+		direction = new ArrayList<String>(Arrays.asList("UP", "DOWN", "LEFT"));
 		break;
 	    }
 	    }
@@ -250,10 +185,101 @@ public class LinePuzzle {
 		} catch (EmptyStackException ese) {
 		    return randomValidPath();
 		}
-		direction = new ArrayList<String>(Arrays.asList("N", "S", "E", "W"));
+		direction = new ArrayList<String>(Arrays.asList("UP", "DOWN", "RIGHT", "LEFT"));
 	    }
 	}
 	return randomValidPath();
+    }
+
+    /**
+     * Returns array of lines sectioned off by a given path on the puzzle and draws out those zones to the innerGrid.
+     */
+    public ArrayList<ArrayList<Point>> randomZones(Line path) {
+	ArrayList<ArrayList<Point>> zones = new ArrayList<ArrayList<Point>>();
+	ArrayList<Point> pathList = new ArrayList<Point>();
+	Random rand = new Random();
+	int size = innerGrid.getVertexes().size();
+	ZoneGrid zg = new ZoneGrid(size);
+	zg = innerGrid; //debug
+
+	int x = rand.nextInt(size);
+	int y = rand.nextInt(size);
+
+	for (Point point : path.getLine()) {
+	    point = mainGrid.getPoint(point.getX(), point.getY());
+	    pathList.add(point);
+	}
+
+	zg.getPoint(x, y).setVisited(true);
+	zg.getPoint(x, y).setZone(1);
+	zones.add(new ArrayList<Point>());
+	zones.get(0).add(zg.getPoint(x, y));
+	zoneSearch(zg, zones.get(0), pathList, zg.getPoint(x, y), 1);
+
+	x = rand.nextInt(size);
+	y = rand.nextInt(size);
+
+	zones.add(new ArrayList<Point>());
+	zoneSearch(zg, zones.get(1), pathList, zg.getPoint(x, y), 2);
+	while (zones.get(1).size() <= 1) {
+	    zg.getPoint(x, y).setZone(1);
+	    x = rand.nextInt(size);
+	    y = rand.nextInt(size);
+	    zoneSearch(zg, zones.get(1), pathList, zg.getPoint(x, y), 2);
+	}
+	return zones;
+    }
+    
+    /**
+     * @param zg the ZoneGrid to find the zones on.
+     * @param zone is the zone being mapped out.
+     * @param pathList is the given path that the zone is cut from.
+     * @param point is the starting point.
+     * @param flag is the type of zone.
+     */
+    public ArrayList<Point> zoneSearch(ZoneGrid zg, ArrayList<Point> zone, ArrayList<Point> pathList, Point point, int flag) {
+	int x = point.getX();
+	int y = point.getY();
+	if (zg.checkUp(point)) {
+	    int distance = pathList.indexOf(mainGrid.getPoint(point.getX(), point.getY() + 1)) - pathList.indexOf(mainGrid.getPoint(x + 1, y + 1));
+	    point.setVisited(true);
+	    point.setZone(flag);
+	    zone.add(point);
+	    if (distance != 1 && distance != -1) {
+		zoneSearch(zg, zone, pathList, zg.getUp(point), flag);
+	    }
+	}
+
+	if (zg.checkDown(point)) {
+	    int distance = pathList.indexOf(mainGrid.getPoint(point.getX(), point.getY())) - pathList.indexOf(mainGrid.getPoint(x + 1, y));
+	    point.setVisited(true);
+	    point.setZone(flag);
+	    zone.add(point);
+	    if (distance != 1 && distance != -1) {
+		zoneSearch(zg, zone, pathList, zg.getDown(point), flag);
+	    }
+	}
+
+	if (zg.checkLeft(point)) {
+	    int distance = pathList.indexOf(mainGrid.getPoint(point.getX(), point.getY())) - pathList.indexOf(mainGrid.getPoint(x, y + 1));
+	    point.setVisited(true);
+	    point.setZone(flag);
+	    zone.add(point);
+	    if (distance != 1 && distance != -1) {
+		zoneSearch(zg, zone, pathList, zg.getLeft(point), flag);
+	    } 
+	}
+
+	if (zg.checkRight(point)) {
+	    int distance = pathList.indexOf(mainGrid.getPoint(point.getX() + 1, point.getY() + 1)) - pathList.indexOf(mainGrid.getPoint(x + 1, y));
+	    point.setVisited(true);
+	    point.setZone(flag);
+	    zone.add(point);
+	    if (distance != 1 && distance != -1) {
+		zoneSearch(zg, zone, pathList, zg.getRight(point), flag);
+	    }  
+	}
+	return zone;
     }
 
     /**

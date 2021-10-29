@@ -57,7 +57,7 @@ public class GameDebug {
     private boolean Move(String nextLine) throws InterruptedException {
 	switch (nextLine.toUpperCase()) {
 	case "UP":
-	    if (checkUp()) {
+	    if (game.getMainGrid().checkUp(path, location)) {
 		path.getLine().push(new Point(location));
 		location.setY(location.getY() + 1);
 	    } else {
@@ -66,7 +66,7 @@ public class GameDebug {
 	    } break;
 
 	case "DOWN": 
-	    if (checkDown()) {
+	    if (game.getMainGrid().checkDown(path, location)) {
 		path.getLine().push(new Point(location));
 		location.setY(location.getY() - 1);
 	    } else {
@@ -75,7 +75,7 @@ public class GameDebug {
 	    } break;
 
 	case "LEFT": 
-	    if (checkLeft()) {
+	    if (game.getMainGrid().checkLeft(path, location)) {
 		path.getLine().push(new Point(location));
 		location.setX(location.getX() - 1);
 	    } else {
@@ -84,7 +84,7 @@ public class GameDebug {
 	    } break;
 
 	case "RIGHT":
-	    if (checkRight()) {
+	    if (game.getMainGrid().checkRight(path, location)) {
 		path.getLine().push(new Point(location));
 		location.setX(location.getX() + 1);
 	    } else {
@@ -95,82 +95,6 @@ public class GameDebug {
 	    return false;
 	}
 	return true;
-    }
-
-    private boolean checkUp() {
-	boolean temp = false;
-	if (location.getY() < getGridSize() - 1)
-	    temp = true;
-	else 
-	    return temp;
-
-	if (game.getMainGrid().getNorth(location).isVisited()) 
-	    if (game.getMainGrid().getNorth(location) != game.getMainGrid().getPoint(path.getLine().peek()))
-		temp = false;
-	    else
-		temp = true;
-
-	if (game.getMainGrid().getNorth(location).isDead()) 
-	    temp = false;
-
-	return temp;
-    }
-
-    private boolean checkDown() {
-	boolean temp = false;
-	if (location.getY() > 0) 
-	    temp = true; 
-	else 
-	    return temp;
-
-	if (game.getMainGrid().getSouth(location).isVisited()) 
-	    if (game.getMainGrid().getSouth(location) != game.getMainGrid().getPoint(path.getLine().peek()))
-		temp = false;
-	    else
-		temp = true;
-
-	if (game.getMainGrid().getSouth(location).isDead()) 
-	    temp = false;
-
-	return temp;
-    }
-
-    private boolean checkLeft() {
-	boolean temp = false;
-	if (location.getX() > 0) 
-	    temp = true;
-	else 
-	    return temp;
-
-	if (game.getMainGrid().getWest(location).isVisited()) 
-	    if (game.getMainGrid().getWest(location) != game.getMainGrid().getPoint(path.getLine().peek()))
-		temp = false;
-	    else
-		temp = true;
-
-	if (game.getMainGrid().getWest(location).isDead())
-	    temp = false;
-
-	return temp;
-    }
-
-    private boolean checkRight() {
-	boolean temp = false;
-	if (location.getX() < getGridSize() - 1) 
-	    temp = true;
-	else 
-	    return temp;
-
-	if (game.getMainGrid().getEast(location).isVisited())
-	    if (game.getMainGrid().getEast(location) != game.getMainGrid().getPoint(path.getLine().peek()))
-		temp = false;
-	    else
-		temp = true;
-
-	if (game.getMainGrid().getEast(location).isDead())
-	    temp = false;
-
-	return temp;
     }
 
     public int getGridSize() {
