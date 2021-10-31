@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { MatTableDataSource } from "@angular/material/table";
-import { Player } from '../../models/player.model';
-import { PlayerService } from '../../services/player.service';
+import { Player } from '../../models/player-list/player.model';
+import { PlayerService } from '../../services/player-list/player.service';
 
 
 @Component({
@@ -11,10 +11,6 @@ import { PlayerService } from '../../services/player.service';
   styleUrls: ['./player-list.component.css']
 })
 export class PlayerListComponent implements OnInit {
-
-  player?: Player[];
-  currentPlayer: Player = {};
-  currentIndex = -1;
 
 
   // columns we will show on the table
@@ -30,7 +26,7 @@ export class PlayerListComponent implements OnInit {
   }
 
   retrieveplayer(): void {
-    this.playerervice.getAll()
+    this.playerervice.getHighScores()
       .subscribe((res) => {
 
         this.dataSource = new MatTableDataSource(res)

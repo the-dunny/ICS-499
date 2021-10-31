@@ -4,6 +4,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatInputModule} from '@angular/material/input';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSortModule} from '@angular/material/sort';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 @NgModule({
 // since we're exporting these modules, add them to export
@@ -13,6 +14,7 @@ import {MatSortModule} from '@angular/material/sort';
         MatProgressSpinnerModule,
         MatInputModule,
         MatPaginatorModule,
+        MatGridListModule
        
     ]
 })
