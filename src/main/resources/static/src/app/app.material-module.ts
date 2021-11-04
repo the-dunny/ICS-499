@@ -1,4 +1,5 @@
 import {NgModule} from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatInputModule} from '@angular/material/input';
@@ -8,14 +9,25 @@ import {MatGridListModule} from '@angular/material/grid-list';
 
 @NgModule({
 // since we're exporting these modules, add them to export
-    exports: [
+
+
+imports: [
+    CommonModule,
         MatTableModule,
         MatSortModule,
         MatProgressSpinnerModule,
         MatInputModule,
         MatPaginatorModule,
         MatGridListModule
-       
+  ],
+    exports: [
+        CommonModule,
+        MatTableModule,
+        MatSortModule,
+        MatProgressSpinnerModule,
+        MatInputModule,
+        MatPaginatorModule,
+        MatGridListModule
     ]
 })
 export class AppMaterialModule {}
