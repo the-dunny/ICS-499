@@ -221,7 +221,7 @@ public class LinePuzzle {
 
 	zones.add(new ArrayList<Point>());
 	zoneSearch(zg, zones.get(1), pathList, zg.getPoint(x, y), 2);
-	while (zones.get(1).size() <= 1) {
+	for (int i = 0; i < zones.get(1).size(); i++) {
 	    zg.getPoint(x, y).setZone(1);
 	    x = rand.nextInt(size);
 	    y = rand.nextInt(size);
