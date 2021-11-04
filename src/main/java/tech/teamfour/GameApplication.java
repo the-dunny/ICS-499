@@ -16,18 +16,18 @@ import tech.teamfour.model.LinePuzzle;
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 public class GameApplication {
     public static void main(String... args) {
-	//SpringApplication.run(GameApplication.class, args);
+	SpringApplication.run(GameApplication.class, args);
 
 	// Debug Maze Creation / Test
 
-	int size = 9;
-	LinePuzzle puzzle = new LinePuzzle(size);
-	GameDebug game = new GameDebug(puzzle);
-	try {
-	    game.RunGame();
-	} catch (InterruptedException e) {
-	    e.printStackTrace();
-	}
+//	int size = 9;
+//	LinePuzzle puzzle = new LinePuzzle(size);
+//	GameDebug game = new GameDebug(puzzle);
+//	try {
+//	    game.RunGame();
+//	} catch (InterruptedException e) {
+//	    e.printStackTrace();
+//	}
     }
     
 	@Bean
