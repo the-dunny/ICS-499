@@ -33,7 +33,7 @@ public class ZoneGrid extends Grid {
 	else 
 	    return temp;
 
-	if (getUp(point).isVisited() || getUp(point).getZone() != 0) 
+	if (getUp(point).isVisited()) 
 	    temp = false;
 	else
 	    temp = true;
@@ -49,7 +49,7 @@ public class ZoneGrid extends Grid {
 	else 
 	    return temp;
 
-	if (getDown(point).isVisited() || getDown(point).getZone() != 0) 
+	if (getDown(point).isVisited()) 
 	    temp = false;
 	else
 	    temp = true;
@@ -64,7 +64,7 @@ public class ZoneGrid extends Grid {
 	else 
 	    return temp;
 
-	if (getLeft(point).isVisited() || getLeft(point).getZone() != 0) 
+	if (getLeft(point).isVisited()) 
 	    temp = false;
 	else
 	    temp = true;
@@ -79,7 +79,7 @@ public class ZoneGrid extends Grid {
 	else 
 	    return temp;
 
-	if (getRight(point).isVisited() || getRight(point).getZone() != 0) 
+	if (getRight(point).isVisited()) 
 	    temp = false;
 	else
 	    temp = true;

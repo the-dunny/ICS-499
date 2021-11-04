@@ -112,11 +112,12 @@ public class LinePuzzle {
     public Line randomValidPath() {
 	TravelGrid tmpGrid = new TravelGrid(mainGrid.getVertexes().size());
 	Line randomPath = new Line();
-	Point location = new Point(mainGrid.getStart().getX(), mainGrid.getStart().getY());
+	Point location = new Point(mainGrid.getStart());
 	int size = tmpGrid.getVertexes().size();
 	int maxattempts = (size * size) * 4;
 	List<String> direction = new ArrayList<String>(Arrays.asList("UP", "DOWN", "RIGHT", "LEFT"));
 	tmpGrid.mergePaths(mainGrid);
+	tmpGrid.setEnd(new Point(mainGrid.getEnd()));
 
 	for (int i = 0; i < maxattempts; i++) {
 	    Random rand = new Random();
@@ -188,7 +189,11 @@ public class LinePuzzle {
 		direction = new ArrayList<String>(Arrays.asList("UP", "DOWN", "RIGHT", "LEFT"));
 	    }
 	}
-	return randomValidPath();
+	try {
+	    return randomValidPath();
+	} catch (StackOverflowError soe) {
+	    return new Line();
+	}
     }
 
     /**
@@ -200,7 +205,7 @@ public class LinePuzzle {
 	Random rand = new Random();
 	int size = innerGrid.getVertexes().size();
 	ZoneGrid zg = new ZoneGrid(size);
-	zg = innerGrid; //debug
+	zg = innerGrid; //temp
 
 	int x = rand.nextInt(size);
 	int y = rand.nextInt(size);
@@ -210,26 +215,26 @@ public class LinePuzzle {
 	    pathList.add(point);
 	}
 
-	zg.getPoint(x, y).setVisited(true);
-	zg.getPoint(x, y).setZone(1);
 	zones.add(new ArrayList<Point>());
-	zones.get(0).add(zg.getPoint(x, y));
 	zoneSearch(zg, zones.get(0), pathList, zg.getPoint(x, y), 1);
 
 	x = rand.nextInt(size);
 	y = rand.nextInt(size);
 
 	zones.add(new ArrayList<Point>());
-	zoneSearch(zg, zones.get(1), pathList, zg.getPoint(x, y), 2);
-	for (int i = 0; i < zones.get(1).size(); i++) {
-	    zg.getPoint(x, y).setZone(1);
-	    x = rand.nextInt(size);
-	    y = rand.nextInt(size);
-	    zoneSearch(zg, zones.get(1), pathList, zg.getPoint(x, y), 2);
+	for (int i = 0; i < size; i++) {
+	    for (int j = 0; j < size; j++) {
+		x = i;
+		y = j;
+		if (mainGrid.getPoint(x, y).getZone() == 0) {
+		    zoneSearch(zg, zones.get(1), pathList, zg.getPoint(x, y), 2);
+		    i = j = size;
+		}
+	    }
 	}
 	return zones;
     }
-    
+
     /**
      * @param zg the ZoneGrid to find the zones on.
      * @param zone is the zone being mapped out.
@@ -240,6 +245,7 @@ public class LinePuzzle {
     public ArrayList<Point> zoneSearch(ZoneGrid zg, ArrayList<Point> zone, ArrayList<Point> pathList, Point point, int flag) {
 	int x = point.getX();
 	int y = point.getY();
+	if (point.getZone() == 0) point.setZone(flag);
 	if (zg.checkUp(point)) {
 	    int distance = pathList.indexOf(mainGrid.getPoint(point.getX(), point.getY() + 1)) - pathList.indexOf(mainGrid.getPoint(x + 1, y + 1));
 	    point.setVisited(true);

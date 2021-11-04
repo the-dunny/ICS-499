@@ -20,7 +20,7 @@ public class GameApplication {
 
 	// Debug Maze Creation / Test
 
-	int size = 3;
+	int size = 9;
 	LinePuzzle puzzle = new LinePuzzle(size);
 	GameDebug game = new GameDebug(puzzle);
 	try {
