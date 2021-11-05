@@ -3,12 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { PlayerListComponent } from './components/player-list/player-list.component';
 
 import { LevelComponent } from './components/level/level.component';
+import { NewGameComponent } from './components/new-game/new-game.component';
 
 
 
 const routes: Routes = [
   { path: '', redirectTo: '', pathMatch: 'full' },
- { path: 'newGame', component: LevelComponent },
+ { path: 'newGame', component: NewGameComponent },
   { path: 'bestScores', component: PlayerListComponent }
  
 ];

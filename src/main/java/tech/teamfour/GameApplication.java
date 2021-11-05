@@ -13,14 +13,16 @@ import org.springframework.web.filter.CorsFilter;
 
 import tech.teamfour.model.LinePuzzle;
 
+
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 public class GameApplication {
-    public static void main(String... args) {
+   public static void main(String... args) {
 	SpringApplication.run(GameApplication.class, args);
 
 	// Debug Maze Creation / Test
 
-//	int size = 9;
+
+//	int size = 8;
 //	LinePuzzle puzzle = new LinePuzzle(size);
 //	GameDebug game = new GameDebug(puzzle);
 //	try {
@@ -28,7 +30,7 @@ public class GameApplication {
 //	} catch (InterruptedException e) {
 //	    e.printStackTrace();
 //	}
-    }
+}
     
 	@Bean
 	public CorsFilter corsFilter() {
@@ -49,10 +51,13 @@ public class GameApplication {
 		
 		return new CorsFilter(urlBasedCorsConifgSource);
 		
+
 	}
 
-}
+	
 
+}
+		
 /*@Component
 class CapstoneCommandLineRunner implements CommandLineRunner {
 

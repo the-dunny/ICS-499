@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Angular12Crud": {
+    "LineGame": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -72,10 +72,11 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "Angular12Crud:build:production"
+              "browserTarget": "LineGame:build:production"
             },
             "development": {
-              "browserTarget": "Angular12Crud:build:development"
+              "browserTarget": "LineGame:build:development"
+            
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +84,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Angular12Crud:build"
+            "browserTarget": "LineGame:build"
           }
         },
         "test": {
@@ -106,5 +107,5 @@
       }
     }
   },
-  "defaultProject": "Angular12Crud"
+  "defaultProject": "LineGame"
 }
