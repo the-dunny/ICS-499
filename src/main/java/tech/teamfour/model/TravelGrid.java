@@ -34,4 +34,85 @@ public class TravelGrid extends Grid {
 	    this.vertexes.add(row);
 	}
     }
+    
+    /**
+     * @param path is the travel path.
+     * @param point is the current point.
+     * <br>Check to see if there is a valid move north of the grid.
+     */
+    public boolean checkUp(Line path, Point point) {
+	boolean temp = false;
+	if (point.getY() < getVertexes().size() - 1)
+	    temp = true;
+	else 
+	    return temp;
+
+	if (getUp(point).isVisited()) 
+	    if (getUp(point) != getPoint(path.getLine().peek()))
+		temp = false;
+	    else
+		temp = true;
+
+	if (getUp(point).isDead()) 
+	    temp = false;
+
+	return temp;
+    }
+
+    public boolean checkDown(Line path, Point point) {
+	boolean temp = false;
+	if (point.getY() > 0) 
+	    temp = true; 
+	else 
+	    return temp;
+
+	if (getDown(point).isVisited()) 
+	    if (getDown(point) != getPoint(path.getLine().peek()))
+		temp = false;
+	    else
+		temp = true;
+
+	if (getDown(point).isDead()) 
+	    temp = false;
+
+	return temp;
+    }
+
+    public boolean checkLeft(Line path, Point point) {
+	boolean temp = false;
+	if (point.getX() > 0) 
+	    temp = true;
+	else 
+	    return temp;
+
+	if (getLeft(point).isVisited()) 
+	    if (getLeft(point) != getPoint(path.getLine().peek()))
+		temp = false;
+	    else
+		temp = true;
+
+	if (getLeft(point).isDead())
+	    temp = false;
+
+	return temp;
+    }
+
+    public boolean checkRight(Line path, Point point) {
+	boolean temp = false;
+	if (point.getX() < getVertexes().size() - 1) 
+	    temp = true;
+	else 
+	    return temp;
+
+	if (getRight(point).isVisited())
+	    if (getRight(point) != getPoint(path.getLine().peek()))
+		temp = false;
+	    else
+		temp = true;
+
+	if (getRight(point).isDead())
+	    temp = false;
+
+	return temp;
+    }
 }
