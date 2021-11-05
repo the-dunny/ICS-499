@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Player } from '../models/player.model';
+import { Level } from '../../models/level/level.model';
 
-const baseUrl = 'http://localhost:8081/player/highscores';
+const baseUrl = 'http://localhost:8081/level';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PlayerService {
+export class LevelService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(): Observable<Player[]> {
-    return this.http.get<Player[]>(baseUrl);
+  getAll(): Observable<Level[]> {
+    return this.http.get<Level[]>(baseUrl);
   }
 
-  get(id: any): Observable<Player> {
+  get(id: any): Observable<Level> {
     return this.http.get(`${baseUrl}/${id}`);
   }
   getHighScores(): Observable<any> {
