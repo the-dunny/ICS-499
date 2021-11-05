@@ -11,6 +11,7 @@ public class Point {
     private boolean dead;
     private boolean start;
     private boolean end;
+    private int zone;
 
     /**
      * No argument constructor
@@ -21,6 +22,7 @@ public class Point {
 	this.setDead(true);
 	this.setStart(false);
 	this.setEnd(false);
+	this.setZone(0);
     }
     
     /**
@@ -34,6 +36,7 @@ public class Point {
 	this.setDead(true);
 	this.setStart(false);
 	this.setEnd(false);
+	this.setZone(0);
     }
     
     /**
@@ -47,6 +50,7 @@ public class Point {
 	this.setDead(true);
 	this.setStart(false);
 	this.setEnd(false);
+	this.setZone(0);
     }
 
     /**
@@ -64,6 +68,7 @@ public class Point {
 	this.setDead(true);
 	this.setStart(false);
 	this.setEnd(false);
+	this.setZone(0);
 
 	switch (flag) {
 	case 0:
@@ -82,7 +87,15 @@ public class Point {
 
     @Override
     public String toString() {
-	//return x + "," + y; // debug
+//	if (zone == 1) return "A,A"; // debug
+//	if (zone == 2) return "B,B"; // debug
+//	if (required) return "!,!"; // debug
+//	return x + "," + y; // debug
+	
+	// ---
+	
+	if (zone == 1) return "A";
+	if (zone == 2) return "B";
 	if (start) return "S";
 	if (end) return "E";
 	if (dead) return "X";

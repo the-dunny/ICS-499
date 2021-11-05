@@ -16,19 +16,19 @@ public class Grid {
 	return null;
     }
 
-    public Point getNorth(Point point) {
+    public Point getUp(Point point) {
 	return getPoint(point.getX(), point.getY() + 1);
     }
 
-    public Point getSouth(Point point) {
+    public Point getDown(Point point) {
 	return getPoint(point.getX(), point.getY() - 1);
     }
 
-    public Point getEast(Point point) {
+    public Point getRight(Point point) {
 	return getPoint(point.getX() + 1, point.getY());
     }
 
-    public Point getWest(Point point) {
+    public Point getLeft(Point point) {
 	return getPoint(point.getX() - 1, point.getY());
     }
 
@@ -41,6 +41,7 @@ public class Grid {
 	    for (int y = size; y >= 0; y--) {
 		if (getPoint(x, y).isDead() && !grid.getPoint(x, y).isDead()) {
 		    getPoint(x, y).setDead(false);
+		    getPoint(x, y).setZone(grid.getPoint(x, y).getZone());
 		}
 	    }
 	}
@@ -54,7 +55,7 @@ public class Grid {
 	    for (Point point : row) {
 		point.setDead(true);
 		point.setRequired(false);
-		// TODO Clear Zones
+		point.setZone(0);
 	    }
 	}
     }

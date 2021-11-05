@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+
 import tech.teamfour.model.LinePuzzle;
 
 
@@ -20,6 +21,7 @@ public class GameApplication {
 
 	// Debug Maze Creation / Test
 
+
 //	int size = 8;
 //	LinePuzzle puzzle = new LinePuzzle(size);
 //	GameDebug game = new GameDebug(puzzle);
@@ -29,9 +31,8 @@ public class GameApplication {
 //	    e.printStackTrace();
 //	}
 
-    }
+}
 
-    
 	@Bean
 	public CorsFilter corsFilter() {
 		
