@@ -30,8 +30,9 @@ public class GameApplication {
 //	} catch (InterruptedException e) {
 //	    e.printStackTrace();
 //	}
+
 }
-    
+
 	@Bean
 	public CorsFilter corsFilter() {
 		
