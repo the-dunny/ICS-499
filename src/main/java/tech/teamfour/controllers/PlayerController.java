@@ -33,7 +33,7 @@ public class PlayerController {
     @RequestMapping(path = "player/add" )
     public ResponseEntity<Player> createPlayer(@RequestParam String username, @RequestParam String password){
        playerService.addPlayer(new Player(
-               0L, username, password, 999
+               0L, username, password, 999, 0
        ));
         return new ResponseEntity(HttpStatus.CREATED);
     }

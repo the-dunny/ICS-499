@@ -1,7 +1,7 @@
 export class Player {
 
     playerID?: any;
-    userName?: string;
+    userName?: any;
     password?: string;
     bestScore?: any;
     
