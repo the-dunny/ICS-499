@@ -1,13 +1,11 @@
 package tech.teamfour.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import tech.teamfour.model.Player;
 import tech.teamfour.repositories.PlayerRepository;
 
 import java.util.List;
-import java.util.ListIterator;
 
 @Service
 public class PlayerServiceImpl implements PlayerService{
