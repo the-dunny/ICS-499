@@ -35,6 +35,11 @@ public class GameController {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("game/currentTime")
+    public ResponseEntity getCurrentTime(){
+        return new ResponseEntity(this.gameServce.getGameTime(), HttpStatus.OK);
+    }
 }
 //    LinePuzzle game;
 //    Line path;
