@@ -9,4 +9,5 @@ public interface GameServce {
     public abstract LinePuzzle getUpdatedPuzzle();
     public abstract boolean validatePlayerMove(int keyPressed);
     public abstract GameStateEnum checkGameStatus();
+    public abstract int getGameTime();
 }

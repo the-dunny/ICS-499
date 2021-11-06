@@ -54,10 +54,9 @@ public class PlayerController {
     		String batchPassword = "password" +String.valueOf(i);
     		int  batchScore = 100 + rand.nextInt(10000);
     	
-        Player batchPlayer = new Player(batchId, batchName,batchPassword,batchScore);
+            Player batchPlayer = new Player(batchId, batchName,batchPassword,batchScore);
 
-        playerService.addPlayer(batchPlayer
-        );      
+            playerService.addPlayer(batchPlayer);
     	}
         
     	 return new ResponseEntity(HttpStatus.CREATED);

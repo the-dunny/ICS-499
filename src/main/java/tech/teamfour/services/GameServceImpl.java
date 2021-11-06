@@ -52,4 +52,9 @@ public class GameServceImpl implements GameServce{
     public GameStateEnum checkGameStatus() {
 	return null;
     }
+
+    @Override
+	public int getGameTime(){
+    	return this.gameContext.getTime();
+	}
 }
