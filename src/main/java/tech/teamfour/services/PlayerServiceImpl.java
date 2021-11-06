@@ -9,6 +9,7 @@ import tech.teamfour.repositories.PlayerRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Optional;
 
 @Service
 public class PlayerServiceImpl implements PlayerService{
@@ -26,8 +27,6 @@ public class PlayerServiceImpl implements PlayerService{
             playerRepo.save(player);
         }
     }
-    
-    
 
     @Override
     public void updatePlayerPassword(String newPassword, Player player) {
@@ -67,7 +66,21 @@ public class PlayerServiceImpl implements PlayerService{
         	sortedScores.add(nextScore);
         }               
         return sortedScores;
-    }	
+    }
+
+    @Override
+    public void setHighScore(int score, Long id) {
+        if(checkExistance(id)){
+            Player p = getPlayer(id);
+            p.setBestScore(score);
+            playerRepo.save(p);
+        }
+    }
+
+    @Override
+    public Optional<Player> getPlayerByName(String name) {
+        return this.playerRepo.findByUserName(name);
+    }
 
     private boolean checkExistance(long id){
         if(playerRepo.existsById(id)){
@@ -75,10 +88,5 @@ public class PlayerServiceImpl implements PlayerService{
         }
         return false;
     }
-    
-    
-    
-    
-    
 
 }

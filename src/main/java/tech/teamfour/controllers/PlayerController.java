@@ -27,6 +27,17 @@ public class PlayerController {
         //return new ResponseEntity<>(playerService.getPlayer(id), HttpStatus.OK);
     }
 
+    @GetMapping("player/un/{un}")
+    public ResponseEntity getPlayerByName(@PathVariable("un") String un){
+        return new ResponseEntity(playerService.getPlayerByName(un), HttpStatus.OK);
+    }
+
+    @RequestMapping("player/{id}/setHighScore")
+    public ResponseEntity setHighSCore(@PathVariable("id") long id, @RequestParam("score") int score){
+        playerService.setHighScore(score, id);
+        return new ResponseEntity("Score updated", HttpStatus.OK);
+    }
+
     @GetMapping("player/all")
     public ResponseEntity getAllPlayers(){
         return new ResponseEntity(playerService.getPlayers(), HttpStatus.OK);
