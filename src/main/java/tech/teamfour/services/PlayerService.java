@@ -1,6 +1,8 @@
 package tech.teamfour.services;
 
 import tech.teamfour.model.Player;
+import tech.teamfour.model.Score;
+
 import java.util.List;
 
 public interface PlayerService {
@@ -9,5 +11,5 @@ public interface PlayerService {
     public void deleterPlayer(long id);
     public List<Player> getPlayers();
     public Player getPlayer(Long id);
-    public List<Player> getHighScores();
+    public List<Score> getHighScores();
 }

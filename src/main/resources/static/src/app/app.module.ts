@@ -6,19 +6,19 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppMaterialModule } from "./app.material-module";
-import { PlayerListComponent } from './components/player-list/player-list.component';
+import { ScoreListComponent } from './components/score-list/score-list.component';
 import { LevelComponent } from './components/level/level.component';
 import { NewGameComponent } from './components/new-game/new-game.component';
 import {BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSortModule} from '@angular/material/sort';
-
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    PlayerListComponent,
+    ScoreListComponent,
     LevelComponent,
     NewGameComponent
   ],
@@ -30,7 +30,8 @@ import {MatSortModule} from '@angular/material/sort';
     HttpClientModule,
     AppMaterialModule,
     BrowserAnimationsModule,
-    MatSortModule
+    MatSortModule,
+    FlexLayoutModule
   ],
 
 
