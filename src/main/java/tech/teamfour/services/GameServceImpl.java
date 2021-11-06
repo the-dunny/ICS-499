@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import tech.teamfour.GameContext;
 import tech.teamfour.enums.GameStateEnum;
 import tech.teamfour.model.LinePuzzle;
+import tech.teamfour.model.Point;
 
 @Service
 public class GameServceImpl implements GameServce{
@@ -18,8 +19,8 @@ public class GameServceImpl implements GameServce{
     }
 
     @Override
-    public LinePuzzle getUpdatedPuzzle() {
-	return gameContext.getGame();
+    public Point getUpdatedPuzzle() {
+	return gameContext.getGame().getPath().getLine().peek();
     }
 
     @Override

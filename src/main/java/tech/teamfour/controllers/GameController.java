@@ -32,7 +32,7 @@ public class GameController {
         if(wasMoveSuccessful){
             return new ResponseEntity(gameServce.getUpdatedPuzzle(), HttpStatus.OK);
         }else{
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("Invalid Move", HttpStatus.OK);
         }
     }
 
