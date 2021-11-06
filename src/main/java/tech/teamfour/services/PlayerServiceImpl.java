@@ -1,10 +1,14 @@
 package tech.teamfour.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import tech.teamfour.model.Player;
+import tech.teamfour.model.Score;
 import tech.teamfour.repositories.PlayerRepository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 @Service
 public class PlayerServiceImpl implements PlayerService{
@@ -22,6 +26,8 @@ public class PlayerServiceImpl implements PlayerService{
             playerRepo.save(player);
         }
     }
+    
+    
 
     @Override
     public void updatePlayerPassword(String newPassword, Player player) {
@@ -47,12 +53,21 @@ public class PlayerServiceImpl implements PlayerService{
     }
 
     @Override
-    public List<Player> getHighScores(){
+    public List<Score> getHighScores(){
         List<Player> sortedPlayers = getPlayers();
         sortedPlayers.sort((p1, p2)
                 -> ((Integer)p1.getBestScore()).compareTo((Integer)p2.getBestScore()));
-        return sortedPlayers;
-    }
+        
+        List<Score> sortedScores = new ArrayList<Score>();
+        ListIterator<Player> iter = sortedPlayers.listIterator();
+        
+        while (iter.hasNext()) {	
+        	Player nextPlayer = iter.next();
+        	Score nextScore = new Score(nextPlayer.getUserName(),nextPlayer.getBestScore());
+        	sortedScores.add(nextScore);
+        }               
+        return sortedScores;
+    }	
 
     private boolean checkExistance(long id){
         if(playerRepo.existsById(id)){
@@ -60,4 +75,10 @@ public class PlayerServiceImpl implements PlayerService{
         }
         return false;
     }
+    
+    
+    
+    
+    
+
 }
