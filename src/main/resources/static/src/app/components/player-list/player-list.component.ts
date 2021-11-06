@@ -1,5 +1,5 @@
 
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 
@@ -13,12 +13,14 @@ import { PlayerService } from '../../services/player-list/player.service';
   templateUrl: './player-list.component.html',
   styleUrls: ['./player-list.component.css']
 })
-export class PlayerListComponent implements OnInit, AfterViewInit {
+export class PlayerListComponent implements OnInit {
 
   // columns we will show on the table
   public displayedColumns = ['Rank', 'Username', 'Score'];
   //the source where we will get the data
   public dataSource = new MatTableDataSource<Player>();
+
+  public playerList?: Player[];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -27,14 +29,15 @@ export class PlayerListComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
-
     this.retrieveplayer();
   }
-
   retrieveplayer() {
 
     this.playerervice.getHighScores()
       .subscribe((res) => {
+          res.forEach(data => {
+            data.playerRank = res.indexOf(data) + 1
+          });
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.paginator = this.paginator;
 
@@ -44,13 +47,6 @@ export class PlayerListComponent implements OnInit, AfterViewInit {
       };
   }
 
-  ngAfterViewInit(): void {
-
-  }
-
-  public customSort = (event: any) => {
-    console.log(event);
-  }
 
   sortData(sort: Sort) {
     // Sort sorts the current list, but it wasnt updating it unless i reassigned.
@@ -60,12 +56,16 @@ export class PlayerListComponent implements OnInit, AfterViewInit {
 
       if (sort.active == "Score") {
 
-        return this._compare(a.bestScore, b.bestScore, isAsc);
+        return this._compare(a.bestScore!, b.bestScore!, isAsc);
       }
 
       else if (sort.active == "Username") {
 
-        return this._compare(a.userName, b.userName, isAsc);
+        return this._compare(a.userName!, b.userName!, isAsc);
+
+      } else if (sort.active == "Rank") {
+
+        return this._compare(a.playerRank, b.playerRank, isAsc);
 
       }
       else {

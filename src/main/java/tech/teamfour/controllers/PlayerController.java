@@ -1,5 +1,7 @@
 package tech.teamfour.controllers;
 
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,9 +35,32 @@ public class PlayerController {
     @RequestMapping(path = "player/add" )
     public ResponseEntity<Player> createPlayer(@RequestParam String username, @RequestParam String password){
        playerService.addPlayer(new Player(
-               0L, username, password, 999, 0
+               0L, username, password, 999
        ));
         return new ResponseEntity(HttpStatus.CREATED);
+    }
+    
+    
+    @GetMapping("player/addBatchTestData")
+    public ResponseEntity<Player> createBatchOfPlayers() {   
+    	
+    	for( int i = 0; i < 255; i++) {
+    		
+    		Random rand = new Random();
+    		char c = (char) ('a' + rand.nextInt(26));
+    		
+    		long batchId = 0L;
+    		String batchName = c + String.valueOf(i);	
+    		String batchPassword = "password" +String.valueOf(i);
+    		int  batchScore = 100 + rand.nextInt(10000);
+    	
+        Player batchPlayer = new Player(batchId, batchName,batchPassword,batchScore);
+
+        playerService.addPlayer(batchPlayer
+        );      
+    	}
+        
+    	 return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @GetMapping("player/highscores")

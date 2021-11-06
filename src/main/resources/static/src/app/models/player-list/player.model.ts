@@ -1,8 +1,9 @@
 export class Player {
 
     playerID?: any;
-    userName?: any;
+    userName?: string;
     password?: string;
     bestScore?: any;
+    playerRank?: any;
     
 }
