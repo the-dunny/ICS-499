@@ -1,4 +1,4 @@
-import { Level } from './level.model';
+import {Level} from './level.model';
 
 describe('Player', () => {
   it('should create an instance', () => {

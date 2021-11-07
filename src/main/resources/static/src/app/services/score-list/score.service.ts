@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Score } from '../../models/score-list/score.model';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {Score} from '../../models/score-list/score.model';
 
 const baseUrl = 'http://localhost:8081/player/highscores';
 

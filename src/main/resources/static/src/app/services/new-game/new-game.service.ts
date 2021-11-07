@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { LinePuzzle } from 'src/app/models/line-puzzle/line-puzlle.model';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {LinePuzzle} from 'src/app/models/line-puzzle/line-puzlle.model';
 
 
 const baseUrl = 'http://localhost:8081/game/newGame';

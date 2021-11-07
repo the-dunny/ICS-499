@@ -1,4 +1,4 @@
-import { Grid } from './grid.model';
+import {Grid} from './grid.model';
 
 describe('Grid', () => {
   it('should create an instance', () => {

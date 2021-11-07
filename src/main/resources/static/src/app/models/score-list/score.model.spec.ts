@@ -1,4 +1,4 @@
-import { Score } from './score.model';
+import {Score} from './score.model';
 
 describe('Score', () => {
   it('should create an instance', () => {

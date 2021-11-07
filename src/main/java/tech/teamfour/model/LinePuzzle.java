@@ -1,14 +1,9 @@
 package tech.teamfour.model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.EmptyStackException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.*;
 
 @Data
 @NoArgsConstructor

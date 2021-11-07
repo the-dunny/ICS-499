@@ -1,5 +1,5 @@
-import { Stack } from '../../../assets/ts/stack';
-import { Point } from '../point/point.model';
+import {Stack} from '../../../assets/ts/stack';
+import {Point} from '../point/point.model';
 
 export class Line {
 

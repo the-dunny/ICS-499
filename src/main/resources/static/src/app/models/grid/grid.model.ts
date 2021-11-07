@@ -1,5 +1,4 @@
-
-import { Point } from '../point/point.model';
+import {Point} from '../point/point.model';
 
 export class Grid {
 
