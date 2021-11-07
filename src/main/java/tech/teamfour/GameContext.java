@@ -42,7 +42,7 @@ public class GameContext implements Notifiable {
 	}
 	game.getMainGrid().getPoint(location).setVisited(true);
     }
-    
+
     public boolean move(String nextLine) throws InterruptedException {
 	switch (nextLine.toUpperCase()) {
 	case "UP":
@@ -87,25 +87,25 @@ public class GameContext implements Notifiable {
     }
 
     public int getTime(){
-    	return this.timer.getTimeValue();
-	}
+	return this.timer.getTimeValue();
+    }
 
     public int getGridSize() {
 	return game.getMainGrid().getVertexes().size();
     }
 
-	@Override
-	public void handleEvent(TimerTickedEvent event) {
+    @Override
+    public void handleEvent(TimerTickedEvent event) {
 
-	}
+    }
 
-	@Override
-	public void handleEvent(TimerStart event) {
+    @Override
+    public void handleEvent(TimerStart event) {
 
-	}
+    }
 
-	@Override
-	public void handleEvent(TimerStop event) {
+    @Override
+    public void handleEvent(TimerStop event) {
 
-	}
+    }
 }
