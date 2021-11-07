@@ -1,10 +1,10 @@
 package tech.teamfour.model;
 
+import lombok.NoArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 public class TravelGrid extends Grid {

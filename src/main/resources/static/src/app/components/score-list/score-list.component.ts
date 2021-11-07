@@ -1,17 +1,11 @@
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {MatPaginator} from '@angular/material/paginator';
+import {Sort} from '@angular/material/sort';
 
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { Sort } from '@angular/material/sort';
-
-import { MatTableDataSource } from "@angular/material/table";
-import { BehaviorSubject } from 'rxjs';
-import { Score } from '../../models/score-list/score.model';
-import { ScoreService } from '../../services/score-list/score.service';
-
-import {AfterViewInit} from '@angular/core';
-
-import {MatSort} from '@angular/material/sort';
-
+import {MatTableDataSource} from "@angular/material/table";
+import {BehaviorSubject} from 'rxjs';
+import {Score} from '../../models/score-list/score.model';
+import {ScoreService} from '../../services/score-list/score.service';
 
 
 @Component({

@@ -1,4 +1,4 @@
-import { Line } from './line.model';
+import {Line} from './line.model';
 
 describe('Line', () => {
   it('should create an instance', () => {

@@ -1,8 +1,8 @@
 package tech.teamfour.model;
 
-import java.util.Stack;
-
 import lombok.Data;
+
+import java.util.Stack;
 
 @Data
 public class Line {

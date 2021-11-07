@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Level } from '../../models/level/level.model';
-import { LevelService } from '../../services/level/level.service';
-import { makeGrid } from '../../../assets/js/makeGrid.js';
-import { ViewEncapsulation } from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Level} from '../../models/level/level.model';
+import {LevelService} from '../../services/level/level.service';
+import {makeGrid} from '../../../assets/js/makeGrid.js';
 
 
 @Component({

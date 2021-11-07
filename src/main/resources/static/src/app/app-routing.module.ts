@@ -1,10 +1,7 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { ScoreListComponent } from './components/score-list/score-list.component';
-
-import { LevelComponent } from './components/level/level.component';
-import { NewGameComponent } from './components/new-game/new-game.component';
-
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {ScoreListComponent} from './components/score-list/score-list.component';
+import {NewGameComponent} from './components/new-game/new-game.component';
 
 
 const routes: Routes = [
