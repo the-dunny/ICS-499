@@ -1,12 +1,9 @@
 export class Point {
-
-    x?: any;
-    y?: any;
+    x?: number;
+    y?: number;
     visited?: boolean;
     required?: boolean;
     dead?: boolean;
     start?: boolean;
     end?: boolean;
-
-
 }

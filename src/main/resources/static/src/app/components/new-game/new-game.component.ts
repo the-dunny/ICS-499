@@ -13,10 +13,7 @@ export class NewGameComponent implements OnInit {
 
   // gridSize?: number;
 
-
-
   constructor(private newGameService: NewGameService) { }
-
 
   ngOnInit(): void {
     this.retrieveGame();
@@ -24,30 +21,9 @@ export class NewGameComponent implements OnInit {
 
 
   retrieveGame(): void {
-
-
     this.newGameService.getNewGame().forEach(element => {
-     
-
-        this.newVertexes =  element.mainGrid?.vertexes;
-    
-    
-
+        this.newVertexes = element.mainGrid?.vertexes;
+        console.log(this.newVertexes);
     });
   }
 }
-
-  // retrieveGame(): void {
-
-
-  //   this.newGameService.getNewGame().forEach(element => {
-  //     element.mainGrid?.vertexes?.forEach(element2 => {
-  //       console.log(element2)
-  //     })
-
-  //   });
-  // }
-
-
-
-
