@@ -30,8 +30,7 @@
               "src/styles.css"
             ],
             "scripts": [
-            
-            "src/assets/js/makeGrid.js"
+            "src/assets/js/drawLinePuzzle.js"
             
             ]
           },

@@ -1,14 +1,11 @@
-
-
-    <mat-grid-list cols="5"  rowHeight="50px" >
-<div  *ngFor="let points of this.newVertexes;">
-        <mat-grid-tile
-            *ngFor="let point of points;"
-            [colspan]="1"
-            [rowspan]="1"
-            [style.background]="'lightblue'">
-          {{point.start}}
-        </mat-grid-tile> </div>
-      </mat-grid-list>
-       
-
+<head>
+  <link rel="import" href="../../../assets/js/drawLinePuzzle.js">
+</head>
+<body onload="drawLinePuzzle()">
+  <div id="linePuzzleContainer">
+    <canvas id="mazeGridCanvas" width="750" height="750"></canvas>
+    <canvas id="pointGridCanvas" width="780" height="780"></canvas>
+    <canvas id="zoneGridCanvas" width="780" height="780"></canvas>
+    <canvas id="pathGridCanvas" width="780" height="780"></canvas>
+  </div>
+</body>

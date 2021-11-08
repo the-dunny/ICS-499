@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {LinePuzzle} from 'src/app/models/line-puzzle/line-puzlle.model';
 
 
-const baseUrl = 'http://localhost:8081/game/newGame';
+const baseUrl = 'http://localhost:8082/game/newGame';
 
 @Injectable({
   providedIn: 'root'

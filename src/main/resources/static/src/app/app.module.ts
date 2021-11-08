@@ -7,7 +7,6 @@ import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {AppMaterialModule} from "./app.material-module";
 import {ScoreListComponent} from './components/score-list/score-list.component';
-import {LevelComponent} from './components/level/level.component';
 import {NewGameComponent} from './components/new-game/new-game.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSortModule} from '@angular/material/sort';
@@ -18,7 +17,6 @@ import {FlexLayoutModule} from '@angular/flex-layout';
   declarations: [
     AppComponent,
     ScoreListComponent,
-    LevelComponent,
     NewGameComponent
   ],
 
