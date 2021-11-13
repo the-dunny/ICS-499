@@ -2,6 +2,9 @@
     padding:20px;
 }
 
+
+
+
 #mazeGridCanvas { 
     border: 20px solid #161617;
     background-color:rgb(143, 180, 248);
@@ -19,3 +22,4 @@
 #startGridCanvas, #endGridCanvas {
     top: -30px;    
 }
+

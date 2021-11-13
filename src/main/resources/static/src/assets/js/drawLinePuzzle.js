@@ -1,4 +1,4 @@
-function drawLinePuzzle(size) {
+export function drawLinePuzzle(size) {
     var size = 6;
     var scale;
     if (size == 3) scale = 375;

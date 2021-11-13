@@ -11,13 +11,15 @@ import {NewGameComponent} from './components/new-game/new-game.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSortModule} from '@angular/material/sort';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import { AdminListComponent } from './components/admin-list/admin-list.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ScoreListComponent,
-    NewGameComponent
+    NewGameComponent,
+    AdminListComponent
   ],
 
   imports: [

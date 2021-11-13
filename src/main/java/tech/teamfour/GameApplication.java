@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 
-@SpringBootApplication//(exclude = {SecurityAutoConfiguration.class})
+@SpringBootApplication // (exclude = {SecurityAutoConfiguration.class})
 public class GameApplication {
     public static void main(String... args) {
 	SpringApplication.run(GameApplication.class, args);
