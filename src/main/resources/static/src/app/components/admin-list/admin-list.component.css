@@ -18,3 +18,8 @@ table {
     width: 100%;
   }
   
+
+  tr:hover {
+    background: rgb(126, 124, 124);
+  }
+  

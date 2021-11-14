@@ -1,27 +1,29 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, Inject } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
-
 import { MatTableDataSource } from "@angular/material/table";
+import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { Player } from 'src/app/models/player/player.model';
-import { AdminService } from "../../services/admin-list/admin-list.service"
+import { AdminService } from "../../services/admin-list/admin-list.service";
+
+
+
 
 @Component({
   selector: 'app-admin-list',
   templateUrl: './admin-list.component.html',
-  styleUrls: ['./admin-list.component.css']
+  styleUrls: ['./admin-list.component.css'],
 })
 export class AdminListComponent implements OnInit {
 
 
 
   // columns we will show on the table
-  public displayedColumns = ['PlayerID', 'Username', 'Active', 'Role'];
+  public displayedColumns = ['PlayerID', 'Username', 'Active', 'Role', 'Action'];
   //the source where we will get the data
   public dataSource = new MatTableDataSource<Player>();
-
-
 
   private loadingSubject = new BehaviorSubject<boolean>(false);
 
@@ -29,10 +31,12 @@ export class AdminListComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
+
+
   @ViewChild('input') input: ElementRef;
 
 
-  constructor(private adminservice: AdminService) { }
+  constructor(public dialog: MatDialog, private adminservice: AdminService, private router: Router) { }
 
 
   ngOnInit() {
@@ -67,13 +71,13 @@ export class AdminListComponent implements OnInit {
 
         return this._compare(a.userName!, b.userName!, isAsc);
 
-      } 
+      }
 
       else if (sort.active == "Active") {
 
         return this._compare(a.active!.toString(), b.active!.toString(), isAsc);
 
-      } 
+      }
       else if (sort.active == "Role") {
 
         return this._compare(a.roles, b.roles, isAsc);
@@ -98,5 +102,41 @@ export class AdminListComponent implements OnInit {
     }
   }
 
+  openDialog(id: any, uName: string) {
+
+
+    let dialogRef = this.dialog.open(DialogComponent, {
+      data: { name: uName, plID: id }
+    });
+
+
+    dialogRef.afterClosed().subscribe(async result => {
+      this.dialog.closeAll();
+      if (result) {
+        await this.adminservice.deletePlayer(id);
+        // save current route first
+        const currentRoute = this.router.url;
+
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate([currentRoute]); // navigate to same route
+
+        });
+      }
+    });
+  }
+}
+
+
+@Component({
+  selector: 'dialog-component',
+  templateUrl: './dialog-component.html',
+  template: 'passed in {{data}}  '
+})
+export class DialogComponent {
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { name: string, plID: any }) { }
 
 }
+
+
+

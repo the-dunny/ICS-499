@@ -11,7 +11,9 @@ import {NewGameComponent} from './components/new-game/new-game.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSortModule} from '@angular/material/sort';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import { AdminListComponent } from './components/admin-list/admin-list.component';
+import { AdminListComponent,DialogComponent } from './components/admin-list/admin-list.component';
+import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+
 
 
 @NgModule({
@@ -19,7 +21,8 @@ import { AdminListComponent } from './components/admin-list/admin-list.component
     AppComponent,
     ScoreListComponent,
     NewGameComponent,
-    AdminListComponent
+    AdminListComponent,
+    DialogComponent
   ],
 
   imports: [
@@ -30,11 +33,18 @@ import { AdminListComponent } from './components/admin-list/admin-list.component
     AppMaterialModule,
     BrowserAnimationsModule,
     MatSortModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatDialogModule
+  ],
+
+  entryComponents: [
+    DialogComponent
   ],
 
 
-  providers: [],
+  providers: [
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

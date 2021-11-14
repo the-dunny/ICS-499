@@ -1,0 +1,14 @@
+<h2 mat-dialog-title style="color: red;">WARNING!</h2>
+
+<div mat-dialog-content> All data will be lost for:
+  <br>
+  <br> PlayerID: {{data.plID}}
+  <br>Username: {{data.name}}
+  <br>
+  <br> Delete this player?
+</div>
+
+<div mat-dialog-actions>
+  <button  mat-button [mat-dialog-close]="true"> Yes </button>
+  <button style="margin:50px;" mat-button [mat-dialog-close]="false"> No </button>
+</div>

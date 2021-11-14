@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NewGameService} from '../../services/new-game/new-game.service';
-import {drawLinePuzzle} from '../../../assets/js/drawLinePuzzle';
+// import {drawLinePuzzle} from '../../../assets/js/drawLinePuzzle';
 
 @Component({
   selector: 'app-new-game',
@@ -9,19 +9,13 @@ import {drawLinePuzzle} from '../../../assets/js/drawLinePuzzle';
 })
 export class NewGameComponent implements OnInit {
 
-
-
-  // gridSize?: number;
-
   constructor(private newGameService: NewGameService) { }
 
   ngOnInit(): void {
     this.retrieveGame();
   }
 
-
   retrieveGame(): void {
-    drawLinePuzzle(6);
- 
+    // drawLinePuzzle(6);
   }
 }
