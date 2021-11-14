@@ -7,6 +7,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSortModule} from '@angular/material/sort';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ imports: [
         MatInputModule,
         MatPaginatorModule,
         MatGridListModule,
-        MatFormFieldModule
+        MatFormFieldModule,
+        MatDialogModule
   ],
     exports: [
         CommonModule,
@@ -31,7 +33,8 @@ imports: [
         MatInputModule,
         MatPaginatorModule,
         MatGridListModule,
-        MatFormFieldModule
+        MatFormFieldModule,
+        MatDialogModule
     ]
 })
 export class AppMaterialModule {}
