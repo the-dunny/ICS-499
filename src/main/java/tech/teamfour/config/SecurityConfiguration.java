@@ -36,7 +36,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .httpBasic()
             .and().authorizeRequests()
-            .antMatchers("/player/**")./*hasRole(USER)*/permitAll()
+            .antMatchers("/player/**").hasRole(USER)/*permitAll()*/
                 .antMatchers("/game/**").permitAll().anyRequest().authenticated()
         .and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
         .and().formLogin();

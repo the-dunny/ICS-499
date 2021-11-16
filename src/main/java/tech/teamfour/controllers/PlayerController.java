@@ -82,9 +82,6 @@ public class PlayerController {
     	 return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    @GetMapping("player/highscores")
-    public ResponseEntity getSortedScores(){ return new ResponseEntity(playerService.getHighScores(), HttpStatus.OK);}
-
     @RequestMapping(path = "player/delete")
     public ResponseEntity<Player> deletePlayer(@RequestParam long id){
         playerService.deleterPlayer(id);
