@@ -3,14 +3,18 @@ package tech.teamfour.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import tech.teamfour.model.Player;
 import tech.teamfour.services.PlayerService;
 import tech.teamfour.services.PlayerServiceImpl;
 
+import java.security.Principal;
 import java.util.Random;
 
 @RestController
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class PlayerController {
 
     final
@@ -34,8 +38,13 @@ public class PlayerController {
 
     @RequestMapping("player/{id}/setHighScore")
     public ResponseEntity setHighSCore(@PathVariable("id") long id, @RequestParam("score") int score){
-        playerService.setHighScore(score, id);
-        return new ResponseEntity("Score updated", HttpStatus.OK);
+        Player p = playerService.getPlayer(id);
+        if(p.getBestScore() > score) {
+            playerService.setHighScore(score, id);
+            return new ResponseEntity("Score updated", HttpStatus.OK);
+        }else{
+            return new ResponseEntity("Didn't beat highscore", HttpStatus.OK);
+        }
     }
 
     @GetMapping("player/all")
@@ -55,7 +64,7 @@ public class PlayerController {
     @GetMapping("player/addBatchTestData")
     public ResponseEntity<Player> createBatchOfPlayers() {   
     	
-    	for( int i = 0; i < 255; i++) {
+    	for( int i = 2; i < 255; i++) {
     		
     		Random rand = new Random();
     		char c = (char) ('a' + rand.nextInt(26));
