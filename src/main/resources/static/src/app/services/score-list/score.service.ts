@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Score} from '../../models/score-list/score.model';
 
-const baseUrl = 'http://localhost:8082/player/highscores';
+const baseUrl = 'http://localhost:8082/score/highscores';
 
 @Injectable({
   providedIn: 'root'
