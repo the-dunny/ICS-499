@@ -17,7 +17,6 @@ import { LoginComponent } from './components/login/login.component';
 import { HttpInterceptorService } from './services/http-interceptor/http-interceptor-service.service';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,

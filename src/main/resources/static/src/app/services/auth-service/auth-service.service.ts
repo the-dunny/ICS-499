@@ -9,8 +9,8 @@ const baseUrl = 'http://localhost:8082/basic_auth';
 })
 export class AuthServiceService {
 
-  public username: String;
-  public password: String;
+  public username: string;
+  public password: string;
   USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
 
   constructor(private http: HttpClient) { }
@@ -20,6 +20,7 @@ export class AuthServiceService {
       this.username = un;
       this.password = pw;
     }));
+    this.registerSuccessfulLogin(this.username, this.password);
   }
 
   createBasicAuthToken(username: String, password: String) {

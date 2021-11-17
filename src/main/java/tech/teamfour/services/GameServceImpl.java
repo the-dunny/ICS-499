@@ -58,4 +58,12 @@ public class GameServceImpl implements GameServce{
 	public int getGameTime(){
     	return this.gameContext.getTime();
 	}
+
+	@Override
+	public boolean isGameActive(){
+		if(this.gameContext == null){
+			return false;
+		}
+		return true;
+	}
 }

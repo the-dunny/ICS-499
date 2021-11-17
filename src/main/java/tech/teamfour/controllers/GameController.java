@@ -37,6 +37,8 @@ public class GameController {
 
     @GetMapping("game/currentTime")
     public ResponseEntity getCurrentTime(){
-        return new ResponseEntity(this.gameServce.getGameTime(), HttpStatus.OK);
+        if(this.gameServce.isGameActive())
+            return new ResponseEntity(this.gameServce.getGameTime(), HttpStatus.OK);
+        return new ResponseEntity("No game running", HttpStatus.OK);
     }
 }

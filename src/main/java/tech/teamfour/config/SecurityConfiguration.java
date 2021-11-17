@@ -42,7 +42,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());*/
 
             http.csrf().
-                    disable()
+                    csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
                     .authorizeRequests()
                     .antMatchers(HttpMethod.OPTIONS, "/**")
                     //.hasRole(USER)
