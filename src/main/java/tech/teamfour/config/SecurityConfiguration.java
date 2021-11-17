@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -33,12 +34,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+        /*http
                 .httpBasic()
             .and().authorizeRequests()
-            .antMatchers("/score/**")./*hasRole(USER)*/permitAll()
+            .antMatchers("/score/**").*//*hasRole(USER)*//*permitAll()
                 .antMatchers("/game/**").permitAll().anyRequest().authenticated()
-        .and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+        .and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());*/
+
+            http.csrf().
+                    disable()
+                    .authorizeRequests()
+                    .antMatchers(HttpMethod.OPTIONS, "/**")
+                    //.hasRole(USER)
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated()
+                    .and()
+                    .httpBasic();
     }
 
     @Bean
