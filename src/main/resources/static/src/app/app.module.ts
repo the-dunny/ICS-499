@@ -13,6 +13,7 @@ import {MatSortModule} from '@angular/material/sort';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { AdminListComponent,DialogComponent } from './components/admin-list/admin-list.component';
 import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import { LoginComponent } from './components/login/login.component';
 
 
 
@@ -22,7 +23,8 @@ import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/d
     ScoreListComponent,
     NewGameComponent,
     AdminListComponent,
-    DialogComponent
+    DialogComponent,
+    LoginComponent
   ],
 
   imports: [
