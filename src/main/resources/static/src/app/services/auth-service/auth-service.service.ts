@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators'
 const baseUrl = 'http://localhost:8082/basic_auth';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,8 +20,8 @@ export class AuthServiceService {
     return this.http.get(baseUrl, {headers: {authorization: this.createBasicAuthToken(un, pw)}}).pipe(map((res) => {
       this.username = un;
       this.password = pw;
+      this.registerSuccessfulLogin(this.username, this.password);
     }));
-    this.registerSuccessfulLogin(this.username, this.password);
   }
 
   createBasicAuthToken(username: String, password: String) {

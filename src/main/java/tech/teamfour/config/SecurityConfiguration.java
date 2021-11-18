@@ -42,7 +42,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());*/
 
             http.csrf().
-                    csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
+                    //csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
+                    disable()
                     .authorizeRequests()
                     .antMatchers(HttpMethod.OPTIONS, "/**")
                     //.hasRole(USER)
