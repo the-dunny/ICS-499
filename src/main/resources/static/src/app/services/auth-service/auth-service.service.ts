@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators'
 const baseUrl = 'http://localhost:8082/basic_auth';
@@ -10,6 +11,7 @@ const baseUrl = 'http://localhost:8082/basic_auth';
 })
 export class AuthServiceService {
 
+  private router: Router;
   public username: string;
   public password: string;
   USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
@@ -36,6 +38,7 @@ export class AuthServiceService {
     sessionStorage.removeItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
     this.username = "";
     this.password = "";
+    this.router.navigate(['/login']);
   }
 
   isUserLoggedIn() {

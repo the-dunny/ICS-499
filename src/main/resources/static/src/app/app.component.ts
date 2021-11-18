@@ -7,11 +7,5 @@ import { AuthServiceService } from './services/auth-service/auth-service.service
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  isLoggedIn(): boolean{
-    let x = sessionStorage.getItem('authenticatedUser');
-    if(x === null) return true
-    return false
-  }
-
   title = 'LineGame';
 }

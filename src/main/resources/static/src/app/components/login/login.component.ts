@@ -11,6 +11,7 @@ export class LoginComponent implements OnInit {
 
   username: string;
   password : string;
+  token?: string;
   errorMessage = 'Invalid Credentials';
   successMessage: string;
   invalidLogin = false;
