@@ -3,7 +3,9 @@ import {MatPaginator} from '@angular/material/paginator';
 import {Sort} from '@angular/material/sort';
 
 import {MatTableDataSource} from "@angular/material/table";
+import { Router } from '@angular/router';
 import {BehaviorSubject} from 'rxjs';
+import { AuthServiceService } from 'src/app/services/auth-service/auth-service.service';
 import {Score} from '../../models/score-list/score.model';
 import {ScoreService} from '../../services/score-list/score.service';
 
@@ -26,19 +28,22 @@ export class ScoreListComponent implements OnInit {
 
   public loading$ = this.loadingSubject.asObservable();
 
+  private router: Router;
+  private authService: AuthServiceService; 
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   @ViewChild('input') input: ElementRef;
 
 
-  constructor(private scoreervice: ScoreService) { }
+  constructor(private scoreervice: ScoreService) {  }
 
 
   ngOnInit() {
     this.retrievescore();
   }
-  retrievescore() {
 
+  retrievescore() {
     this.scoreervice.getHighScores()
       .subscribe((res) => {
         res.forEach(data => {

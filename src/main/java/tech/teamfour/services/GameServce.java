@@ -10,4 +10,5 @@ public interface GameServce {
     public abstract boolean validatePlayerMove(int keyPressed);
     public abstract GameStateEnum checkGameStatus();
     public abstract int getGameTime();
+    public boolean isGameActive();
 }
