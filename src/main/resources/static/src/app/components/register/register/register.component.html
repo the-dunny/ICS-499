@@ -1,6 +1,6 @@
 
 <div class="container col-lg-6">
-    <h1 class="text-center">Login</h1>
+    <h1 class="text-center">Register</h1>
     <div class="card">
       <div class="card-body">
         <form class="form-group">
@@ -16,10 +16,12 @@
             <input type="password" class="form-control" [(ngModel)]="password" id="password" placeholder="Enter password"
               name="password">
           </div>
-          <li class="nav-item">
-            <a routerLink="register" class="nav-link">Register</a>
-          </li>
-          <button (click)=handleLogin() class="btn btn-success">Login</button>
+          <div class="form-group">
+            <label for="pwd2">Confirm Password:</label>
+            <input type="password" class="form-control" [(ngModel)]="password2" id="password2" placeholder="ReEnter password"
+              name="password">
+          </div>
+          <button (click)=handleRegistration() class="btn btn-success">Register</button>
         </form>
       </div>
     </div>
