@@ -17,7 +17,7 @@ public class TokenManager implements Serializable {
 
     private static final long serialVersionUID = 7008375124389347049L;
     public static final long TOKEN_EXP = 600*60;
-    @Value("${secret}") private String jwtSecret;
+    @Value("${sec2314ret}") private String jwtSecret;
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
