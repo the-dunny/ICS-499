@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import tech.teamfour.model.Player;
 import tech.teamfour.repositories.PlayerRepository;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -27,8 +28,12 @@ public class PlayerDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        Optional<Player> player = playerRepository.findByUserName(name);
-        player.orElseThrow(() -> new UsernameNotFoundException(name + " not registered"));
-        return player.map(PlayerDetailsImpl::new).get();
+        if ("randomuser123".equals(name)) {
+            return new User("randomuser123",
+                    "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6",
+                    new ArrayList<>());
+        } else {
+            throw new UsernameNotFoundException("User not found with username: " + name);
+        }
     }
 }

@@ -13,11 +13,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 import tech.teamfour.jwt.JwtRequestModel;
 import tech.teamfour.jwt.JwtResponseModel;
 import tech.teamfour.jwt.TokenManager;
 import tech.teamfour.model.AuthenticationBean;
+import tech.teamfour.services.PlayerDetailsImpl;
 import tech.teamfour.services.PlayerDetailsServiceImpl;
 
 import javax.servlet.http.HttpSession;
@@ -31,7 +33,7 @@ import java.util.Map;
 public class SecurityController {
 
     @Autowired
-    private PlayerDetailsServiceImpl userDetailsService;
+    private UserDetailsService userDetailsService;
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
@@ -60,7 +62,7 @@ public class SecurityController {
         return new AuthenticationBean("You are authenticated");
     }
 
-    @PostMapping("/login")
+    @PostMapping("/logon")
     public ResponseEntity createToken(@RequestBody JwtRequestModel requestModel) throws Exception{
         try{
             authenticationManager.authenticate(
