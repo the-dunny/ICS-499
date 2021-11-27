@@ -63,6 +63,15 @@ public class PlayerController {
     }
     
     
+    @RequestMapping(path = "player/addAdmin" )
+    public ResponseEntity<Player> createAdmin(@RequestParam String username, @RequestParam String password){
+       playerService.addPlayer(new Player(
+               0L, username, password, 999, true, "ROLE_ADMIN"
+       ));
+        return new ResponseEntity(HttpStatus.CREATED);
+    }
+    
+    
     @GetMapping("player/addBatchTestData")
     public ResponseEntity<Player> createBatchOfPlayers() {   
     	

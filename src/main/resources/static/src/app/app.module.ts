@@ -11,10 +11,13 @@ import {NewGameComponent} from './components/new-game/new-game.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSortModule} from '@angular/material/sort';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import { AdminListComponent,DialogComponent } from './components/admin-list/admin-list.component';
+import { AdminListComponent, DialogComponent } from './components/admin-list/admin-list.component';
 import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { LoginComponent } from './components/login/login.component';
 import { HttpInterceptorService } from './services/http-interceptor/http-interceptor-service.service';
+import { CommonModule } from '@angular/common';
+import { AuthDialogComponent } from './auth/auth.guard';
+
 
 
 @NgModule({
@@ -22,9 +25,10 @@ import { HttpInterceptorService } from './services/http-interceptor/http-interce
     AppComponent,
     ScoreListComponent,
     NewGameComponent,
-    AdminListComponent,
     DialogComponent,
-    LoginComponent
+    LoginComponent,
+    AdminListComponent,
+    AuthDialogComponent
   ],
 
   imports: [
@@ -36,11 +40,13 @@ import { HttpInterceptorService } from './services/http-interceptor/http-interce
     BrowserAnimationsModule,
     MatSortModule,
     FlexLayoutModule,
-    MatDialogModule
+    MatDialogModule,
+    CommonModule
   ],
 
   entryComponents: [
-    DialogComponent
+    DialogComponent,
+    AuthDialogComponent
   ],
 
 

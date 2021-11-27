@@ -16,12 +16,17 @@ export class LoginComponent implements OnInit {
   successMessage: string;
   invalidLogin = false;
   loginSuccess = false;
+
+
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthServiceService) {   }
 
+
   ngOnInit() {
+            
   }
 
   handleLogin() {
@@ -29,7 +34,7 @@ export class LoginComponent implements OnInit {
       this.invalidLogin = false;
       this.loginSuccess = true;
       this.successMessage = 'Login Successful.';
-      this.router.navigate(['bestScores']);
+      this.router.navigateByUrl(this.authenticationService.getRedirectUrl() );
     }, () => {
       this.invalidLogin = true;
       this.loginSuccess = false;

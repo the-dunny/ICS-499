@@ -12,7 +12,7 @@ const deleteUrl = 'http://localhost:8082/player/delete';
   providedIn: 'root'
 })
 export class AdminService {
-  deleted: boolean;
+ 
 
   
 
@@ -22,17 +22,15 @@ export class AdminService {
     return this.http.get<Player[]>(baseUrl);
   }
 
-   deletePlayer(playerId: any): Promise<any>{
+   async deletePlayer(playerId: any): Promise<any>{
 
-   return  this.http.get(deleteUrl, {
-      params: {
-        id: playerId.toString()
-      },
-      observe: 'response'
-    })
-      .toPromise()
-      .then(() => {
-      });
+   await this.http.get(deleteUrl, {
+       params: {
+         id: playerId.toString()
+       },
+       observe: 'response'
+     })
+       .toPromise();
 
   }
 
