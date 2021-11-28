@@ -84,6 +84,7 @@ public class LinePuzzle {
     public void pointsAndZones() {
 	Line path = randomValidPath();
 	int probability = 12 - (13 - mainGrid.getVertexes().size());
+	probability = 1; // debug
 	for (Point point : path.getLine()) {
 	    Random rand = new Random();
 	    if (rand.nextInt(probability) == 0) {
@@ -95,7 +96,7 @@ public class LinePuzzle {
 	for (ArrayList<Point> zone : zones) {
 	    for (int j = 0; j < zone.size(); j++) {
 		if (j > innerGrid.getVertexes().size()) {
-		    zone.get(j).setZone(0);
+		    //zone.get(j).setZone(0);
 		}
 	    }
 	}
@@ -221,7 +222,7 @@ public class LinePuzzle {
 	    for (int j = 0; j < size; j++) {
 		x = i;
 		y = j;
-		if (mainGrid.getPoint(x, y).getZone() == 0) {
+		if (zg.getPoint(x, y).getZone() == 0) {
 		    zoneSearch(zg, zones.get(1), pathList, zg.getPoint(x, y), 2);
 		    i = j = size;
 		}

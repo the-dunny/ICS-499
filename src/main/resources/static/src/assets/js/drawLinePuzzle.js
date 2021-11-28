@@ -1,6 +1,14 @@
-function drawLinePuzzle(size) {
-    var size = 6;
+export function drawLinePuzzle(LinePuzzle) {
+    var travelGrid = LinePuzzle.mainGrid;
+    var zoneGrid = LinePuzzle.innerGrid;
+    var path =  LinePuzzle.path;
+    var size = travelGrid.vertexes.length;
     var scale;
+
+    console.log(travelGrid); // debug
+
+    // Determine canvas scale of LinePuzzle
+    if (size < 3 || size > 9) return; // Unsupported LinePuzzle sizes on the Front-End.
     if (size == 3) scale = 375;
     if (size == 4) scale = 250;
     if (size == 5) scale = 187.5;
@@ -11,15 +19,25 @@ function drawLinePuzzle(size) {
     size += 0.01
 
     // Draw Line Puzzle
-
-    drawStart(size-1, 0);
-    drawEnd(0, size-1);
     drawTravelGrid();
-    drawRequiredPoints(size-1, size-2);
-    drawRequiredPoints(size-2, size-1);
-    drawZones(0, 0, 0);
-    drawZones(size-2, size-2, 1);
+    drawStart(travelGrid.start.x, travelGrid.start.y);
+    drawEnd(travelGrid.end.x, travelGrid.end.y);
 
+    for (var x = 0; x <= travelGrid.vertexes.length - 1; x++) {
+	    for (var y = 0; y <= travelGrid.vertexes.length - 1; y++) {
+            if (travelGrid.vertexes[x][y].required == true) {
+                drawRequiredPoints(x, y);
+            }
+	    }
+	}
+
+    for (var x = 0; x <= zoneGrid.vertexes.length - 1; x++) {
+	    for (var y = 0; y <= zoneGrid.vertexes.length - 1; y++) {
+            if (zoneGrid.vertexes[x][y].zone != 0) {
+                drawZones(x, y, zoneGrid.vertexes[x][y].zone);
+            }
+	    }
+	}
 
     // Draw Line Puzzle Elements
 
@@ -74,7 +92,6 @@ function drawLinePuzzle(size) {
 
     function drawRequiredPoints(x, y) {
         var pointGridCanvas = document.getElementById('pointGridCanvas');
-        var y = size - 1 - y;
         var x_off = 22;
         var y_off = 22;
         if (mazeGridCanvas.getContext) {
@@ -102,8 +119,8 @@ function drawLinePuzzle(size) {
     function drawZones(x, y, c) {
         var zoneGridCanvas = document.getElementById('zoneGridCanvas');
         var x = x + 1;
-        var y = size - 1 - y;
-        var zoneColor = ["black", "white"][c]
+        var y = y + 1;
+        var zoneColor = ["white", "black"][c - 1]
         var zoneSize = 120 - (size * 10);
         var zoneOffset = 1;
         if (size == 3.01) zoneSize = 170;

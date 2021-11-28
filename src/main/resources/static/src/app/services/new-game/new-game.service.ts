@@ -13,8 +13,8 @@ export class NewGameService {
 
   constructor(private http: HttpClient) { }
 
-  getNewGame(): Observable<LinePuzzle> {
-    return this.http.get<LinePuzzle>(baseUrl);
+  getNewGame(gridSize: number): Observable<LinePuzzle> {
+    return this.http.get<LinePuzzle>(baseUrl + "?gridSize=" + gridSize);
   }
 
 }

@@ -6,4 +6,5 @@ export class Point {
     dead?: boolean;
     start?: boolean;
     end?: boolean;
+    zone?: number;
 }

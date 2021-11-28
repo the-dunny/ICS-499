@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 
-@SpringBootApplication//(exclude = {SecurityAutoConfiguration.class})
+@SpringBootApplication // (exclude = {SecurityAutoConfiguration.class})
 public class GameApplication {
     public static void main(String... args) {
 	SpringApplication.run(GameApplication.class, args);
@@ -58,20 +58,16 @@ public class GameApplication {
 
 /*@Component
 class CapstoneCommandLineRunner implements CommandLineRunner {
-
     @Autowired
     private PlayerServiceImpl impl;
-
     @Override
     public void run(String... args) throws Exception {
         impl.addPlayer(
                 new Player(
                         0L, "Service2", "fromCMDRunner2", 12344
                 )
-
         );
     }
-
  *//*
     @Override
     public void run(String... args) throws Exception {
@@ -80,8 +76,6 @@ class CapstoneCommandLineRunner implements CommandLineRunner {
         player.setUserName("cmdLineRunner3");
         player.setPassword("11_34_10_17");
         player.setBestScore(1234);
-
         playerRepository.save(player);
   *//*
 }*/
-
