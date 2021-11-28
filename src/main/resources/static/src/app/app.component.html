@@ -8,10 +8,26 @@
       <li class="nav-item">
         <a routerLink="bestScores" class="nav-link">Best Scores</a>
       </li>
+      <li class="nav-item">
+        <a routerLink="login" class="nav-link">Log In</a>
+      </li>
+
     </div>
   </nav>
 
-  <div class="container mt-3">
-    <router-outlet></router-outlet>
-  </div>
+
+      <div class="container mt-3">
+        <router-outlet>
+        </router-outlet>
+      </div>
+ 
+
+  <footer id="footer" class="footer footer-dark bg-dark">
+    <div class = "navbar-nav mr-auto" style="text-align: center" >
+      <li class="footer-item">
+        <a routerLink="admin" style="color: rgba(255,255,255,.5);;" class="footer-link">Admin.</a>
+      </li>
+    </div>
+  </footer>
+
 </div>

@@ -3,15 +3,15 @@ package tech.teamfour.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import tech.teamfour.services.GameServce;
 import tech.teamfour.services.GameServceImpl;
 
-// FOR DEBUG USE
-
 @RestController
+@CrossOrigin(origins = "*", maxAge = 3600, allowedHeaders={"x-auth-token", "x-requested-with", "x-xsrf-token"})
 public class GameController {
     final GameServce gameServce;
 
@@ -37,6 +37,8 @@ public class GameController {
 
     @GetMapping("game/currentTime")
     public ResponseEntity getCurrentTime(){
-        return new ResponseEntity(this.gameServce.getGameTime(), HttpStatus.OK);
+        if(this.gameServce.isGameActive())
+            return new ResponseEntity(this.gameServce.getGameTime(), HttpStatus.OK);
+        return new ResponseEntity("No game running", HttpStatus.OK);
     }
 }

@@ -2,6 +2,8 @@ package tech.teamfour.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+
 import tech.teamfour.model.Player;
 import tech.teamfour.model.Score;
 import tech.teamfour.repositories.PlayerRepository;
@@ -46,6 +48,8 @@ public class PlayerServiceImpl implements PlayerService{
         return playerRepo.findAll();
     }
 
+    
+
     @Override
     public Player getPlayer(Long id) {
         return playerRepo.getById(id);
@@ -88,10 +92,4 @@ public class PlayerServiceImpl implements PlayerService{
         }
         return false;
     }
-
-
-
-
-
-
 }
