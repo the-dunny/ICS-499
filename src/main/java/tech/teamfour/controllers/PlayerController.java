@@ -3,8 +3,7 @@ package tech.teamfour.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AbstractAuthenticationToken;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -19,12 +18,13 @@ import java.util.Random;
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class PlayerController {
 
-    final
-    PlayerService playerService;
+    final PlayerService playerService;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public PlayerController(PlayerServiceImpl playerService) {
+    public PlayerController(PlayerServiceImpl playerService, BCryptPasswordEncoder bcpe) {
         this.playerService = playerService;
+        this.bCryptPasswordEncoder = bcpe;
     }
 
     @GetMapping("player/{id}")
@@ -57,7 +57,7 @@ public class PlayerController {
     @RequestMapping(path = "player/add" )
     public ResponseEntity<Player> createPlayer(@RequestParam String username, @RequestParam String password){
        playerService.addPlayer(new Player(
-               0L, username, password, 999, true, "ROLE_USER"
+               0L, username, bCryptPasswordEncoder.encode(password), 999, true, "ROLE_USER"
        ));
         return new ResponseEntity(HttpStatus.CREATED);
     }

@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Score} from '../../models/score-list/score.model';
+import { Role } from 'src/app/models/user-role/role.model';
 
 const baseUrl = 'http://localhost:8082/score/highscores';
 
@@ -9,7 +10,7 @@ const baseUrl = 'http://localhost:8082/score/highscores';
   providedIn: 'root'
 })
 export class ScoreService {
-
+  
   constructor(private http: HttpClient) { }
 
   getHighScores(): Observable<Score[]> {

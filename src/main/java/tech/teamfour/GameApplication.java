@@ -3,6 +3,8 @@ package tech.teamfour;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -30,7 +32,7 @@ public class GameApplication {
 
     }
 
-    @Bean
+/*    @Bean
     public CorsFilter corsFilter() {
 
 	UrlBasedCorsConfigurationSource urlBasedCorsConifgSource = new UrlBasedCorsConfigurationSource();
@@ -50,9 +52,7 @@ public class GameApplication {
 	return new CorsFilter(urlBasedCorsConifgSource);
 
 
-    }
-
-
+    }*/
 
 }
 
