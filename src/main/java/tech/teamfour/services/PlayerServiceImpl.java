@@ -11,7 +11,6 @@ import tech.teamfour.repositories.PlayerRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Optional;
 
 @Service
 public class PlayerServiceImpl implements PlayerService{
@@ -82,7 +81,7 @@ public class PlayerServiceImpl implements PlayerService{
     }
 
     @Override
-    public Optional<Player> getPlayerByName(String name) {
+    public Player getPlayerByName(String name) {
         return this.playerRepo.findByUserName(name);
     }
 
