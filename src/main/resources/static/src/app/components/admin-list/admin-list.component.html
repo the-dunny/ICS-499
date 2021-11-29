@@ -1,5 +1,4 @@
-<div class="container">
-
+<div class="adminContainer">
 
   <h2>User List</h2>
 
@@ -7,13 +6,10 @@
     <mat-label>Search</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. bob " #input>
 
-
   </mat-form-field>
-
 
   <table mat-table [dataSource]="dataSource" matSort matSort matSortStart="desc" (matSortChange)="sortData($event)"
     class="mat-elevation-z8">
-
 
     <!-- Action Column -->
     <ng-container matColumnDef="Action">

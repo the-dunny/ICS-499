@@ -36,7 +36,7 @@ export class AuthGuard implements CanActivate {
       return true;
 
     }
-    console.log("no");
+
     // Store the attempted URL for redirecting
     this.authService.setRedirectUrl(url);
     // Redirect to the login page

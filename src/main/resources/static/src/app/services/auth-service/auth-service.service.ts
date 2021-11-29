@@ -65,19 +65,15 @@ export class AuthServiceService {
       if (res === "ROLE_ADMIN") {
         this.admin = true;
       }
-
-
     });
 
     // return this.admin;
-    console.log('this.admin in autservice: ' + this.admin);
     return this.admin;
 
 
   }
 
   async getRole(): Promise<string> {
-    console.log('getSession: ' + sessionStorage.getItem(this.USER_ROLE_SESSION_ATTRIBUTE_NAME)!)
     return sessionStorage.getItem(this.USER_ROLE_SESSION_ATTRIBUTE_NAME)!;
 
   }
@@ -87,21 +83,16 @@ export class AuthServiceService {
     if (user === null) return '';
     return user;
   }
-setRedirectUrl(url: string){
+  setRedirectUrl(url: string) {
 
-  this.redirectUrl = url;
-
-  
-}
+    this.redirectUrl = url;
+  }
   getRedirectUrl(): string {
     return this.redirectUrl;
   }
 
   async setRole(): Promise<void> {
     const response = (await this.http.get<Role>(roleUrl).toPromise()).roles;
-
     sessionStorage.setItem(this.USER_ROLE_SESSION_ATTRIBUTE_NAME, response);
-
-    console.log('const resp: ' + response);
   }
 }

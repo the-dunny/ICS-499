@@ -20,3 +20,8 @@ table {
   tr.mat-row:hover{    
     background: rgb(126, 124, 124);
   }
+
+  .adminContainer {
+
+    background-color: white;
+  }
