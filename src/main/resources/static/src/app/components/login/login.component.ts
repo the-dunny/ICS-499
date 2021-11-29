@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthServiceService } from 'src/app/services/auth-service/auth-service.service';
+import { TokenStorageService } from 'src/app/services/token-storage/token-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -9,30 +10,39 @@ import { AuthServiceService } from 'src/app/services/auth-service/auth-service.s
 })
 export class LoginComponent implements OnInit {
 
-  username: string;
-  password : string;
-  token?: string;
-  errorMessage = 'Invalid Credentials';
-  successMessage: string;
-  invalidLogin = false;
-  loginSuccess = false;
+  form: any = {
+    username: null,
+    password: null
+  }
+  isLoggedIn = false;
+  isLoginFailed = false;
+  errorMessage = '';
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthServiceService) {   }
+    private authenticationService: AuthServiceService,
+    private tokenStorage: TokenStorageService) {   }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    if(this.tokenStorage.getCurrentToken()){
+      this.isLoggedIn = true;
+    }
   }
 
-  handleLogin() {
-    this.authenticationService.authenticationService(this.username, this.password).subscribe((result)=> {
-      this.invalidLogin = false;
-      this.loginSuccess = true;
-      this.successMessage = 'Login Successful.';
-      this.router.navigate(['bestScores']);
-    }, () => {
-      this.invalidLogin = true;
-      this.loginSuccess = false;
-    });      
+  onSubmit(): void{
+    const { username, password } = this.form;
+    this.authenticationService.authenticationService(username, password).subscribe(
+      data => {
+        console.log(data.toString)
+
+        this.isLoginFailed = false;
+        this.isLoggedIn = true;
+      },
+      err =>{
+        this.errorMessage = err.error.message;
+        this.isLoginFailed = true;
+      }
+    )
   }
+
 }
