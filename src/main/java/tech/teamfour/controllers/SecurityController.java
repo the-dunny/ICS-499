@@ -2,6 +2,7 @@ package tech.teamfour.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -27,13 +28,14 @@ import java.security.Principal;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class SecurityController {
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private PlayerDetailsServiceImpl userDetailsService;
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
@@ -62,18 +64,23 @@ public class SecurityController {
         return new AuthenticationBean("You are authenticated");
     }
 
-    @PostMapping("/logon")
-    public ResponseEntity createToken(@RequestBody JwtRequestModel requestModel) throws Exception{
-        try{
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(requestModel.getUsername(), requestModel.getPassword())
-            );
-        }catch (BadCredentialsException bce){throw new BadCredentialsException("Bad Creds", bce);}
-        catch (DisabledException de){throw new DisabledException("User not active", de);}
-
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(requestModel.getUsername());
-        final String jwtToken = tokenManager.generateToken(userDetails);
-        return ResponseEntity.ok(new JwtResponseModel(jwtToken));
+    @PostMapping("/authenticate")
+    public ResponseEntity createToken(@RequestBody JwtRequestModel request) throws Exception{
+        authenticateHelper(request.getUsername(), request.getPassword());
+        final UserDetails usrDetails = userDetailsService.loadUserByUsername(request.getUsername());
+        final String token = tokenManager.generateToken(usrDetails);
+        return ResponseEntity.ok(new JwtResponseModel(token));
     }
 
+    private void authenticateHelper(String username, String password) throws Exception {
+        Objects.requireNonNull(username);
+        Objects.requireNonNull(password);
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+        } catch (DisabledException e) {
+            throw new Exception("USER_DISABLED", e);
+        } catch (BadCredentialsException e) {
+            throw new Exception("INVALID_CREDENTIALS", e);
+        }
+    }
 }
