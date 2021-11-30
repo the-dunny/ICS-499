@@ -20,8 +20,10 @@ import tech.teamfour.jwt.JwtRequestModel;
 import tech.teamfour.jwt.JwtResponseModel;
 import tech.teamfour.jwt.TokenManager;
 import tech.teamfour.model.AuthenticationBean;
+import tech.teamfour.model.Player;
 import tech.teamfour.services.PlayerDetailsImpl;
 import tech.teamfour.services.PlayerDetailsServiceImpl;
+import tech.teamfour.services.PlayerService;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
@@ -40,6 +42,8 @@ public class SecurityController {
     private AuthenticationManager authenticationManager;
     @Autowired
     private TokenManager tokenManager;
+    @Autowired
+    private PlayerService playerService;
 
     @RequestMapping("/user")
     public Principal user(Principal user){
@@ -49,8 +53,12 @@ public class SecurityController {
     @RequestMapping("/user/roles")
     public Map<String, Object> userRoles(Principal user){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
+        Player p = playerService.getPlayerByName(user.getName());
+        String role = p.getRoles();
+        String[] roles = new String[1];
+        roles[0] = role;
         map.put("username", user.getName());
-        map.put("roles", AuthorityUtils.authorityListToSet(((Authentication)user).getAuthorities()));
+        map.put("roles", roles);
         return map;
     }
 
