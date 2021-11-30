@@ -1,14 +1,16 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { map } from 'rxjs/operators'
+import { Observable, Subscription } from 'rxjs';
 import { Role } from 'src/app/models/role/role.modle';
-const baseUrl = 'http://localhost:8082/basic_auth';
+import { Token } from 'src/app/models/token/token.model';
 
+const baseUrl = 'http://localhost:8082/authenticate';
 const roleUrl = 'http://localhost:8082/user/roles';
 
-
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 @Injectable({
   providedIn: 'root'
 })
@@ -18,21 +20,21 @@ export class AuthServiceService {
   public username: string;
   public password: string;
   public role: Role = new Role();
-  USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
+  // USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
+  USER_NAME_SESSION_ATTRIBUTE_NAME = 'curr-user'
   USER_ROLE_SESSION_ATTRIBUTE_NAME = 'userRole';
   // store the URL so we can redirect after logging in
   redirectUrl: string = "";
   admin: boolean = false;
 
 
+
   constructor(private http: HttpClient) { }
 
-  authenticationService(un: string, pw: string) {
-    return this.http.get(baseUrl, { headers: { authorization: this.createBasicAuthToken(un, pw) } }).pipe(map((res) => {
-      this.username = un;
-      this.password = pw;
-      this.registerSuccessfulLogin(this.username, this.password);
-    }));
+  authenticationService(un: string, pw: string): Observable<Token> {
+    return this.http.post<Token>(baseUrl, { "username": un, "password": pw }, httpOptions)
+
+
   }
 
   createBasicAuthToken(username: String, password: String) {
@@ -41,6 +43,7 @@ export class AuthServiceService {
 
   registerSuccessfulLogin(username: string, password: string) {
     sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, username)
+
   }
 
   logout() {
@@ -52,6 +55,7 @@ export class AuthServiceService {
 
   isUserLoggedIn() {
     let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
+    console.log("isUserLoggedIn: " + user)
     if (user === null) {
       return false;
     }
