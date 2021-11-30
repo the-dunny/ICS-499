@@ -36,7 +36,8 @@ import { HttpInterceptorService } from './services/http-interceptor/http-interce
     BrowserAnimationsModule,
     MatSortModule,
     FlexLayoutModule,
-    MatDialogModule
+    MatDialogModule,
+    FormsModule
   ],
 
   entryComponents: [

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthServiceService } from 'src/app/services/auth-service/auth-service.service';
+import { UserServiceService } from 'src/app/services/user-service/user-service.service';
 
 @Component({
   selector: 'app-register',
@@ -8,9 +9,10 @@ import { AuthServiceService } from 'src/app/services/auth-service/auth-service.s
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  username: string;
-  password: string;
-  password2: string;
+  @Input() username: string;
+  @Input() password: string;
+  @Input() password2: string;
+
   token?: string;
   errorMessage = 'Not matching Passwords';
   successMessage: string;
@@ -19,8 +21,9 @@ export class RegisterComponent implements OnInit {
   constructor(
    private route: ActivatedRoute,
    private router: Router,
+   private userServiceService: UserServiceService,
    private authenticationService: AuthServiceService) {   }
-
+    
   ngOnInit() {
   }
   handleRegistration(){
@@ -28,11 +31,12 @@ export class RegisterComponent implements OnInit {
       this.invalidRegister = true;
       return;
     }
+    this.userServiceService.addUser(this.username, this.password).subscribe((result));
     this.authenticationService.authenticationService(this.username, this.password).subscribe((result)=> {
       this.invalidRegister = false;
       this.validRegister = true;
-      this.successMessage = 'Login Successful.';
-      this.router.navigate(['bestScores']);
+      this.successMessage = 'User Created, Login Successful.';
+      this.router.navigate(['newGame']);
     }, () => {
       this.invalidRegister = true;
       this.validRegister = false;
