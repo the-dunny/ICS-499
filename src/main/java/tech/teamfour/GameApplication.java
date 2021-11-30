@@ -32,7 +32,7 @@ public class GameApplication {
 
     }
 
-/*    @Bean
+    @Bean
     public CorsFilter corsFilter() {
 
 	UrlBasedCorsConfigurationSource urlBasedCorsConifgSource = new UrlBasedCorsConfigurationSource();
@@ -52,7 +52,7 @@ public class GameApplication {
 	return new CorsFilter(urlBasedCorsConifgSource);
 
 
-    }*/
+    }
 
 }
 
