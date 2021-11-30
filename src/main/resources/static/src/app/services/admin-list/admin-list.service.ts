@@ -6,12 +6,14 @@ import { Player } from 'src/app/models/player/player.model';
 
 const baseUrl = 'http://localhost:8082/player/all';
 const deleteUrl = 'http://localhost:8082/player/delete';
+const changeRoleUrl = 'http://localhost:8082/player/changeRole';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
+
  
 
   
@@ -31,6 +33,21 @@ export class AdminService {
        observe: 'response'
      })
        .toPromise();
+
+  }
+
+  async changePlayerRole(playerId: any, nRole: string): Promise<any> {
+
+
+    await this.http.get(changeRoleUrl, {
+      params: {
+        id: playerId.toString(),
+        newRole: nRole
+
+      },
+      observe: 'response'
+    })
+      .toPromise();
 
   }
 

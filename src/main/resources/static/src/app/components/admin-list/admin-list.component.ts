@@ -19,9 +19,8 @@ import { AdminService } from "../../services/admin-list/admin-list.service";
 export class AdminListComponent implements OnInit {
 
 
-
   // columns we will show on the table
-  public displayedColumns = [ 'Action', 'PlayerID', 'Username', 'Active', 'Role'];
+  public displayedColumns = ['Action', 'PlayerID', 'Username', 'Active', 'Role', 'ChangeRole'];
   //the source where we will get the data
   public dataSource = new MatTableDataSource<Player>();
 
@@ -124,6 +123,38 @@ export class AdminListComponent implements OnInit {
       }
     });
   }
+
+
+  openDialogRoleChange(id: any, uName: string, role: string) {
+
+    if(role === "ROLE_USER"){
+      role = "ROLE_ADMIN"
+    }else{
+      role = "ROLE_USER"
+    }
+
+
+    let dialogRef = this.dialog.open(DialogComponentRole, {
+      data: { name: uName, plID: id , newRole: role  }
+    });
+
+
+    dialogRef.afterClosed().subscribe(async result => {
+      this.dialog.closeAll();
+      if (result) {
+        await this.adminservice.changePlayerRole(id, role);
+        // save current route first
+        const currentRoute = this.router.url;
+
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate([currentRoute]); // navigate to same route
+
+        });
+      }
+    });
+  }
+
+
 }
 
 
@@ -135,6 +166,18 @@ export class AdminListComponent implements OnInit {
 export class DialogComponent {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: { name: string, plID: any }) { }
+
+}
+
+
+@Component({
+  selector: 'dialog-component-role',
+  templateUrl: './dialog-component-role.html',
+  template: 'passed in {{data}}  '
+})
+export class DialogComponentRole {
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { name: string, plID: any , newRole: string }) { }
 
 }
 

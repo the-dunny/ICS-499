@@ -118,4 +118,10 @@ public class PlayerController {
         playerService.deleterPlayer(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    
+    @RequestMapping(path = "player/changeRole")
+    public ResponseEntity<Player> changePlayerRole(@RequestParam long id, @RequestParam String newRole){
+        playerService.changePlayerRole(id, newRole);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
