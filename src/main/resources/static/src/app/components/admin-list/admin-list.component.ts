@@ -21,7 +21,7 @@ export class AdminListComponent implements OnInit {
 
 
   // columns we will show on the table
-  public displayedColumns = ['PlayerID', 'Username', 'Active', 'Role', 'Action'];
+  public displayedColumns = [ 'Action', 'PlayerID', 'Username', 'Active', 'Role'];
   //the source where we will get the data
   public dataSource = new MatTableDataSource<Player>();
 

@@ -63,10 +63,19 @@ public class PlayerController {
     }
     
     
+    @RequestMapping(path = "player/addAdmin" )
+    public ResponseEntity<Player> createAdmin(@RequestParam String username, @RequestParam String password){
+       playerService.addPlayer(new Player(
+               0L, username, password, 999, true, "ROLE_ADMIN"
+       ));
+        return new ResponseEntity(HttpStatus.CREATED);
+    }
+    
+    
     @GetMapping("player/addBatchTestData")
     public ResponseEntity<Player> createBatchOfPlayers() {   
     	
-    	for( int i = 2; i < 255; i++) {
+    	for( int i = 0; i < 255; i++) {
     		
     		Random rand = new Random();
     		char c = (char) ('a' + rand.nextInt(26));
@@ -76,7 +85,27 @@ public class PlayerController {
     		String batchPassword = "password" +String.valueOf(i);
     		int  batchScore = 100 + rand.nextInt(10000);
     	
-            Player batchPlayer = new Player(batchId, batchName,batchPassword,batchScore, true, "ROLE_USER");
+            Player batchPlayer = new Player(batchId, batchName, bCryptPasswordEncoder.encode(batchPassword),batchScore, true, "ROLE_USER");
+
+            playerService.addPlayer(batchPlayer);
+    	}
+        
+    	 return new ResponseEntity(HttpStatus.CREATED);
+    }
+    @GetMapping("player/addBatchAdmins")
+    public ResponseEntity<Player> createBatchOfAdmins() {   
+    	
+    	for( int i = 0; i < 5; i++) {
+    		
+    		Random rand = new Random();
+    		
+    		
+    		long batchId = 0L;
+    		String batchName = "admin" + String.valueOf(i);	
+    		String batchPassword = "admin" +String.valueOf(i);
+    		int  batchScore = 100 + rand.nextInt(10000);
+    	
+            Player batchPlayer = new Player(batchId, batchName,bCryptPasswordEncoder.encode(batchPassword),batchScore, true, "ROLE_ADMIN");
 
             playerService.addPlayer(batchPlayer);
     	}

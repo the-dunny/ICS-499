@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import { AuthServiceService } from './services/auth-service/auth-service.service';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +7,5 @@ import { AuthServiceService } from './services/auth-service/auth-service.service
 })
 export class AppComponent {
   title = 'LineGame';
+  
 }

@@ -19,6 +19,8 @@ export class LoginComponent implements OnInit {
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
+
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -28,6 +30,8 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     if(this.tokenStorage.getCurrentToken()){
       this.isLoggedIn = true;
+      this.router.navigateByUrl(this.authenticationService.getRedirectUrl());
+      
     }
   }
 
@@ -38,15 +42,17 @@ export class LoginComponent implements OnInit {
         console.log(data.token)
         this.tokenStorage.saveToken(data.token)
         this.tokenStorage.saveSessionUser(username)
-
         this.isLoginFailed = false;
         this.isLoggedIn = true;
+        this.router.navigateByUrl(this.authenticationService.getRedirectUrl());
+       
       },
       err =>{
         this.errorMessage = err.error.message;
         this.isLoginFailed = true;
       }
     )
+ 
   }
 
 }
