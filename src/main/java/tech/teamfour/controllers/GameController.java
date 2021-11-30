@@ -11,7 +11,7 @@ import tech.teamfour.services.GameServce;
 import tech.teamfour.services.GameServceImpl;
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600, allowedHeaders={"x-auth-token", "x-requested-with", "x-xsrf-token"})
+@CrossOrigin(origins = "*", maxAge = 3600, allowedHeaders={"x-auth-token", "x-requested-with", "x-xsrf-token", "Authorization"})
 public class GameController {
     final GameServce gameServce;
 
