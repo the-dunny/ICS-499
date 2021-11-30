@@ -54,6 +54,7 @@ public class PlayerController {
         return new ResponseEntity(playerService.getPlayers(), HttpStatus.OK);
     }
 
+
     @RequestMapping(path = "player/add" )
     public ResponseEntity<Player> createPlayer(@RequestParam String username, @RequestParam String password){
        playerService.addPlayer(new Player(
@@ -66,7 +67,7 @@ public class PlayerController {
     @RequestMapping(path = "player/addAdmin" )
     public ResponseEntity<Player> createAdmin(@RequestParam String username, @RequestParam String password){
        playerService.addPlayer(new Player(
-               0L, username, password, 999, true, "ROLE_ADMIN"
+               0L, username, bCryptPasswordEncoder.encode(password), 999, true, "ROLE_ADMIN"
        ));
         return new ResponseEntity(HttpStatus.CREATED);
     }
