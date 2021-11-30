@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators'
+import { Token } from 'src/app/models/token/token.model';
 const baseUrl = 'http://localhost:8082/authenticate';
 
 const httpOptions = {
@@ -21,8 +22,8 @@ export class AuthServiceService {
 
   constructor(private http: HttpClient) { }
 
-  authenticationService(un: string, pw: string){
-    return this.http.post(baseUrl, {"username":un, "password":pw}, httpOptions)
+  authenticationService(un: string, pw: string):Observable<Token>{
+    return this.http.post<Token>(baseUrl, {"username":un, "password":pw}, httpOptions)
   }
 
   createBasicAuthToken(username: String, password: String) {

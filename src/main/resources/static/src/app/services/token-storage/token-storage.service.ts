@@ -28,6 +28,10 @@ export class TokenStorageService {
     window.sessionStorage.setItem(USER, user)
   }
 
+  public getBearerToken(): string{
+    return `Bearer ` + this.getCurrentToken();
+  }
+
   public getUser(): any{
     const user = window.sessionStorage.getItem(USER)
     if(user){return JSON.parse(user)}

@@ -55,8 +55,10 @@ public class SecurityController {
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         Player p = playerService.getPlayerByName(user.getName());
         String role = p.getRoles();
+        String[] roles = new String[1];
+        roles[0] = role;
         map.put("username", user.getName());
-        map.put("roles", role);
+        map.put("roles", roles);
         return map;
     }
 

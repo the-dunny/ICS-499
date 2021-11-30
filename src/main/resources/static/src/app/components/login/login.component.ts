@@ -1,5 +1,7 @@
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Token } from 'src/app/models/token/token.model';
 import { AuthServiceService } from 'src/app/services/auth-service/auth-service.service';
 import { TokenStorageService } from 'src/app/services/token-storage/token-storage.service';
 
@@ -33,7 +35,9 @@ export class LoginComponent implements OnInit {
     const { username, password } = this.form;
     this.authenticationService.authenticationService(username, password).subscribe(
       data => {
-        console.log(data.toString)
+        console.log(data.token)
+        this.tokenStorage.saveToken(data.token)
+        this.tokenStorage.saveSessionUser(username)
 
         this.isLoginFailed = false;
         this.isLoggedIn = true;
