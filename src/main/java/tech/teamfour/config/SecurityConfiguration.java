@@ -57,7 +57,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         httpSecurity.csrf().disable().cors().and()
                 // dont authenticate this particular request
 
-                .authorizeRequests().antMatchers("/authenticate", "/game/**").permitAll().
+        .authorizeRequests().antMatchers("/authenticate", "/game/**", "/player/add").permitAll().
                 
 
                 // all other requests need to be authenticated
