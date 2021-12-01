@@ -31,4 +31,11 @@ export class AppComponent implements OnInit {
     return true;
   }
 
+  lO(){
+    localStorage.clear();
+    this.unloggedIn == null;
+    this.username == null;
+    location.reload()
+  }
+
 }
