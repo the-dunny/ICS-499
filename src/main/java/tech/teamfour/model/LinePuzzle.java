@@ -330,9 +330,9 @@ public class LinePuzzle {
 		if (i != 0) display += "-----";
 		display += mainGrid.getVertexes().get(i).get(j);
 	    }
-	    if (j < mainGrid.getVertexes().size() - 1) display += "\n|\s\s";
+	    //if (j < mainGrid.getVertexes().size() - 1) display += "\n|\s\s";
 	    for (int k = 0; k < innerGrid.getVertexes().size(); k++) {
-		if (j < innerGrid.getVertexes().size()) display += innerGrid.getVertexes().get(k).get(j) + "\s\s|\s\s";
+		//if (j < innerGrid.getVertexes().size()) display += innerGrid.getVertexes().get(k).get(j) + "\s\s|\s\s";
 	    }
 	    display += "\n";
 	}
