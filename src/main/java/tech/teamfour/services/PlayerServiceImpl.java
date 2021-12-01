@@ -91,4 +91,15 @@ public class PlayerServiceImpl implements PlayerService{
         }
         return false;
     }
+	
+
+	@Override
+	public void changePlayerRole(long id, String newRole) {
+		if(checkExistance(id)) {
+		       Player p = getPlayer(id);
+	            p.setRoles(newRole);
+	            playerRepo.save(p);
+		}
+		
+	}
 }

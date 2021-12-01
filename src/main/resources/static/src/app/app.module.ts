@@ -11,7 +11,7 @@ import {NewGameComponent} from './components/new-game/new-game.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSortModule} from '@angular/material/sort';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import { AdminListComponent, DialogComponent } from './components/admin-list/admin-list.component';
+import { AdminListComponent, DialogComponent, DialogComponentRole } from './components/admin-list/admin-list.component';
 import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { LoginComponent } from './components/login/login.component';
 import { HttpInterceptorService } from './services/http-interceptor/http-interceptor-service.service';
@@ -26,6 +26,7 @@ import { AuthDialogComponent } from './auth/auth.guard';
     ScoreListComponent,
     NewGameComponent,
     DialogComponent,
+    DialogComponentRole,
     LoginComponent,
     AdminListComponent,
     AuthDialogComponent
@@ -46,6 +47,7 @@ import { AuthDialogComponent } from './auth/auth.guard';
 
   entryComponents: [
     DialogComponent,
+    DialogComponentRole,
     AuthDialogComponent
   ],
 

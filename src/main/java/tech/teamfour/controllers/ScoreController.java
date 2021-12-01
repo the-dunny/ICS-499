@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tech.teamfour.services.PlayerService;
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600, allowedHeaders={"x-auth-token", "x-requested-with", "x-xsrf-token", "Authorization"})
+@CrossOrigin(origins = "*")
 public class ScoreController {
 
     PlayerService ps;

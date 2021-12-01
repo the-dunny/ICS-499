@@ -33,7 +33,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600, allowedHeaders={"x-auth-token", "x-requested-with", "x-xsrf-token", "Authorization"})
+@CrossOrigin(origins = "http://localhost:4200")
 public class SecurityController {
 
     @Autowired

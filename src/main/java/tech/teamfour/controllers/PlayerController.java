@@ -15,7 +15,7 @@ import java.security.Principal;
 import java.util.Random;
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600, allowedHeaders={"x-auth-token", "x-requested-with", "x-xsrf-token", "Authorization"})
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class PlayerController {
 
     final PlayerService playerService;
@@ -117,6 +117,12 @@ public class PlayerController {
     @RequestMapping(path = "player/delete")
     public ResponseEntity<Player> deletePlayer(@RequestParam long id){
         playerService.deleterPlayer(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    
+    @RequestMapping(path = "player/changeRole")
+    public ResponseEntity<Player> changePlayerRole(@RequestParam long id, @RequestParam String newRole){
+        playerService.changePlayerRole(id, newRole);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
