@@ -1,6 +1,7 @@
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AppComponent } from 'src/app/app.component';
 import { Token } from 'src/app/models/token/token.model';
 import { AuthServiceService } from 'src/app/services/auth-service/auth-service.service';
 import { TokenStorageService } from 'src/app/services/token-storage/token-storage.service';
@@ -25,7 +26,8 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthServiceService,
-    private tokenStorage: TokenStorageService) {   }
+    private tokenStorage: TokenStorageService,
+    private main: AppComponent) {   }
 
   ngOnInit(): void {
     if(this.tokenStorage.getCurrentToken()){
@@ -44,8 +46,8 @@ export class LoginComponent implements OnInit {
         this.tokenStorage.saveSessionUser(username)
         this.isLoginFailed = false;
         this.isLoggedIn = true;
+        this.main.setLoggedIn();
         this.router.navigateByUrl(this.authenticationService.getRedirectUrl());
-       
       },
       err =>{
         this.errorMessage = err.error.message;

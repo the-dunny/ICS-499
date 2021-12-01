@@ -33,8 +33,6 @@ export class AuthServiceService {
 
   authenticationService(un: string, pw: string): Observable<Token> {
     return this.http.post<Token>(baseUrl, { "username": un, "password": pw }, httpOptions)
-
-
   }
 
   createBasicAuthToken(username: String, password: String) {
