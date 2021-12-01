@@ -1,4 +1,5 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import { TokenStorageService } from './services/token-storage/token-storage.service';
 
 
 @Component({
@@ -6,12 +7,28 @@ import {Component} from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'LineGame';
-  unloggedIn: boolean = true;
+  unloggedIn: string | null= localStorage.getItem('curr-user');
+  username: string | null = localStorage.getItem('curr-user');
+
+  constructor(private tokenStorage: TokenStorageService){}
+
+  ngOnInit(): void {
+    this.unloggedIn = localStorage.getItem('curr-user');
+    this.username = localStorage.getItem('curr-user');
+  }
 
   setLoggedIn():void{
-    this.unloggedIn = false;
+    this.unloggedIn = localStorage.getItem('curr=user');
   }
   
+  checkLoginStatus(){
+    if(this.tokenStorage.getUser != null){
+      this.unloggedIn = localStorage.getItem('curr-user');
+      return false;
+    }
+    return true;
+  }
+
 }

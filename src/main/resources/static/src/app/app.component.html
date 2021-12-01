@@ -8,13 +8,17 @@
       <li class="nav-item">
         <a routerLink="bestScores" class="nav-link">Best Scores</a>
       </li>
-      <li class="nav-item">
-        <a *ngIf="unloggedIn" routerLink="login" class="nav-link">Log In</a>
-      </li>
     </div>
-  </nav>
-
-
+    <ul class="nav navbar-nav navbar-right">
+      <li class="navbar-nav navbar-right" style="text-align: left;">
+        <a *ngIf="unloggedIn != null" routerLink="login" class="nav-link">Log In</a>
+      </li>
+      <li class="navbar-nav navbar-right" style="text-align: left;">
+        <a *ngIf="unloggedIn == null" class="nav-link">{{username}}</a>
+        <a *ngIf="unloggedIn == null" class="nav-link">Log Out</a>
+      </li>
+  </ul>
+</nav>
       <div class="container mt-3">
         <router-outlet>
         </router-outlet>
@@ -23,7 +27,7 @@
   <footer id="footer" class="footer footer-dark bg-dark">
     <div class = "navbar-nav mr-auto" style="text-align: center" >
       <li class="footer-item">
-        <a routerLink="admin-list" style="color: rgba(255,255,255,.5);;" class="footer-link">Admin.</a>
+        <a routerLink="admin-list" style="color: rgba(255,255,255,.5);;" class="footer-link">Admin Center</a>
       </li>
     </div>
   </footer>

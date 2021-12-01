@@ -40,7 +40,7 @@ export class AuthServiceService {
   }
 
   registerSuccessfulLogin(username: string, password: string) {
-    sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, username)
+    localStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, username)
 
   }
 
@@ -52,7 +52,7 @@ export class AuthServiceService {
   }
 
   isUserLoggedIn() {
-    let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
+    let user = localStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
     console.log("isUserLoggedIn: " + user)
     if (user === null) {
       return false;
@@ -76,12 +76,12 @@ export class AuthServiceService {
   }
 
   async getRole(): Promise<string> {
-    return sessionStorage.getItem(this.USER_ROLE_SESSION_ATTRIBUTE_NAME)!;
+    return localStorage.getItem(this.USER_ROLE_SESSION_ATTRIBUTE_NAME)!;
 
   }
 
   getLoggedInUserName() {
-    let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
+    let user = localStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
     if (user === null) return '';
     return user;
   }
@@ -95,6 +95,6 @@ export class AuthServiceService {
 
   async setRole(): Promise<void> {
     const response = (await this.http.get<Role>(roleUrl).toPromise()).roles;
-    sessionStorage.setItem(this.USER_ROLE_SESSION_ATTRIBUTE_NAME, response);
+    localStorage.setItem(this.USER_ROLE_SESSION_ATTRIBUTE_NAME, response);
   }
 }
