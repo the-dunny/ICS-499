@@ -1,0 +1,14 @@
+.register{
+    align-items: center;
+    color: aqua;
+    padding: 2px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.register:hover{
+    opacity: 70%;
+}
+
+.newhead{
+    text-align: center;
+}

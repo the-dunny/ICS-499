@@ -47,8 +47,10 @@ export class LoginComponent implements OnInit {
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.main.unloggedIn = username;
-        location.reload();
-        this.router.navigateByUrl(this.authenticationService.getRedirectUrl());
+        let x = this.authenticationService.getRedirectUrl();
+        location.reload
+        this.router.navigateByUrl(x);
+        
       },
       err =>{
         this.errorMessage = err.error.message;
@@ -57,6 +59,8 @@ export class LoginComponent implements OnInit {
     )
  
   }
+  
+
   newUser(){
     this.router.navigate(['/register']);
   }

@@ -39,6 +39,7 @@ export class AdminListComponent implements OnInit {
 
 
   ngOnInit() {
+    
     this.retrievePlayers();
   }
   retrievePlayers() {
