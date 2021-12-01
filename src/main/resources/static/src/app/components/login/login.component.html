@@ -16,10 +16,8 @@
             <input type="password" class="form-control" [(ngModel)]="password" id="password" placeholder="Enter password"
               name="password">
           </div>
-          <li class="nav-item">
-            <a routerLink="../register" class="nav-link">Register</a>
-          </li>
-          <button (click)=handleLogin() class="btn btn-success">Login</button>
+          <button (click)=handleLogin() class="btn btn-success" style="margin-right: 10px;">Login</button>
+          <button (click)=newUser() class="btn btn-success">New User</button>
         </form>
       </div>
     </div>

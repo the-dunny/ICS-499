@@ -31,7 +31,7 @@ export class RegisterComponent implements OnInit {
       this.invalidRegister = true;
       return;
     }
-    this.userServiceService.addUser(this.username, this.password).subscribe((result));
+    this.userServiceService.addUser(this.username, this.password);
     this.authenticationService.authenticationService(this.username, this.password).subscribe((result)=> {
       this.invalidRegister = false;
       this.validRegister = true;
