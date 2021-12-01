@@ -5,6 +5,7 @@ import { NewGameComponent } from './components/new-game/new-game.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './auth/auth.guard';
 import { AdminListComponent } from './components/admin-list/admin-list.component';
+import { RegisterComponent } from './components/register/register/register.component';
 
 
 const routes: Routes = [
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: 'newGame', component: NewGameComponent },
   { canActivate: [AuthGuard], path: 'bestScores', component: ScoreListComponent },
   {canActivate: [AuthGuard], path: 'admin-list', component: AdminListComponent},
-  { path: 'login', component: LoginComponent }
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent }
 
 ];
 
