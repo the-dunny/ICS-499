@@ -41,16 +41,15 @@ export class LoginComponent implements OnInit {
     const { username, password } = this.form;
     this.authenticationService.authenticationService(username, password).subscribe(
       data => {
+        var x = this.authenticationService.getRedirectUrl();
         console.log(data.token)
         this.tokenStorage.saveToken(data.token)
         this.tokenStorage.saveSessionUser(username)
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.main.unloggedIn = username;
-        let x = this.authenticationService.getRedirectUrl();
-        location.reload
+        location.reload();
         this.router.navigateByUrl(x);
-        
       },
       err =>{
         this.errorMessage = err.error.message;
@@ -60,7 +59,6 @@ export class LoginComponent implements OnInit {
  
   }
   
-
   newUser(){
     this.router.navigate(['/register']);
   }
