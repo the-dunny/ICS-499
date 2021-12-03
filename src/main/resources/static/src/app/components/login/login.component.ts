@@ -47,8 +47,6 @@ export class LoginComponent implements OnInit {
         this.tokenStorage.saveSessionUser(username)
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        this.main.unloggedIn = username;
-        location.reload();
         this.router.navigateByUrl(x);
       },
       err =>{

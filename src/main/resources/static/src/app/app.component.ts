@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import { Observable } from 'rxjs';
 import { TokenStorageService } from './services/token-storage/token-storage.service';
 
 
@@ -9,33 +10,19 @@ import { TokenStorageService } from './services/token-storage/token-storage.serv
 })
 export class AppComponent implements OnInit {
   title = 'LineGame';
-  unloggedIn: string | null= localStorage.getItem('curr-user');
-  username: string | null = localStorage.getItem('curr-user');
+  LoginStatus$ : Observable<boolean>;
+  UserName$ : Observable<string>;
 
   constructor(private tokenStorage: TokenStorageService){}
 
   ngOnInit(): void {
-    this.unloggedIn = localStorage.getItem('curr-user');
-    this.username = localStorage.getItem('curr-user');
-  }
-
-  setLoggedIn():void{
-    this.unloggedIn = localStorage.getItem('curr=user');
-  }
-  
-  checkLoginStatus(){
-    if(this.tokenStorage.getUser != null){
-      this.unloggedIn = localStorage.getItem('curr-user');
-      return false;
-    }
-    return true;
+    this.LoginStatus$ = this.tokenStorage.isLoggesIn;
+    this.UserName$ = this.tokenStorage.currentDisplayName;
   }
 
   lO(){
     localStorage.clear();
-    this.unloggedIn == null;
-    this.username == null;
-    location.reload()
+    this.tokenStorage.signOut();
   }
 
 }
