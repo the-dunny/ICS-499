@@ -4,8 +4,8 @@
     <div class="card">
       <div class="card-body">
         <form class="form-group">
-          <div class="alert alert-warning" *ngIf='invalidRegister'>{{errorMessage}}</div>
-          <div class="alert alert-success" *ngIf='validRegister'>{{successMessage}}</div>
+          <div class="alert alert-warning"><p *ngIf='invalidRegister'>{{errorMessage}}</p></div>
+          <div class="alert alert-success"><p *ngIf='validRegister'>{{successMessage}}</p></div>
           <div class="form-group">
             <label for="email">User Name :</label>
             <input type="text" class="form-control" id="username" [value]="username" placeholder="Enter User Name"

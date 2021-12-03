@@ -14,5 +14,4 @@ public class Score {
     private String userName;
     private int bestScore;
 
- 
 }
