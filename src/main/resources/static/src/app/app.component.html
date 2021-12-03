@@ -1,6 +1,6 @@
 <div>
   <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <a href="#" class="navbar-brand">Castle Life</a>
+    <a href="#" class="navbar-brand"><img src="./assets/images/castlebrand.png"></a>
     <div class="navbar-nav mr-auto">
       <li class="nav-item">
         <a routerLink="newGame" class="nav-link">New Game</a>
@@ -16,8 +16,8 @@
       <li class="navbar-nav navbar-right" *ngIf="!(LoginStatus$ | async) as LoginStatus" style="text-align: left;">
         <button type="menu" *ngIf="LoginStatus" routerLink="login" class="btn-block">Log In</button>
       </li>
-      <li class="navbar-nav navbar-right" *ngIf="(LoginStatus$ | async) as LoginStatus" style="text-align: left;">
-        <a class="nav-link" *ngIf="(UserName$ | async) as UserName">{{UserName | uppercase}}</a>
+      <li class="nav-item" *ngIf="(LoginStatus$ | async) as LoginStatus">
+        <a class="nav-link" *ngIf="(UserName$ | async) as UserName" routerLink="bestScores">{{UserName | uppercase}}</a>
       </li>
       <li class="nav-item" *ngIf="(LoginStatus$ | async) as LoginStatus">
         <button type="menu" (click)="lO()" *ngIf="LoginStatus">Log Out</button>
