@@ -12,3 +12,13 @@
 .newhead{
     text-align: center;
 }
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0px;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    width: 38%;
+  }
