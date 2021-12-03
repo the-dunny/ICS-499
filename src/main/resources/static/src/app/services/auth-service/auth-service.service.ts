@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import {Observable } from 'rxjs';
 import { Role } from 'src/app/models/role/role.modle';
 import { Token } from 'src/app/models/token/token.model';
 
@@ -26,6 +26,9 @@ export class AuthServiceService {
   // store the URL so we can redirect after logging in
   redirectUrl: string = "";
   admin: boolean = false;
+
+
+  
 
 
 
@@ -53,7 +56,6 @@ export class AuthServiceService {
 
   isUserLoggedIn() {
     let user = localStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
-    console.log("isUserLoggedIn: " + user)
     if (user === null) {
       return false;
     }
@@ -97,4 +99,5 @@ export class AuthServiceService {
     const response = (await this.http.get<Role>(roleUrl).toPromise()).roles;
     localStorage.setItem(this.USER_ROLE_SESSION_ATTRIBUTE_NAME, response);
   }
+
 }
