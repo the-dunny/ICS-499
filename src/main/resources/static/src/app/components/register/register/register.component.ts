@@ -31,15 +31,21 @@ export class RegisterComponent implements OnInit {
       this.invalidRegister = true;
       return;
     }
-    this.userServiceService.addUser(this.username, this.password);
-    this.authenticationService.authenticationService(this.username, this.password).subscribe((result)=> {
-      this.invalidRegister = false;
-      this.validRegister = true;
-      this.successMessage = 'User Created, Login Successful.';
-      this.router.navigate(['newGame']);
-    }, () => {
-      this.invalidRegister = true;
-      this.validRegister = false;
-    }); 
-  }
+    this.userServiceService.addUser(this.username, this.password).subscribe((res => {
+
+      console.log(res);
+
+
+    }));
+   
+  //   this.authenticationService.authenticationService(this.username, this.password).subscribe((result)=> {
+  //     this.invalidRegister = false;
+  //     this.validRegister = true;
+  //     this.successMessage = 'User Created, Login Successful.';
+  //     this.router.navigate(['newGame']);
+  //   }, () => {
+  //     this.invalidRegister = true;
+  //     this.validRegister = false;
+  //   }); 
+   }
 }

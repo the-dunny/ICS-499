@@ -17,6 +17,7 @@ import { LoginComponent } from './components/login/login.component';
 import { HttpInterceptorService } from './services/http-interceptor/http-interceptor-service.service';
 import { CommonModule } from '@angular/common';
 import { AuthDialogComponent } from './auth/auth.guard';
+import { RegisterComponent } from './components/register/register/register.component';
 
 
 
@@ -29,7 +30,8 @@ import { AuthDialogComponent } from './auth/auth.guard';
     DialogComponentRole,
     LoginComponent,
     AdminListComponent,
-    AuthDialogComponent
+    AuthDialogComponent,
+    RegisterComponent
   ],
 
   imports: [
