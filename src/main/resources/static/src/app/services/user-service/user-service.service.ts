@@ -11,8 +11,17 @@ export class UserServiceService {
 
   constructor(private http: HttpClient) { }
 
-  addUser(un : string , pwd : string) : Observable<Player> {
-    return this.http.post<Player>(baseURL, {username : un, pwd});
+  addUser(un : string , pwd : string)  {
+    return this.http.post(baseURL, {
+      params: {
+        username: un,
+        password: pwd
+
+      },
+      observe: 'response'
+    })
+    
+
     
   }
 }
