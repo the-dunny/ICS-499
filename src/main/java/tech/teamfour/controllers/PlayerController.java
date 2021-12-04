@@ -3,10 +3,12 @@ package tech.teamfour.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-
+import tech.teamfour.jwt.JwtRequestModel;
+import tech.teamfour.jwt.JwtResponseModel;
 import tech.teamfour.model.Player;
 import tech.teamfour.services.PlayerService;
 import tech.teamfour.services.PlayerServiceImpl;
@@ -37,6 +39,16 @@ public class PlayerController {
     public ResponseEntity getPlayerByName(@PathVariable("un") String un){
         return new ResponseEntity(playerService.getPlayerByName(un), HttpStatus.OK);
     }
+    
+    @GetMapping("player/checkUn")
+    public ResponseEntity  checkUn(@RequestParam("username") String uName) {
+    	if (playerService.checkExistanceByName(uName)){
+    	  return  ResponseEntity.ok("true");}	
+    	else return  ResponseEntity.ok("false");
+    }
+    
+    
+    
 
     @RequestMapping("player/{id}/setHighScore")
     public ResponseEntity setHighSCore(@PathVariable("id") long id, @RequestParam("score") int score){
@@ -54,13 +66,13 @@ public class PlayerController {
         return new ResponseEntity(playerService.getPlayers(), HttpStatus.OK);
     }
 
-
-    @RequestMapping(path = "player/add" )
-    public ResponseEntity<Player> createPlayer(@RequestParam String username, @RequestParam String password){
-       playerService.addPlayer(new Player(
-               0L, username, bCryptPasswordEncoder.encode(password), 999, true, "ROLE_USER"
-       ));
-        return new ResponseEntity(HttpStatus.CREATED);
+    
+    @PostMapping("player/add")
+    public ResponseEntity<Player>  createPlayer(@RequestBody JwtRequestModel request) throws Exception{
+    	  playerService.addPlayer(new Player(
+                  0L, request.getUsername(), bCryptPasswordEncoder.encode(request.getPassword()), 999, true, "ROLE_USER"
+          ));
+    	  return new ResponseEntity(HttpStatus.OK);
     }
     
     

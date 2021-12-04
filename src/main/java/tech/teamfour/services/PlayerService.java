@@ -15,5 +15,7 @@ public interface PlayerService {
     public List<Score> getHighScores();
     public void setHighScore(int score, Long id);
     public Player getPlayerByName(String name);
+    public boolean checkExistanceByName(String name);
+    
 	
 }
