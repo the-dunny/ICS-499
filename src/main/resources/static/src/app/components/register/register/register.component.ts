@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthServiceService } from 'src/app/services/auth-service/auth-service.service';
 import { UserServiceService } from 'src/app/services/user-service/user-service.service';
@@ -9,43 +10,70 @@ import { UserServiceService } from 'src/app/services/user-service/user-service.s
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  @Input() username: string;
-  @Input() password: string;
-  @Input() password2: string;
 
-  token?: string;
-  errorMessage = 'Not matching Passwords';
-  successMessage: string;
+
+  form: any = {
+    username: null,
+    password: null,
+    password2: null
+  }
+
+  errorMessage = '';
   invalidRegister = false;
   validRegister = false;
+  repeat = false;
   constructor(
-   private route: ActivatedRoute,
-   private router: Router,
-   private userServiceService: UserServiceService,
-   private authenticationService: AuthServiceService) {   }
-    
+    public dialog: MatDialog,
+    private router: Router,
+    private userServiceService: UserServiceService
+   ) { }
+
   ngOnInit() {
+
   }
-  handleRegistration(){
-    if(this.password != this.password2){
+  async handleRegistration() {
+    const { username, password, password2 } = this.form;
+
+    if (password != password2) {
+      this.errorMessage = 'Password does not match.';
       this.invalidRegister = true;
       return;
     }
-    this.userServiceService.addUser(this.username, this.password).subscribe((res => {
 
-      console.log(res);
+    if ((await this.userServiceService.checkUserName(username)).toString() === "true") {
+      this.errorMessage = 'That Username already exists.';
+      this.invalidRegister = true;
+      return;
+    }
+
+    this.userServiceService.addUser(username, password).subscribe(data =>{
+      console.log(data);
+    });
+
+    this.invalidRegister = false;
+    this.validRegister = true;
+    this.openDialog(username);
+    this.router.navigate(['login']);
+
+  }
+
+  openDialog(uName: string) {
+    let dialogRef = this.dialog.open(MessageComponent, {
+      data: { name: uName}
+    });
+
+  }
+
+}
 
 
-    }));
-   
-  //   this.authenticationService.authenticationService(this.username, this.password).subscribe((result)=> {
-  //     this.invalidRegister = false;
-  //     this.validRegister = true;
-  //     this.successMessage = 'User Created, Login Successful.';
-  //     this.router.navigate(['newGame']);
-  //   }, () => {
-  //     this.invalidRegister = true;
-  //     this.validRegister = false;
-  //   }); 
-   }
+@Component({
+  selector: 'message-component',
+  templateUrl: './message-component.html',
+  template: 'passed in {{data}}  '
+})
+export class MessageComponent {
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { name: string}) { }
+
 }

@@ -58,7 +58,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // dont authenticate this particular request
 
 
-                .authorizeRequests().antMatchers("/authenticate", "/game/**", "/player/add").permitAll().
+                .authorizeRequests().antMatchers("/authenticate", "/game/**","/player/checkUn", "/player/add").permitAll().
 
                 
 

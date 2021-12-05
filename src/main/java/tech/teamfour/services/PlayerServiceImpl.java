@@ -91,6 +91,15 @@ public class PlayerServiceImpl implements PlayerService{
         }
         return false;
     }
+    
+    @Override
+	public boolean checkExistanceByName(String name){
+        if(this.playerRepo.findByUserName(name) != null){
+            return true;
+        }
+        return false;
+    }
+
 	
 
 	@Override

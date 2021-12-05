@@ -9,7 +9,7 @@ const baseUrl = 'http://localhost:8082/authenticate';
 const roleUrl = 'http://localhost:8082/user/roles';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json'})
 };
 @Injectable({
   providedIn: 'root'
