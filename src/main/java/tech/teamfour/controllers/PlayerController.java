@@ -22,6 +22,7 @@ public class PlayerController {
 
     final PlayerService playerService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private static long PID = 0;
 
     @Autowired
     public PlayerController(PlayerServiceImpl playerService, BCryptPasswordEncoder bcpe) {
@@ -70,8 +71,9 @@ public class PlayerController {
     @PostMapping("player/add")
     public ResponseEntity<Player>  createPlayer(@RequestBody JwtRequestModel request) throws Exception{
     	  playerService.addPlayer(new Player(
-                  0L, request.getUsername(), bCryptPasswordEncoder.encode(request.getPassword()), 999, true, "ROLE_USER"
+                  PID, request.getUsername(), bCryptPasswordEncoder.encode(request.getPassword()), 999, true, "ROLE_USER"
           ));
+          PID++;
     	  return new ResponseEntity(HttpStatus.OK);
     }
     
