@@ -12,7 +12,7 @@ import {NewGameService} from '../../services/new-game/new-game.service';
 
 export class NewGameComponent implements OnInit {
 
-  gridSize?: number = 9;
+  gridSize?: number = 3;
   linePuzzle?: LinePuzzle;
   travelVertexes?: Array<Array<Point>>;
   zoneVertexes?: Array<Array<Point>>;
