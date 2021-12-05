@@ -110,14 +110,14 @@ export function drawLinePuzzle(LinePuzzle, service) {
     function drawStart(x, y) {
         var y = size - 1 - y;
         var x_off = 90;
-        var y_off = 80;
+        var y_off = 95;
         if (startGridCanvas.getContext) {
             var startContext = startGridCanvas.getContext("2d");
             x = (x * scale) + x_off - 10;
             y = (y * scale) + y_off - 10;
             startContext.fillStyle = "orange";
             startContext.beginPath();
-            startContext.arc(x, y, 40, 0, Math.PI * 2, false);
+            startContext.arc(x, y, 30, 0, Math.PI * 2, false);
             startContext.closePath();
             startContext.fill()
         }
@@ -126,14 +126,14 @@ export function drawLinePuzzle(LinePuzzle, service) {
     function drawEnd(x, y, c) {
         var y = size - 1 - y;
         var x_off = 60;
-        var y_off = 80;
+        var y_off = 95;
         if (endGridCanvas.getContext) {
             var endContext = endGridCanvas.getContext("2d");
             x = (x * scale) + x_off - 10;
             y = (y * scale) + y_off - 10;
             endContext.fillStyle = c;
             endContext.beginPath();
-            endContext.arc(x, y, 40, 0, Math.PI * 2, false);
+            endContext.arc(x, y, 30, 0, Math.PI * 2, false);
             endContext.closePath();
             endContext.fill()
         }
@@ -234,6 +234,8 @@ export function drawLinePuzzle(LinePuzzle, service) {
                 pathContext.closePath();
                 pathContext.stroke();
                 pathContext.fill();
+                if (path.line[i].x == travelGrid.end.x && path.line[i].y == travelGrid.end.y) drawEnd(travelGrid.end.x, travelGrid.end.y, "orange");
+                //implement sleep?
             }
         }
     }
