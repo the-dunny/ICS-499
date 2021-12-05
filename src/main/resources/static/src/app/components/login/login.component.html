@@ -1,23 +1,41 @@
-
-<div class="container col-lg-6">
-    <h1 class="text-center">Login</h1>
-    <div class="card">
-      <div class="card-body">
-        <form class="form-group">
-          <div class="alert alert-warning" *ngIf='invalidLogin'>{{errorMessage}}</div>
-          <div class="alert alert-success" *ngIf='loginSuccess'>{{successMessage}}</div>
-          <div class="form-group">
-            <label for="email">User Name :</label>
-            <input type="text" class="form-control" id="username" [(ngModel)]="username" placeholder="Enter User Name"
-              name="username">
-          </div>
-          <div class="form-group">
-            <label for="pwd">Password:</label>
-            <input type="password" class="form-control" [(ngModel)]="password" id="password" placeholder="Enter password"
-              name="password">
-          </div>
-          <button (click)=handleLogin() class="btn btn-success">Login</button>
-        </form>
+<div class="col-md-12">
+  <div class="card card-container">
+    <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" name="username" [(ngModel)]="form.username" required
+          #username="ngModel"/>
+        <div class="alert alert-danger" role="alert" *ngIf="username.errors && f.submitted">
+          Username is required!
+        </div>
       </div>
-    </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" name="password" [(ngModel)]="form.password" required minlength="2"
+          #password="ngModel" />
+        <div class="alert alert-danger" role="alert" *ngIf="password.errors && f.submitted">
+          <div *ngIf="password.errors.required">Password is required</div>
+          <div *ngIf="password.errors.minlength">
+            Password must be at least 2 characters
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary btn-block">
+          Login
+        </button>
+        
+      </div>
+      <div class="form-group">
+        <div class="alert alert-danger" role="alert" *ngIf="f.submitted && isLoginFailed">
+          Login failed: {{ errorMessage }}
+        </div>
+      </div>
+      
+    </form>
+    <h1 class="newhead">New to Castle Life?</h1>
+    <button (click)=newUser() class="register">Register</button>
   </div>
+  <p><br><br><br></p>
+  <img class="center" src="./assets/images/castlelogin.png" alt="castle login">
+</div>

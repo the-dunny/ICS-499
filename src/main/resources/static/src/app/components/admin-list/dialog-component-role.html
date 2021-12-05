@@ -1,0 +1,16 @@
+<h2 mat-dialog-title style="color: red;">WARNING!</h2>
+
+<div mat-dialog-content> The role will be changed for:
+  <br>
+  <br> PlayerID: {{data.plID}}
+  <br> Username: {{data.name}}
+  <br>
+  <br> New Role will be: {{data.newRole}}
+  <br>
+  <br> Change the role?
+</div>
+
+<div mat-dialog-actions>
+  <button  mat-button [mat-dialog-close]="true"> Yes </button>
+  <button style="margin:50px;" mat-button [mat-dialog-close]="false"> No </button>
+</div>

@@ -9,7 +9,7 @@ const baseUrl = 'http://localhost:8082/score/highscores';
   providedIn: 'root'
 })
 export class ScoreService {
-
+  
   constructor(private http: HttpClient) { }
 
   getHighScores(): Observable<Score[]> {

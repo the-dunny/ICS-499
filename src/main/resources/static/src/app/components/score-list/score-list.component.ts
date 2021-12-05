@@ -40,6 +40,7 @@ export class ScoreListComponent implements OnInit {
 
 
   ngOnInit() {
+   
     this.retrievescore();
   }
 

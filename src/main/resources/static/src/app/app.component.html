@@ -1,6 +1,6 @@
 <div>
   <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <a href="#" class="navbar-brand">Game of Lines</a>
+    <a href="#" class="navbar-brand"><img src="./assets/images/castlebrand.png"></a>
     <div class="navbar-nav mr-auto">
       <li class="nav-item">
         <a routerLink="newGame" class="nav-link">New Game</a>
@@ -8,24 +8,31 @@
       <li class="nav-item">
         <a routerLink="bestScores" class="nav-link">Best Scores</a>
       </li>
-      <li class="nav-item">
-        <a routerLink="login" class="nav-link">Log In</a>
-      </li>
-
     </div>
+    <ul class="nav navbar-nav navbar-right">
+      <li class="nav-item" *ngIf="!(LoginStatus$ | async) as LoginStatus">
+        <a class="nav-link " *ngIf="LoginStatus" routerLink="register">Register</a>
+      </li>
+      <li class="navbar-nav navbar-right" *ngIf="!(LoginStatus$ | async) as LoginStatus" style="text-align: left;">
+        <button type="menu" *ngIf="LoginStatus" routerLink="login" class="btn-block">Log In</button>
+      </li>
+      <li class="nav-item" *ngIf="(LoginStatus$ | async) as LoginStatus">
+        <a class="nav-link" *ngIf="(UserName$ | async) as UserName" routerLink="bestScores">{{UserName | uppercase}}</a>
+      </li>
+      <li class="nav-item" *ngIf="(LoginStatus$ | async) as LoginStatus">
+        <button type="menu" (click)="lO()" *ngIf="LoginStatus">Log Out</button>
+      </li>
+    </ul>
   </nav>
-
-
-      <div class="container mt-3">
-        <router-outlet>
-        </router-outlet>
-      </div>
- 
+  <div class="container mt-3">
+    <router-outlet>
+    </router-outlet>
+  </div>
 
   <footer id="footer" class="footer footer-dark bg-dark">
-    <div class = "navbar-nav mr-auto" style="text-align: center" >
+    <div class="navbar-nav mr-auto" style="text-align: center">
       <li class="footer-item">
-        <a routerLink="admin" style="color: rgba(255,255,255,.5);;" class="footer-link">Admin.</a>
+        <a routerLink="admin-list" style="color: rgba(255,255,255,.5);;" class="footer-link">Admin Center</a>
       </li>
     </div>
   </footer>

@@ -3,11 +3,12 @@ package tech.teamfour.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AbstractAuthenticationToken;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-
+import tech.teamfour.jwt.JwtRequestModel;
+import tech.teamfour.jwt.JwtResponseModel;
 import tech.teamfour.model.Player;
 import tech.teamfour.services.PlayerService;
 import tech.teamfour.services.PlayerServiceImpl;
@@ -19,12 +20,13 @@ import java.util.Random;
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class PlayerController {
 
-    final
-    PlayerService playerService;
+    final PlayerService playerService;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public PlayerController(PlayerServiceImpl playerService) {
+    public PlayerController(PlayerServiceImpl playerService, BCryptPasswordEncoder bcpe) {
         this.playerService = playerService;
+        this.bCryptPasswordEncoder = bcpe;
     }
 
     @GetMapping("player/{id}")
@@ -37,6 +39,16 @@ public class PlayerController {
     public ResponseEntity getPlayerByName(@PathVariable("un") String un){
         return new ResponseEntity(playerService.getPlayerByName(un), HttpStatus.OK);
     }
+    
+    @GetMapping("player/checkUn")
+    public ResponseEntity  checkUn(@RequestParam("username") String uName) {
+    	if (playerService.checkExistanceByName(uName)){
+    	  return  ResponseEntity.ok("true");}	
+    	else return  ResponseEntity.ok("false");
+    }
+    
+    
+    
 
     @RequestMapping("player/{id}/setHighScore")
     public ResponseEntity setHighSCore(@PathVariable("id") long id, @RequestParam("score") int score){
@@ -54,10 +66,20 @@ public class PlayerController {
         return new ResponseEntity(playerService.getPlayers(), HttpStatus.OK);
     }
 
-    @RequestMapping(path = "player/add" )
-    public ResponseEntity<Player> createPlayer(@RequestParam String username, @RequestParam String password){
+    
+    @PostMapping("player/add")
+    public ResponseEntity<Player>  createPlayer(@RequestBody JwtRequestModel request) throws Exception{
+    	  playerService.addPlayer(new Player(
+                  0L, request.getUsername(), bCryptPasswordEncoder.encode(request.getPassword()), 999, true, "ROLE_USER"
+          ));
+    	  return new ResponseEntity(HttpStatus.OK);
+    }
+    
+    
+    @RequestMapping(path = "player/addAdmin" )
+    public ResponseEntity<Player> createAdmin(@RequestParam String username, @RequestParam String password){
        playerService.addPlayer(new Player(
-               0L, username, password, 999, true, "ROLE_USER"
+               0L, username, bCryptPasswordEncoder.encode(password), 999, true, "ROLE_ADMIN"
        ));
         return new ResponseEntity(HttpStatus.CREATED);
     }
@@ -66,7 +88,7 @@ public class PlayerController {
     @GetMapping("player/addBatchTestData")
     public ResponseEntity<Player> createBatchOfPlayers() {   
     	
-    	for( int i = 2; i < 255; i++) {
+    	for( int i = 0; i < 255; i++) {
     		
     		Random rand = new Random();
     		char c = (char) ('a' + rand.nextInt(26));
@@ -76,7 +98,27 @@ public class PlayerController {
     		String batchPassword = "password" +String.valueOf(i);
     		int  batchScore = 100 + rand.nextInt(10000);
     	
-            Player batchPlayer = new Player(batchId, batchName,batchPassword,batchScore, true, "ROLE_USER");
+            Player batchPlayer = new Player(batchId, batchName, bCryptPasswordEncoder.encode(batchPassword),batchScore, true, "ROLE_USER");
+
+            playerService.addPlayer(batchPlayer);
+    	}
+        
+    	 return new ResponseEntity(HttpStatus.CREATED);
+    }
+    @GetMapping("player/addBatchAdmins")
+    public ResponseEntity<Player> createBatchOfAdmins() {   
+    	
+    	for( int i = 0; i < 5; i++) {
+    		
+    		Random rand = new Random();
+    		
+    		
+    		long batchId = 0L;
+    		String batchName = "admin" + String.valueOf(i);	
+    		String batchPassword = "admin" +String.valueOf(i);
+    		int  batchScore = 100 + rand.nextInt(10000);
+    	
+            Player batchPlayer = new Player(batchId, batchName,bCryptPasswordEncoder.encode(batchPassword),batchScore, true, "ROLE_ADMIN");
 
             playerService.addPlayer(batchPlayer);
     	}
@@ -87,6 +129,12 @@ public class PlayerController {
     @RequestMapping(path = "player/delete")
     public ResponseEntity<Player> deletePlayer(@RequestParam long id){
         playerService.deleterPlayer(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    
+    @RequestMapping(path = "player/changeRole")
+    public ResponseEntity<Player> changePlayerRole(@RequestParam long id, @RequestParam String newRole){
+        playerService.changePlayerRole(id, newRole);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

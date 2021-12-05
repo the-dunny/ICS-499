@@ -6,13 +6,15 @@ import { Player } from 'src/app/models/player/player.model';
 
 const baseUrl = 'http://localhost:8082/player/all';
 const deleteUrl = 'http://localhost:8082/player/delete';
+const changeRoleUrl = 'http://localhost:8082/player/changeRole';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
-  deleted: boolean;
+
+ 
 
   
 
@@ -22,17 +24,30 @@ export class AdminService {
     return this.http.get<Player[]>(baseUrl);
   }
 
-   deletePlayer(playerId: any): Promise<any>{
+   async deletePlayer(playerId: any): Promise<any>{
 
-   return  this.http.get(deleteUrl, {
+   await this.http.get(deleteUrl, {
+       params: {
+         id: playerId.toString()
+       },
+       observe: 'response'
+     })
+       .toPromise();
+
+  }
+
+  async changePlayerRole(playerId: any, nRole: string): Promise<any> {
+
+
+    await this.http.get(changeRoleUrl, {
       params: {
-        id: playerId.toString()
+        id: playerId.toString(),
+        newRole: nRole
+
       },
       observe: 'response'
     })
-      .toPromise()
-      .then(() => {
-      });
+      .toPromise();
 
   }
 

@@ -1,5 +1,4 @@
 
-
 table {
     width: 100%;
     font-family: arial, sans-serif;
@@ -17,9 +16,12 @@ table {
     font-size: 14px;
     width: 100%;
   }
-  
 
-  tr:hover {
+  tr.mat-row:hover{    
     background: rgb(126, 124, 124);
   }
-  
+
+  .adminContainer {
+
+    background-color: white;
+  }
