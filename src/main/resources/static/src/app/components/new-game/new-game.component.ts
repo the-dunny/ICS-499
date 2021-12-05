@@ -1,21 +1,33 @@
 import {Component, OnInit} from '@angular/core';
+import {LinePuzzle} from 'src/app/models/line-puzzle/line-puzlle.model';
+import {Point} from 'src/app/models/point/point.model';
+import {drawLinePuzzle} from 'src/assets/js/drawLinePuzzle';
 import {NewGameService} from '../../services/new-game/new-game.service';
-// import {drawLinePuzzle} from '../../../assets/js/drawLinePuzzle';
 
 @Component({
   selector: 'app-new-game',
   templateUrl: './new-game.component.html',
   styleUrls: ['./new-game.component.css']
 })
+
 export class NewGameComponent implements OnInit {
 
-  constructor(private newGameService: NewGameService) { }
+  gridSize?: number = 3;
+  linePuzzle?: LinePuzzle;
+  travelVertexes?: Array<Array<Point>>;
+  zoneVertexes?: Array<Array<Point>>;
 
+  constructor(private newGameService: NewGameService) { }
+  
   ngOnInit(): void {
-    this.retrieveGame();
+    this.initGame();
   }
 
-  retrieveGame(): void {
-    // drawLinePuzzle(6);
+  initGame(): void {
+    this.newGameService.getNewGame(this.gridSize!).forEach(element => {
+        this.linePuzzle = element;
+    }).then(() => {
+      drawLinePuzzle(this.linePuzzle, this.newGameService);
+    });
   }
 }

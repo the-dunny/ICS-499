@@ -1,7 +1,11 @@
 <head>
   <link rel="import" href="../../../assets/js/drawLinePuzzle.js">
 </head>
-<body onload="drawLinePuzzle(6)">
+<body>
+  <div id="legend">
+    <b>Controls:</b> Arrow Keys<br>
+    <b>Goal:</b> Collect all the purple stars while also keeping the black and while zones seperated by the orange line.
+  </div>
   <div id="linePuzzleContainer">
     <canvas id="mazeGridCanvas" width="750" height="750"></canvas>
     <canvas id="startGridCanvas" width="880" height="880"></canvas>
@@ -9,5 +13,6 @@
     <canvas id="pointGridCanvas" width="800" height="800"></canvas>
     <canvas id="zoneGridCanvas" width="800" height="800"></canvas>
     <canvas id="pathGridCanvas" width="800" height="800"></canvas>
+    <canvas id="deadGridCanvas" width="800" height="800"></canvas>
   </div>
 </body>

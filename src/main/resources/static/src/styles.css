@@ -19,6 +19,9 @@
     height: 4rem;            /* Footer height */
   }
 
+  #content-wrap > app-root > div > nav {
+    max-height: 51px;
+  }
 
 /* 
   .castle{

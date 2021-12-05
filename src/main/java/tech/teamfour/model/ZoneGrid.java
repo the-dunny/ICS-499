@@ -86,4 +86,13 @@ public class ZoneGrid extends Grid {
 
 	return temp;
     }
+    
+    public void unVisit() {
+	for (List<Point> row : getVertexes()) {
+	    for (Point point : row) {
+		point.setVisited(false);
+	    }
+	}
+    }
+    
 }

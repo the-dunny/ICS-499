@@ -29,6 +29,21 @@ public class LinePuzzle {
     public void generate() {
 	primsMaze();
 	pointsAndZones();
+
+	boolean w_zone = false;
+	boolean b_zone = false;
+	for (List<Point> row : innerGrid.getVertexes()) {
+	    for (Point point : row) {
+		if (point.getZone() == 1) w_zone = true;
+		if (point.getZone() == 2) b_zone = true;
+	    }
+	}
+
+	// if puzzle is too simple, make a new one.
+	if (!w_zone || !b_zone) {
+	    reset();
+	    generate();
+	}
     }
 
     /**
@@ -83,14 +98,15 @@ public class LinePuzzle {
      */
     public void pointsAndZones() {
 	Line path = randomValidPath();
-	int probability = 12 - (13 - mainGrid.getVertexes().size());
+	int probability = 11 - (13 - mainGrid.getVertexes().size());
+	//probability = 1; // debug
 	for (Point point : path.getLine()) {
 	    Random rand = new Random();
 	    if (rand.nextInt(probability) == 0) {
 		mainGrid.getPoint(point.getX(), point.getY()).setRequired(true);
 	    }
 	}
-	// TODO ZONES
+
 	ArrayList<ArrayList<Point>> zones = randomZones(path);
 	for (ArrayList<Point> zone : zones) {
 	    for (int j = 0; j < zone.size(); j++) {
@@ -221,7 +237,7 @@ public class LinePuzzle {
 	    for (int j = 0; j < size; j++) {
 		x = i;
 		y = j;
-		if (mainGrid.getPoint(x, y).getZone() == 0) {
+		if (zg.getPoint(x, y).getZone() == 0) {
 		    zoneSearch(zg, zones.get(1), pathList, zg.getPoint(x, y), 2);
 		    i = j = size;
 		}
@@ -240,7 +256,7 @@ public class LinePuzzle {
     public ArrayList<Point> zoneSearch(ZoneGrid zg, ArrayList<Point> zone, ArrayList<Point> pathList, Point point, int flag) {
 	int x = point.getX();
 	int y = point.getY();
-	if (point.getZone() == 0) point.setZone(flag);
+
 	if (zg.checkUp(point)) {
 	    int distance = pathList.indexOf(mainGrid.getPoint(point.getX(), point.getY() + 1)) - pathList.indexOf(mainGrid.getPoint(x + 1, y + 1));
 	    point.setVisited(true);
@@ -284,12 +300,61 @@ public class LinePuzzle {
     }
 
     /**
-     * Returns true if the puzzle is valid.
+     * Returns true if point belongs in zone.
+     * @param pathList is the given path that the zone is cut from.
+     * @param point is the starting point.
+     * @param flag is the type of zone.
      */
-    public boolean validatePuzzle() {
-	if (mainGrid.getPoint(mainGrid.getVertexes().size() - 2, 0).isDead() && mainGrid.getPoint(mainGrid.getVertexes().size() - 1, 1).isDead() 
-		|| mainGrid.getPoint(0, mainGrid.getVertexes().size() - 1).isDead() && mainGrid.getPoint(1, mainGrid.getVertexes().size() - 1).isDead()) {
-	    return false;
+    public boolean zoneCheck(ArrayList<Point> pathList, Point point, int flag) {
+	int x = point.getX();
+	int y = point.getY();
+	if (point.getZone() != 0 && point.getZone() != flag) return false;
+	if (innerGrid.checkUp(point)) {
+	    int distance = pathList.indexOf(mainGrid.getPoint(point.getX(), point.getY() + 1)) - pathList.indexOf(mainGrid.getPoint(x + 1, y + 1));
+	    point.setVisited(true);
+	    if (distance != 1 && distance != -1) {
+		if (point.getZone() == 0 || point.getZone() == flag) {
+		    if (!zoneCheck(pathList, innerGrid.getUp(point), flag)) return false;
+		} else {
+		    return false;
+		}
+	    }
+	}
+
+	if (innerGrid.checkDown(point)) {
+	    int distance = pathList.indexOf(mainGrid.getPoint(point.getX(), point.getY())) - pathList.indexOf(mainGrid.getPoint(x + 1, y));
+	    point.setVisited(true);
+	    if (distance != 1 && distance != -1) {
+		if (point.getZone() == 0 || point.getZone() == flag) {
+		    if (!zoneCheck(pathList, innerGrid.getDown(point), flag)) return false;
+		} else {
+		    return false;
+		}
+	    }
+	}
+
+	if (innerGrid.checkLeft(point)) {
+	    int distance = pathList.indexOf(mainGrid.getPoint(point.getX(), point.getY())) - pathList.indexOf(mainGrid.getPoint(x, y + 1));
+	    point.setVisited(true);	    
+	    if (distance != 1 && distance != -1) {
+		if (point.getZone() == 0 || point.getZone() == flag) {
+		    if (!zoneCheck(pathList, innerGrid.getLeft(point), flag)) return false;
+		} else {
+		    return false;
+		}
+	    } 
+	}
+
+	if (innerGrid.checkRight(point)) {
+	    int distance = pathList.indexOf(mainGrid.getPoint(point.getX() + 1, point.getY() + 1)) - pathList.indexOf(mainGrid.getPoint(x + 1, y));
+	    point.setVisited(true);	    
+	    if (distance != 1 && distance != -1) {
+		if (point.getZone() == 0 || point.getZone() == flag) {
+		    if (!zoneCheck(pathList, innerGrid.getRight(point), flag)) return false;
+		} else {
+		    return false;
+		}
+	    }  
 	}
 	return true;
     }
@@ -297,7 +362,20 @@ public class LinePuzzle {
     /**
      * Returns true if the puzzle is valid.
      */
+    public boolean validatePuzzle() {
+	if (mainGrid.getStart().isDead() && mainGrid.getPoint(mainGrid.getVertexes().size() - 1, 1).isDead() 
+		|| mainGrid.getPoint(0, mainGrid.getVertexes().size() - 1).isDead() && mainGrid.getPoint(1, mainGrid.getVertexes().size() - 1).isDead()) {
+	    return false;
+	}
+	return true;
+    }
+
+    /**
+     * Returns true if the puzzle is solved.
+     */
     public boolean isComplete() {
+	boolean complete = true;
+	if (!mainGrid.getEnd().isVisited()) return false;
 	for (List<Point> row : mainGrid.getVertexes()) {
 	    for (Point point : row) {
 		if (point.isRequired() && !point.isVisited()) {
@@ -305,7 +383,29 @@ public class LinePuzzle {
 		}
 	    }
 	}
-	return true;
+
+	ArrayList<Point> pathList = new ArrayList<Point>();
+
+	for (Point point : path.getLine()) {
+	    point = mainGrid.getPoint(point.getX(), point.getY());
+	    pathList.add(point);
+	}
+
+	pathList.add(pathList.get(0));
+	pathList.remove(0);
+
+	innerGrid.unVisit();
+	for (List<Point> row : innerGrid.getVertexes()) {
+	    for (Point point : row) {
+		if (point.getZone() != 0) {
+		    if(!zoneCheck(pathList, point, point.getZone())) {
+			complete = false;
+		    }
+		}
+	    }
+	}
+	innerGrid.unVisit();
+	return complete;
     }
 
     /**
@@ -319,7 +419,15 @@ public class LinePuzzle {
 		}
 	    }
 	}
-	return mainGrid.getStart();
+	path.getLine().clear();
+	mainGrid.setLocation(new Point(mainGrid.getStart()));
+	this.path.getLine().push(mainGrid.getLocation());
+	return mainGrid.getLocation();
+    }
+
+    public void reset() {
+	this.mainGrid = new TravelGrid(mainGrid.getVertexes().size());
+	this.innerGrid = new ZoneGrid(mainGrid.getVertexes().size());
     }
 
     @Override

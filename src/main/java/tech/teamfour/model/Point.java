@@ -31,9 +31,9 @@ public class Point {
     public Point(Point point) {
 	this.setX(point.getX());
 	this.setY(point.getY());
-	this.setVisited(false);
-	this.setRequired(false);
-	this.setDead(true);
+	this.setVisited(point.isVisited());
+	this.setRequired(point.isRequired());
+	this.setDead(point.isDead());
 	this.setStart(false);
 	this.setEnd(false);
 	this.setZone(0);
@@ -90,17 +90,17 @@ public class Point {
 //	if (zone == 1) return "A,A"; // debug
 //	if (zone == 2) return "B,B"; // debug
 //	if (required) return "!,!"; // debug
-//	return x + "," + y; // debug
+	return x + "," + y; // debug
 	
 	// ---
 	
-	if (zone == 1) return "A";
-	if (zone == 2) return "B";
-	if (start) return "S";
-	if (end) return "E";
-	if (dead) return "X";
-	if (visited) return "#";
-	if (required) return "!";
-	return "O";
+//	if (zone == 1) return "A";
+//	if (zone == 2) return "B";
+//	if (start) return "S";
+//	if (end) return "E";
+//	if (dead) return "X";
+//	if (visited) return "#";
+//	if (required) return "!";
+//	return "O";
     }
 }

@@ -12,6 +12,7 @@ public class Grid {
     protected List<List<Point>> vertexes;
     protected Point start;
     protected Point end;
+    protected Point location;
 
     public ArrayList<List<Point>> generateGrid(int size) {
 	return null;
