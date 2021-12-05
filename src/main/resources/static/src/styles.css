@@ -19,6 +19,10 @@
     height: 2.5rem;            /* Footer height */
   }
 
+  #content-wrap > app-root > div > nav {
+    max-height: 51px;
+  }
+
 /* 
   .castle{
     background-image: url(/assets/images/castle);
