@@ -91,6 +91,9 @@ export function drawLinePuzzle(LinePuzzle, service) {
     function drawTravelGrid() {
         if (mazeGridCanvas.getContext) {
             var mazeContext = mazeGridCanvas.getContext('2d');
+            mazeContext.strokeStyle = '#161617';
+            mazeContext.lineWidth = 40;
+            mazeContext.beginPath();
             for (var x = 0; x < scale * size; x += scale) {
                 mazeContext.moveTo(x, 0);
                 mazeContext.lineTo(x, scale * size);
@@ -99,9 +102,7 @@ export function drawLinePuzzle(LinePuzzle, service) {
                 mazeContext.moveTo(0, y);
                 mazeContext.lineTo(scale * size, y);
             }
-
-            mazeContext.strokeStyle = '#161617';
-            mazeContext.lineWidth = 40;
+            mazeContext.closePath();
             mazeContext.stroke();
         }
     }

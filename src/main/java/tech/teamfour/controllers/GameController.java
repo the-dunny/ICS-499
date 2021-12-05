@@ -1,5 +1,7 @@
 package tech.teamfour.controllers;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +34,7 @@ public class GameController {
 	boolean wasMoveSuccessful = gameServce.validatePlayerMove(keyPressed);
 	if(wasMoveSuccessful) {
 	    if(gameServce.checkGameStatus() == GameStateEnum.FINISHED) {
-		return new ResponseEntity<>(gameServce.getNewPuzzle(9), HttpStatus.OK);
+		return new ResponseEntity<>(gameServce.getNewPuzzle(ThreadLocalRandom.current().nextInt(3, 9)), HttpStatus.OK);
 	    }
 	    return new ResponseEntity<>(gameServce.getUpdatedPuzzle(), HttpStatus.OK);
 	} else {
