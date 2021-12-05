@@ -26,6 +26,7 @@ public class TravelGrid extends Grid {
 		}
 		else if (x == size && y == start_offset) {
 		    this.start = new Point(x, y, 0);
+		    this.location = new Point(this.start);
 		    row.add(this.start);
 		}
 		else row.add(new Point(x, y));   

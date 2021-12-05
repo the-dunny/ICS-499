@@ -25,25 +25,39 @@ public class GameContext implements Notifiable {
     @Autowired
     public GameContext(LinePuzzle puzzle) {
 	this.game = puzzle;
-	this.path = puzzle.getPath();
+	this.path = game.getPath();
 	game.generate();
-	setLocation(game.getMainGrid().getStart());
+	setLocation(game.getMainGrid().getLocation());
 	game.getMainGrid().getStart().setVisited(true);
+	path.getLine().push(game.getMainGrid().getLocation());
 	this.end = game.getMainGrid().getEnd();
 	this.timer = new Timer(this, 0);
 	timer.start();
     }
 
-    private void changeLocation() {
-	if(game.getMainGrid().getPoint(location).isVisited() == true) {
+    public boolean ChangeLocation() {
+	if (game.getMainGrid().getPoint(location).isVisited() == true) {
 	    Point lastLocation = path.getLine().pop();
 	    path.getLine().pop();
 	    game.getMainGrid().getPoint(lastLocation).setVisited(false);
 	}
+
 	game.getMainGrid().getPoint(location).setVisited(true);
+
+	if (end.isVisited()) {
+	    if (!game.isComplete()) {
+		game.retry();
+		setLocation(game.getMainGrid().getLocation());
+		game.getMainGrid().getStart().setVisited(true);
+		System.out.println("Invalid Solution");
+	    } else {
+		return true;
+	    }
+	}
+	return false;
     }
 
-    public boolean move(String nextLine) throws InterruptedException {
+    public boolean Move(String nextLine) throws InterruptedException {
 	switch (nextLine.toUpperCase()) {
 	case "UP":
 	    if (game.getMainGrid().checkUp(path, location)) {
@@ -54,7 +68,7 @@ public class GameContext implements Notifiable {
 		return false;
 	    } break;
 
-	case "DOWN":
+	case "DOWN": 
 	    if (game.getMainGrid().checkDown(path, location)) {
 		path.getLine().push(new Point(location));
 		location.setY(location.getY() - 1);
@@ -63,7 +77,7 @@ public class GameContext implements Notifiable {
 		return false;
 	    } break;
 
-	case "LEFT":
+	case "LEFT": 
 	    if (game.getMainGrid().checkLeft(path, location)) {
 		path.getLine().push(new Point(location));
 		location.setX(location.getX() - 1);
@@ -86,7 +100,7 @@ public class GameContext implements Notifiable {
 	return true;
     }
 
-    public int getTime(){
+    public int getTime() {
 	return this.timer.getTimeValue();
     }
 

@@ -27,7 +27,7 @@ export class NewGameComponent implements OnInit {
     this.newGameService.getNewGame(this.gridSize!).forEach(element => {
         this.linePuzzle = element;
     }).then(() => {
-      drawLinePuzzle(this.linePuzzle);
+      drawLinePuzzle(this.linePuzzle, this.newGameService);
     });
   }
 }

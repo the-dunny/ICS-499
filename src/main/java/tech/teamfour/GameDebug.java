@@ -13,10 +13,11 @@ public class GameDebug {
 
     public GameDebug(LinePuzzle puzzle) {
 	this.game = puzzle;
-	this.path = new Line();
+	this.path = game.getPath();
 	game.generate();
 	setLocation(game.getMainGrid().getStart());
 	game.getMainGrid().getStart().setVisited(true);
+	path.getLine().push(game.getMainGrid().getStart());
 	this.end = game.getMainGrid().getEnd();
     }
 
@@ -26,6 +27,7 @@ public class GameDebug {
 	    System.out.println("S is the Start, E is the end, O are points you can travel on, ! are required points, # are traveled points and X is unpassable");
 	    if (Move(scanner.nextLine()))
 		ChangeLocation();
+	    System.out.println(path);
 	    if (end.isVisited()) {
 		if (!game.isComplete()) {
 		    setLocation(game.retry());
