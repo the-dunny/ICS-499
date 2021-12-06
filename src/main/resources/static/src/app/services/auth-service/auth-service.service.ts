@@ -27,11 +27,6 @@ export class AuthServiceService {
   redirectUrl: string = "";
   admin: boolean = false;
 
-
-  
-
-
-
   constructor(private http: HttpClient) { }
 
   authenticationService(un: string, pw: string): Observable<Token> {
@@ -73,13 +68,10 @@ export class AuthServiceService {
 
     // return this.admin;
     return this.admin;
-
-
   }
 
   async getRole(): Promise<string> {
     return localStorage.getItem(this.USER_ROLE_SESSION_ATTRIBUTE_NAME)!;
-
   }
 
   getLoggedInUserName() {
@@ -87,9 +79,8 @@ export class AuthServiceService {
     if (user === null) return '';
     return user;
   }
-  setRedirectUrl(url: string) {
-
-    this.redirectUrl = url;
+  async setRedirectUrl(url: string) {
+     this.redirectUrl = url;
   }
   getRedirectUrl(): string {
     return this.redirectUrl;

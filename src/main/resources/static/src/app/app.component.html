@@ -20,7 +20,7 @@
         <a class="nav-link" *ngIf="(UserName$ | async) as UserName" routerLink="bestScores">{{UserName | uppercase}}</a>
       </li>
       <li class="nav-item" *ngIf="(LoginStatus$ | async) as LoginStatus">
-        <button type="menu" (click)="lO()" *ngIf="LoginStatus">Log Out</button>
+        <button routerLink="login" type="menu" (click)="lO()" *ngIf="LoginStatus" >Log Out</button>
       </li>
     </ul>
   </nav>
