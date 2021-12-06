@@ -1,3 +1,8 @@
 .nav-item-right{
     text-align: left;
 }
+
+.copyright{
+    font-size: xx-small;
+    color: rgba(255,255,255,.5)
+}
