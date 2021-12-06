@@ -21,4 +21,17 @@
     background-attachment: fixed;
     background-repeat: no-repeat;
     width: 38%;
-  }
+}
+
+.card {
+    border: solid black;
+    padding: 15px;
+    width: 565px;
+    height: 795px;
+    margin: auto;
+}
+
+.card > img {
+    width: fit-content;
+    margin-top: auto;
+}

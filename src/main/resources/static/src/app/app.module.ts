@@ -18,6 +18,7 @@ import { HttpInterceptorService } from './services/http-interceptor/http-interce
 import { CommonModule } from '@angular/common';
 import { AuthDialogComponent } from './auth/auth.guard';
 import { MessageComponent, RegisterComponent } from './components/register/register/register.component';
+import { AboutComponent } from './components/about/about.component';
 
 
 
@@ -32,7 +33,8 @@ import { MessageComponent, RegisterComponent } from './components/register/regis
     LoginComponent,
     AdminListComponent,
     AuthDialogComponent,
-    RegisterComponent
+    RegisterComponent,
+    AboutComponent
   ],
 
   imports: [

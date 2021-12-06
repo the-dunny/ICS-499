@@ -4,6 +4,8 @@
     width:280px;
     padding:10px;
     border: black 5px solid;
+    background: #343a40;
+    color: rgba(255,255,255,.75);
 }
 
 #linePuzzleContainer {
@@ -12,7 +14,7 @@
 
 #mazeGridCanvas { 
     border: 20px solid #161617;
-    background-color:rgb(143, 180, 248);
+    background-color:gray;
 }
 
 #linePuzzleContainer, #mazeGridCanvas, #startGridCanvas, #endGridCanvas, #pointGridCanvas, #zoneGridCanvas, #pathGridCanvas, #deadGridCanvas { 

@@ -19,7 +19,9 @@ th.mat-sort-header-sorted {
 }
 
 .scoreContainer{
-
   background-color: white;
+  border: solid black;
+  padding: 15px;
+  max-height: 795px;
 }
 
