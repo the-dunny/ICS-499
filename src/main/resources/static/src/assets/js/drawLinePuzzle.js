@@ -7,13 +7,14 @@ export function drawLinePuzzle(LinePuzzle, service) {
     var zoneGridCanvas = document.getElementById('zoneGridCanvas');
     var pathGridCanvas = document.getElementById('pathGridCanvas');
 
+    var uniqueID = LinePuzzle.uniqueID;
     var travelGrid = LinePuzzle.mainGrid;
     var zoneGrid = LinePuzzle.innerGrid;
     var path = LinePuzzle.path;
     var size = travelGrid.vertexes.length;
     var scale;
-
-    console.log(travelGrid); // debug
+    var lineColor = "#E35B19";
+    var allowSound = true;
 
     // Draw Line Puzzle
     setScale(size);
@@ -42,23 +43,33 @@ export function drawLinePuzzle(LinePuzzle, service) {
         service.updateCurrentGame(key).forEach(element => {
             LinePuzzle = element;
         }).then(() => {
+            if (LinePuzzle.uniqueID != uniqueID) {
+                play("complete");
+            } else if (LinePuzzle.uniqueID == uniqueID && LinePuzzle.path.line.length == 1 && path.line.length != 2) {
+                play("restart");
+            } else if (LinePuzzle.path.line.length != path.line.length) {
+                play("move");
+            }
+            uniqueID = LinePuzzle.uniqueID;
             travelGrid = LinePuzzle.mainGrid;
             zoneGrid = LinePuzzle.innerGrid;
             path = LinePuzzle.path;
             size = travelGrid.vertexes.length;
             setScale(size);
             drawLinePuzzle();
+        }).catch(() => {
+            play("wall");
         });
     }
 
     function drawLinePuzzle() {
-        console.log(travelGrid); // debug
+        setBackgroundColor(size);
         clearCanvas();
         drawTravelGrid();
         drawPath(path);
         drawStart(travelGrid.start.x, travelGrid.start.y);
         drawEnd(travelGrid.end.x, travelGrid.end.y, "#161617");
-        
+
         for (var x = 0; x <= travelGrid.vertexes.length - 1; x++) {
             for (var y = 0; y <= travelGrid.vertexes.length - 1; y++) {
                 if (travelGrid.vertexes[x][y].required == true) drawRequiredPoints(x, y);
@@ -115,7 +126,7 @@ export function drawLinePuzzle(LinePuzzle, service) {
             var startContext = startGridCanvas.getContext("2d");
             x = (x * scale) + x_off - 10;
             y = (y * scale) + y_off - 10;
-            startContext.fillStyle = "orange";
+            startContext.fillStyle = lineColor;
             startContext.beginPath();
             startContext.arc(x, y, 30, 0, Math.PI * 2, false);
             startContext.closePath();
@@ -212,24 +223,23 @@ export function drawLinePuzzle(LinePuzzle, service) {
     function drawPath(path) {
         var x_off = 15;
         var y_off = 10;
-        console.log(path)
         for (var i = 0; i < path.line.length; i++) {
             if (pathGridCanvas.getContext) {
                 var pathContext = pathGridCanvas.getContext('2d');
                 var x = ((path.line[i].x) * scale) + x_off;
                 var y = ((size - 1 - path.line[i].y) * scale) + y_off;
-                pathContext.fillStyle = "orange";
+                pathContext.fillStyle = lineColor;
                 pathContext.lineWidth = 20;
-                pathContext.strokeStyle = "orange";
+                pathContext.strokeStyle = lineColor;
                 pathContext.beginPath();
                 pathContext.rect(x, y, 20, 20);
                 if (i == 0) {
                     pathContext.moveTo(x + 10, y + 10);
-                    pathContext.lineTo(((path.line[path.line.length-1].x) * scale) + x_off + 10, ((size - 1 - path.line[path.line.length-1].y) * scale) + y_off + 10);
+                    pathContext.lineTo(((path.line[path.line.length - 1].x) * scale) + x_off + 10, ((size - 1 - path.line[path.line.length - 1].y) * scale) + y_off + 10);
                 }
                 if (i > 1) {
                     pathContext.moveTo(x + 10, y + 10);
-                    pathContext.lineTo(((path.line[i-1].x) * scale) + x_off + 10, ((size - 1 - path.line[i-1].y) * scale) + y_off + 10);
+                    pathContext.lineTo(((path.line[i - 1].x) * scale) + x_off + 10, ((size - 1 - path.line[i - 1].y) * scale) + y_off + 10);
                 }
                 pathContext.closePath();
                 pathContext.stroke();
@@ -237,6 +247,40 @@ export function drawLinePuzzle(LinePuzzle, service) {
                 if (path.line[i].x == travelGrid.end.x && path.line[i].y == travelGrid.end.y) drawEnd(travelGrid.end.x, travelGrid.end.y, "orange");
                 //implement sleep?
             }
+        }
+    }
+
+    function setBackgroundColor(size) {
+        var background = document.getElementById("mazeGridCanvas");
+        switch (size) {
+            case 3:
+                lineColor = "#E35B19"
+                background.style.background = "#4098BF";
+                break;
+            case 4:
+                lineColor = "#E4521E"
+                background.style.background = "#40BFAC";
+                break;
+            case 5:
+                lineColor = "#CD2D3C"
+                background.style.background = "#62BF40";
+                break;
+            case 6:
+                lineColor = "#9D2255"
+                background.style.background = "#99BF40";
+                break;
+            case 7:
+                lineColor = "#7E1D65"
+                background.style.background = "#BFBB40";
+                break;
+            case 8:
+                lineColor = "#546A8A"
+                background.style.background = "#BF8240";
+                break;
+            case 9:
+                lineColor = "#369738"
+                background.style.background = "#BF4040";
+                break;
         }
     }
 
@@ -248,5 +292,14 @@ export function drawLinePuzzle(LinePuzzle, service) {
         deadGridCanvas.getContext('2d').clearRect(0, 0, deadGridCanvas.width, deadGridCanvas.height);
         zoneGridCanvas.getContext('2d').clearRect(0, 0, zoneGridCanvas.width, zoneGridCanvas.height);
         pathGridCanvas.getContext('2d').clearRect(0, 0, pathGridCanvas.width, pathGridCanvas.height);
+    }
+
+    function play(fn) {
+        var src = './assets/audio/' + fn + '.mp3';
+        var audio = document.createElement("audio");
+
+        audio.src = src;
+        audio.volume = 0.2;
+        if (allowSound) audio.play();
     }
 }

@@ -8,6 +8,7 @@ import java.util.*;
 @Data
 @NoArgsConstructor
 public class LinePuzzle {
+    private String uniqueID = UUID.randomUUID().toString();
     private TravelGrid mainGrid;
     private ZoneGrid innerGrid;
     private Line path;
