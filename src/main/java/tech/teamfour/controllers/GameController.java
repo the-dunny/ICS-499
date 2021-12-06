@@ -34,7 +34,7 @@ public class GameController {
 	boolean wasMoveSuccessful = gameServce.validatePlayerMove(keyPressed);
 	if(wasMoveSuccessful) {
 	    if(gameServce.checkGameStatus() == GameStateEnum.FINISHED) {
-		return new ResponseEntity<>(gameServce.getNewPuzzle(ThreadLocalRandom.current().nextInt(3, 9)), HttpStatus.OK);
+		return new ResponseEntity<>(gameServce.getNewPuzzle(ThreadLocalRandom.current().nextInt(3, 10)), HttpStatus.OK);
 	    }
 	    return new ResponseEntity<>(gameServce.getUpdatedPuzzle(), HttpStatus.OK);
 	} else {
