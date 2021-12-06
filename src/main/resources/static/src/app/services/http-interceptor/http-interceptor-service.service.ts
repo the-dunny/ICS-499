@@ -14,6 +14,7 @@ export class HttpInterceptorService implements HttpInterceptor {
             && req.url.indexOf('player/add') === -1 && req.url.indexOf('player/checkUn') === -1
             && req.url.indexOf('game/newGame') === -1
             && req.url.indexOf('game/currentGame') == -1)) {
+
             const authReq = req.clone({
                 headers: new HttpHeaders({
                     //'Content-Type': 'application/json',

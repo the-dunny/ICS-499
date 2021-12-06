@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { TokenStorageService } from './services/token-storage/token-storage.service';
 
@@ -13,7 +14,7 @@ export class AppComponent implements OnInit {
   LoginStatus$ : Observable<boolean>;
   UserName$ : Observable<string>;
 
-  constructor(private tokenStorage: TokenStorageService){}
+  constructor( private router: Router, private tokenStorage: TokenStorageService){}
 
   ngOnInit(): void {
     this.LoginStatus$ = this.tokenStorage.isLoggesIn;
