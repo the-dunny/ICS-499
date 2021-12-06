@@ -16,7 +16,7 @@ export class UserServiceService {
   constructor(private http: HttpClient) { }
 
   addUser(un: string, pwd: string) {
-    return this.http.post(baseURL, {"username": un, "password": pwd }, httpOptions);
+    return this.http.post(baseURL, {"username": un, "password": pwd}, httpOptions);
   }
 
 

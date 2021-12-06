@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { AuthServiceService } from '../auth-service/auth-service.service';
 
 const TOKEN = "jwt-token"
 const USER = "curr-user"
@@ -13,7 +14,7 @@ export class TokenStorageService {
 
  
 
-  constructor(private router : Router) { }
+  constructor(private router : Router, private auth : AuthServiceService) { }
   // User related properties
   private loginStatus = new BehaviorSubject<boolean>(this.checkLoginStatus());
   private displayName = new BehaviorSubject<string>(localStorage.getItem('curr-user')!);
@@ -21,7 +22,8 @@ export class TokenStorageService {
 
   signOut() {
     this.loginStatus.next(false);
-    this.router.navigate(['/login']);
+    this.auth.setRedirectUrl("");
+    location.reload();
   }
 
   public saveToken(token: string): void {
