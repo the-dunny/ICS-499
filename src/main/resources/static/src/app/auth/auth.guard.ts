@@ -20,8 +20,10 @@ export class AuthGuard implements CanActivate {
 
   async checkLogin(url: string): Promise<true | UrlTree> {
 //check to see if they are validly loged in...
+
+
     if ( this.authService.isUserLoggedIn()) {
-      if (url === "/admin-list") {
+      if ( url  === "/admin-list") {
         //check if they have admin role
         await this.authService.isUserAdmin().then(res => {
           this.admin = res.valueOf();

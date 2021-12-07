@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
     private main: AppComponent) {   }
 
   ngOnInit(): void {
+ 
     if(this.tokenStorage.getCurrentToken()){
       this.isLoggedIn = true;
       this.router.navigateByUrl(this.authenticationService.getRedirectUrl());
@@ -38,17 +39,17 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void{
+   
     const { username, password } = this.form;
     this.authenticationService.authenticationService(username, password).subscribe(
       data => {
         var x = this.authenticationService.getRedirectUrl();
-        console.log(data.token)
         this.tokenStorage.saveToken(data.token)
         this.tokenStorage.saveSessionUser(username)
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.router.navigateByUrl(x);
-        x = "";
+      
       },
       err =>{
         this.errorMessage = err.error.message;
