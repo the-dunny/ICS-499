@@ -6,8 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+
+/**
+ * The Class TravelGrid.
+ */
 @NoArgsConstructor
 public class TravelGrid extends Grid {
+    
+    /**
+     * Instantiates a new travel grid.
+     *
+     * @param size the size
+     */
     public TravelGrid(int size) {
 	Random rand = new Random();
 	size -= 1;
@@ -37,9 +47,12 @@ public class TravelGrid extends Grid {
     }
     
     /**
+     * Check up.
+     *
      * @param path is the travel path.
      * @param point is the current point.
      * <br>Check to see if there is a valid move north of the grid.
+     * @return true, if successful
      */
     public boolean checkUp(Line path, Point point) {
 	boolean temp = false;
@@ -60,6 +73,13 @@ public class TravelGrid extends Grid {
 	return temp;
     }
 
+    /**
+     * Check down.
+     *
+     * @param path the path
+     * @param point the point
+     * @return true, if successful
+     */
     public boolean checkDown(Line path, Point point) {
 	boolean temp = false;
 	if (point.getY() > 0) 
@@ -79,6 +99,13 @@ public class TravelGrid extends Grid {
 	return temp;
     }
 
+    /**
+     * Check left.
+     *
+     * @param path the path
+     * @param point the point
+     * @return true, if successful
+     */
     public boolean checkLeft(Line path, Point point) {
 	boolean temp = false;
 	if (point.getX() > 0) 
@@ -98,6 +125,13 @@ public class TravelGrid extends Grid {
 	return temp;
     }
 
+    /**
+     * Check right.
+     *
+     * @param path the path
+     * @param point the point
+     * @return true, if successful
+     */
     public boolean checkRight(Line path, Point point) {
 	boolean temp = false;
 	if (point.getX() < getVertexes().size() - 1) 

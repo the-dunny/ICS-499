@@ -5,14 +5,31 @@ import lombok.NoArgsConstructor;
 
 import java.util.*;
 
+
+/**
+ * The Class LinePuzzle.
+ */
 @Data
 @NoArgsConstructor
 public class LinePuzzle {
+    
+    /** The unique ID. */
     private String uniqueID = UUID.randomUUID().toString();
+    
+    /** The main grid. */
     private TravelGrid mainGrid;
+    
+    /** The inner grid. */
     private ZoneGrid innerGrid;
+    
+    /** The path. */
     private Line path;
 
+    /**
+     * Instantiates a new line puzzle.
+     *
+     * @param size the size
+     */
     public LinePuzzle(int size) {
 	if (size < 3) size = 3;
 	this.mainGrid = new TravelGrid(size);
@@ -20,6 +37,12 @@ public class LinePuzzle {
 	this.path = new Line();
     }
 
+    /**
+     * Travel.
+     *
+     * @param x the x
+     * @param y the y
+     */
     public void travel(int x, int y) {
 	System.out.println(this.mainGrid);
     }
@@ -120,6 +143,8 @@ public class LinePuzzle {
 
     /**
      * Return a random valid path on the main grid, returns empty if there's no available path.
+     *
+     * @return the line
      */ 
     public Line randomValidPath() {
 	TravelGrid tmpGrid = new TravelGrid(mainGrid.getVertexes().size());
@@ -210,6 +235,9 @@ public class LinePuzzle {
 
     /**
      * Returns array of lines sectioned off by a given path on the puzzle and draws out those zones to the innerGrid.
+     *
+     * @param path the path
+     * @return the array list
      */
     public ArrayList<ArrayList<Point>> randomZones(Line path) {
 	ArrayList<ArrayList<Point>> zones = new ArrayList<ArrayList<Point>>();
@@ -248,11 +276,14 @@ public class LinePuzzle {
     }
 
     /**
+     * Zone search.
+     *
      * @param zg the ZoneGrid to find the zones on.
      * @param zone is the zone being mapped out.
      * @param pathList is the given path that the zone is cut from.
      * @param point is the starting point.
      * @param flag is the type of zone.
+     * @return the array list
      */
     public ArrayList<Point> zoneSearch(ZoneGrid zg, ArrayList<Point> zone, ArrayList<Point> pathList, Point point, int flag) {
 	int x = point.getX();
@@ -302,9 +333,11 @@ public class LinePuzzle {
 
     /**
      * Returns true if point belongs in zone.
+     *
      * @param pathList is the given path that the zone is cut from.
      * @param point is the starting point.
      * @param flag is the type of zone.
+     * @return true, if successful
      */
     public boolean zoneCheck(ArrayList<Point> pathList, Point point, int flag) {
 	int x = point.getX();
@@ -362,6 +395,8 @@ public class LinePuzzle {
 
     /**
      * Returns true if the puzzle is valid.
+     *
+     * @return true, if successful
      */
     public boolean validatePuzzle() {
 	if (mainGrid.getStart().isDead() && mainGrid.getPoint(mainGrid.getVertexes().size() - 1, 1).isDead() 
@@ -373,6 +408,8 @@ public class LinePuzzle {
 
     /**
      * Returns true if the puzzle is solved.
+     *
+     * @return true, if is complete
      */
     public boolean isComplete() {
 	boolean complete = true;
@@ -411,6 +448,8 @@ public class LinePuzzle {
 
     /**
      * Restarts the player back to the beginning.
+     *
+     * @return the point
      */
     public Point retry() {
 	for (List<Point> row : mainGrid.getVertexes()) {
@@ -426,11 +465,19 @@ public class LinePuzzle {
 	return mainGrid.getLocation();
     }
 
+    /**
+     * Reset.
+     */
     public void reset() {
 	this.mainGrid = new TravelGrid(mainGrid.getVertexes().size());
 	this.innerGrid = new ZoneGrid(mainGrid.getVertexes().size());
     }
 
+    /**
+     * To string.
+     *
+     * @return the string
+     */
     @Override
     public String toString() {
 	String display = "";

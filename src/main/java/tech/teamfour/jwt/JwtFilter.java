@@ -30,15 +30,30 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import tech.teamfour.model.Player;
 import tech.teamfour.services.PlayerDetailsServiceImpl;
 
+
+/**
+ * The Class JwtFilter.
+ */
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
+    /** The jwt user details service. */
     @Autowired
     private PlayerDetailsServiceImpl jwtUserDetailsService;
 
+    /** The jwt token util. */
     @Autowired
     private TokenManager jwtTokenUtil;
 
+    /**
+     * Do filter internal.
+     *
+     * @param request the request
+     * @param response the response
+     * @param chain the chain
+     * @throws ServletException the servlet exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {

@@ -18,20 +18,33 @@ import tech.teamfour.jwt.JwtFilter;
 import tech.teamfour.services.PlayerDetailsServiceImpl;
 
 
+
+/**
+ * The Class SecurityConfiguration.
+ */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    /** The jwt authentication entry point. */
     @Autowired
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
+    /** The jwt user details service. */
     @Autowired
     private PlayerDetailsServiceImpl jwtUserDetailsService;
 
+    /** The jwt request filter. */
     @Autowired
     private JwtFilter jwtRequestFilter;
 
+    /**
+     * Configure global.
+     *
+     * @param auth the auth
+     * @throws Exception the exception
+     */
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         // configure AuthenticationManager so that it knows from where to load
@@ -40,17 +53,34 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(jwtUserDetailsService).passwordEncoder(passwordEncoder());
     }
 
+    /**
+     * Password encoder.
+     *
+     * @return the password encoder
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * Authentication manager bean.
+     *
+     * @return the authentication manager
+     * @throws Exception the exception
+     */
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
+    /**
+     * Configure.
+     *
+     * @param httpSecurity the http security
+     * @throws Exception the exception
+     */
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         // We don't need CSRF for this example

@@ -2,19 +2,39 @@ package tech.teamfour.model;
 
 import lombok.Data;
 
+
+/**
+ * The Class Point.
+ */
 @Data
 public class Point {
+    
+    /** The x. */
     private int x;
+    
+    /** The y. */
     private int y;
+    
+    /** The visited. */
     private boolean visited;
+    
+    /** The required. */
     private boolean required;
+    
+    /** The dead. */
     private boolean dead;
+    
+    /** The start. */
     private boolean start;
+    
+    /** The end. */
     private boolean end;
+    
+    /** The zone. */
     private int zone;
 
     /**
-     * No argument constructor
+     * No argument constructor.
      */
     public Point() {
 	this.setVisited(false);
@@ -27,6 +47,8 @@ public class Point {
     
     /**
      * Initialize the point.
+     *
+     * @param point the point
      */
     public Point(Point point) {
 	this.setX(point.getX());
@@ -41,6 +63,9 @@ public class Point {
     
     /**
      * Initialize the point.
+     *
+     * @param x the x
+     * @param y the y
      */
     public Point(int x, int y) {
 	this.setX(x);
@@ -55,10 +80,14 @@ public class Point {
 
     /**
      * Initialize the point and flag for unique properties.
-     *<br>Keys:
-     *<br>0 = Start Adjacent
-     *<br>1 = End Adjacent
-     *<br>2 = Required Point
+     * <br>Keys:
+     * <br>0 = Start Adjacent
+     * <br>1 = End Adjacent
+     * <br>2 = Required Point
+     *
+     * @param x the x
+     * @param y the y
+     * @param flag the flag
      */
     public Point(int x, int y, int flag) {
 	this.setX(x);
@@ -85,22 +114,14 @@ public class Point {
 	}
     }
 
+    /**
+     * To string.
+     *
+     * @return the string
+     */
     @Override
     public String toString() {
-//	if (zone == 1) return "A,A"; // debug
-//	if (zone == 2) return "B,B"; // debug
-//	if (required) return "!,!"; // debug
-	return x + "," + y; // debug
-	
-	// ---
-	
-//	if (zone == 1) return "A";
-//	if (zone == 2) return "B";
-//	if (start) return "S";
-//	if (end) return "E";
-//	if (dead) return "X";
-//	if (visited) return "#";
-//	if (required) return "!";
-//	return "O";
+	return x + "," + y; 
+
     }
 }

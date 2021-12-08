@@ -12,16 +12,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
+
+/**
+ * The Class PlayerServiceImpl.
+ */
 @Service
 public class PlayerServiceImpl implements PlayerService{
 
+    /** The player repo. */
     private PlayerRepository playerRepo;
 
+    /**
+     * Instantiates a new player service impl.
+     *
+     * @param pr the pr
+     */
     @Autowired
     public PlayerServiceImpl(PlayerRepository pr){
         this.playerRepo = pr;
     }
 
+    /**
+     * Adds the player.
+     *
+     * @param player the player
+     */
     @Override
     public void addPlayer(Player player) {
         if(player.playerID != null && player.getUserName() != null){
@@ -29,6 +44,12 @@ public class PlayerServiceImpl implements PlayerService{
         }
     }
 
+    /**
+     * Update player password.
+     *
+     * @param newPassword the new password
+     * @param player the player
+     */
     @Override
     public void updatePlayerPassword(String newPassword, Player player) {
         Player updatedPlayer = playerRepo.getById(player.getPlayerID());
@@ -37,11 +58,21 @@ public class PlayerServiceImpl implements PlayerService{
         addPlayer(updatedPlayer);
     }
 
+    /**
+     * Deleter player.
+     *
+     * @param id the id
+     */
     @Override
     public void deleterPlayer(long id) {
         if(checkExistance(id)) playerRepo.deleteById(id);
     }
 
+    /**
+     * Gets the players.
+     *
+     * @return the players
+     */
     @Override
     public List<Player> getPlayers() {
         return playerRepo.findAll();
@@ -49,11 +80,22 @@ public class PlayerServiceImpl implements PlayerService{
 
     
 
+    /**
+     * Gets the player.
+     *
+     * @param id the id
+     * @return the player
+     */
     @Override
     public Player getPlayer(Long id) {
         return playerRepo.getById(id);
     }
 
+    /**
+     * Gets the high scores.
+     *
+     * @return the high scores
+     */
     @Override
     public List<Score> getHighScores(){
         List<Player> sortedPlayers = getPlayers();
@@ -71,6 +113,12 @@ public class PlayerServiceImpl implements PlayerService{
         return sortedScores;
     }
 
+    /**
+     * Sets the high score.
+     *
+     * @param score the score
+     * @param id the id
+     */
     @Override
     public void setHighScore(int score, Long id) {
         if(checkExistance(id)){
@@ -80,11 +128,23 @@ public class PlayerServiceImpl implements PlayerService{
         }
     }
 
+    /**
+     * Gets the player by name.
+     *
+     * @param name the name
+     * @return the player by name
+     */
     @Override
     public Player getPlayerByName(String name) {
         return this.playerRepo.findByUserName(name);
     }
 
+    /**
+     * Check existance.
+     *
+     * @param id the id
+     * @return true, if successful
+     */
     private boolean checkExistance(long id){
         if(playerRepo.existsById(id)){
             return true;
@@ -92,6 +152,12 @@ public class PlayerServiceImpl implements PlayerService{
         return false;
     }
     
+    /**
+     * Check existance by name.
+     *
+     * @param name the name
+     * @return true, if successful
+     */
     @Override
 	public boolean checkExistanceByName(String name){
         if(this.playerRepo.findByUserName(name) != null){
@@ -102,6 +168,12 @@ public class PlayerServiceImpl implements PlayerService{
 
 	
 
+	/**
+	 * Change player role.
+	 *
+	 * @param id the id
+	 * @param newRole the new role
+	 */
 	@Override
 	public void changePlayerRole(long id, String newRole) {
 		if(checkExistance(id)) {

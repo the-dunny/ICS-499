@@ -10,16 +10,34 @@ import tech.teamfour.model.Player;
 import tech.teamfour.repositories.PlayerRepository;
 
 import static java.util.Collections.emptyList;
+
+
+/**
+ * The Class PlayerDetailsServiceImpl.
+ */
 @Service
 public class PlayerDetailsServiceImpl implements UserDetailsService {
 
+    /** The player repository. */
     private PlayerRepository playerRepository;
 
+    /**
+     * Instantiates a new player details service impl.
+     *
+     * @param pr the pr
+     */
     @Autowired
     public PlayerDetailsServiceImpl(PlayerRepository pr){
         this.playerRepository = pr;
     }
 
+    /**
+     * Load user by username.
+     *
+     * @param name the name
+     * @return the user details
+     * @throws UsernameNotFoundException the username not found exception
+     */
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
         Player player = playerRepository.findByUserName(name);

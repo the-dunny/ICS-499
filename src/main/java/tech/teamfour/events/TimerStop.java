@@ -1,7 +1,11 @@
 package tech.teamfour.events;
 
+/**
+ * The Class TimerStop.
+ */
 public class TimerStop {
 	
+    /** The instance. */
     private static TimerStop instance;
 
     /**

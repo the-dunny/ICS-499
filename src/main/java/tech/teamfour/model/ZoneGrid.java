@@ -5,8 +5,18 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * The Class ZoneGrid.
+ */
 @NoArgsConstructor
 public class ZoneGrid extends Grid {
+    
+    /**
+     * Instantiates a new zone grid.
+     *
+     * @param size the size
+     */
     public ZoneGrid(int size) {
 	size -= 2;
 	this.vertexes = new ArrayList<List<Point>>(size);
@@ -22,9 +32,11 @@ public class ZoneGrid extends Grid {
     }
 
     /**
-     * @param path is the travel path.
+     * Check up.
+     *
      * @param point is the current point.
      * <br>Check to see if there is a valid move north of the grid.
+     * @return true, if successful
      */
     public boolean checkUp(Point point) {
 	boolean temp = false;
@@ -42,6 +54,12 @@ public class ZoneGrid extends Grid {
     }
 
 
+    /**
+     * Check down.
+     *
+     * @param point the point
+     * @return true, if successful
+     */
     public boolean checkDown(Point point) {
 	boolean temp = false;
 	if (point.getY() > 0) 
@@ -57,6 +75,12 @@ public class ZoneGrid extends Grid {
 	return temp;
     }
 
+    /**
+     * Check left.
+     *
+     * @param point the point
+     * @return true, if successful
+     */
     public boolean checkLeft(Point point) {
 	boolean temp = false;
 	if (point.getX() > 0) 
@@ -72,6 +96,12 @@ public class ZoneGrid extends Grid {
 	return temp;
     }
 
+    /**
+     * Check right.
+     *
+     * @param point the point
+     * @return true, if successful
+     */
     public boolean checkRight(Point point) {
 	boolean temp = false;
 	if (point.getX() < getVertexes().size() - 1) 
@@ -87,6 +117,9 @@ public class ZoneGrid extends Grid {
 	return temp;
     }
     
+    /**
+     * Un visit.
+     */
     public void unVisit() {
 	for (List<Point> row : getVertexes()) {
 	    for (Point point : row) {

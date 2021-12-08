@@ -6,24 +6,48 @@ import tech.teamfour.enums.GameStateEnum;
 import tech.teamfour.model.LinePuzzle;
 import tech.teamfour.model.Point;
 
+
+/**
+ * The Class GameServceImpl.
+ */
 @Service
 public class GameServceImpl implements GameServce {
 
 
+    /** The game context. */
     private GameContext gameContext;
+    
+    /** The puzzle state. */
     private GameStateEnum puzzleState;
 
+    /**
+     * Gets the new puzzle.
+     *
+     * @param gridSize the grid size
+     * @return the new puzzle
+     */
     @Override
     public LinePuzzle getNewPuzzle(int gridSize) {
 	gameContext = new GameContext(new LinePuzzle(gridSize));
 	return gameContext.getGame();
     }
 
+    /**
+     * Gets the updated puzzle.
+     *
+     * @return the updated puzzle
+     */
     @Override
     public LinePuzzle getUpdatedPuzzle() {
 	return gameContext.getGame();
     }
 
+    /**
+     * Validate player move.
+     *
+     * @param keyPressed the key pressed
+     * @return true, if successful
+     */
     @Override
     public boolean validatePlayerMove(int keyPressed) {
 	String stringMoveRequest;
@@ -53,16 +77,31 @@ public class GameServceImpl implements GameServce {
 	return false;
     }
 
+    /**
+     * Check game status.
+     *
+     * @return the game state enum
+     */
     @Override
     public GameStateEnum checkGameStatus() {
 	return puzzleState;
     }
 
+    /**
+     * Gets the game time.
+     *
+     * @return the game time
+     */
     @Override
     public int getGameTime(){
 	return this.gameContext.getTime();
     }
 
+    /**
+     * Checks if is game active.
+     *
+     * @return true, if is game active
+     */
     @Override
     public boolean isGameActive(){
 	if(this.gameContext == null){

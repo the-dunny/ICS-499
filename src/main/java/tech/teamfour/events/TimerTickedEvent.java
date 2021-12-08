@@ -1,10 +1,18 @@
 package tech.teamfour.events;
 
+
+/**
+ * The Class TimerTickedEvent.
+ */
 public class TimerTickedEvent {
+    
+    /** The time. */
     private int time;
 
     /**
      * This is a singleton class. Hence the private constructor.
+     *
+     * @param value the value
      */
 
     public TimerTickedEvent(int value) {

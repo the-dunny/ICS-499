@@ -3,28 +3,59 @@ package tech.teamfour.timer;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+
+/**
+ * The Class Clock.
+ */
 public class Clock implements Runnable {
+    
+    /** The thread. */
     private Thread thread = new Thread(this);
+    
+    /** The clock. */
     private static Clock clock;
+    
+    /** The property change support. */
     private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
+    /**
+     * Adds the property change listener.
+     *
+     * @param listener the listener
+     */
     public void addPropertyChangeListener(PropertyChangeListener listener) {
 	this.propertyChangeSupport.addPropertyChangeListener(listener);
     }
 
+    /**
+     * Removes the property change listener.
+     *
+     * @param listener the listener
+     */
     public void removePropertyChangeListener(PropertyChangeListener listener) {
 	this.propertyChangeSupport.removePropertyChangeListener(listener);
     }
 
+    /**
+     * Instantiates a new clock.
+     */
     private Clock() {
 	thread.start();
     }
 
+    /**
+     * Instance.
+     *
+     * @return the clock
+     */
     public static Clock instance() {
 	if (clock == null) clock = new Clock();
 	return clock;
     }
 
+    /**
+     * Run.
+     */
     public void run() {
 
         try {

@@ -14,25 +14,27 @@ import java.util.Arrays;
 import java.util.Collections;
 
 
+
+/**
+ * The Class GameApplication.
+ */
 @SpringBootApplication // (exclude = {SecurityAutoConfiguration.class})
 public class GameApplication {
+    
+    /**
+     * The main method.
+     *
+     * @param args the arguments
+     */
     public static void main(String... args) {
 	SpringApplication.run(GameApplication.class, args);
-
-	// Debug Maze Creation / Test
-
-
-	//	int size = 8;
-	//	LinePuzzle puzzle = new LinePuzzle(size);
-	//	GameDebug game = new GameDebug(puzzle);
-	//	try {
-	//	    game.RunGame();
-	//	} catch (InterruptedException e) {
-	//	    e.printStackTrace();
-	//	}
-
     }
 
+    /**
+     * Cors filter.
+     *
+     * @return the cors filter
+     */
     @Bean
     public CorsFilter corsFilter() {
 
@@ -56,27 +58,3 @@ public class GameApplication {
     }
 
 }
-
-/*@Component
-class CapstoneCommandLineRunner implements CommandLineRunner {
-    @Autowired
-    private PlayerServiceImpl impl;
-    @Override
-    public void run(String... args) throws Exception {
-        impl.addPlayer(
-                new Player(
-                        0L, "Service2", "fromCMDRunner2", 12344
-                )
-        );
-    }
- *//*
-    @Override
-    public void run(String... args) throws Exception {
-        Player player = new Player();
-        player.setPlayerID((playerRepository.count()+1));
-        player.setUserName("cmdLineRunner3");
-        player.setPassword("11_34_10_17");
-        player.setBestScore(1234);
-        playerRepository.save(player);
-  *//*
-}*/
