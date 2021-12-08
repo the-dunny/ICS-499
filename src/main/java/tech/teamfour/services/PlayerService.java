@@ -61,7 +61,7 @@ public interface PlayerService {
      *
      * @return the player scores
      */
-    public List<Score> getHighScores();
+    public List<Score> getScores();
     
     /**
      * Sets the player score.
