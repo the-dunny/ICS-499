@@ -10,7 +10,7 @@ import { AboutComponent } from './components/about/about.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '', pathMatch: 'full' },
+  { path: '', redirectTo: 'about', pathMatch: 'full' },
   { path: 'newGame', component: NewGameComponent },
   { canActivate: [AuthGuard], path: 'bestScores', component: ScoreListComponent },
   {canActivate: [AuthGuard], path: 'admin-list', component: AdminListComponent},
