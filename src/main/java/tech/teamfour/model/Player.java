@@ -19,14 +19,12 @@ import javax.persistence.Id;
 @JsonIgnoreProperties(value = { "password" })
 @Proxy(lazy = false)
 public class Player {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long playerID;
     private String userName;
     private String password;
     private int bestScore;
     private boolean isActive;
     private String roles;
- 
 }
