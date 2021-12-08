@@ -57,19 +57,19 @@ public interface PlayerService {
     public Player getPlayer(Long id);
     
     /**
-     * Gets the high scores.
+     * Gets the player scores.
      *
-     * @return the high scores
+     * @return the player scores
      */
     public List<Score> getHighScores();
     
     /**
-     * Sets the high score.
+     * Sets the player score.
      *
      * @param score the score
      * @param id the id
      */
-    public void setHighScore(int score, Long id);
+    public void setScore(int score, Long id);
     
     /**
      * Gets the player by name.
@@ -87,5 +87,4 @@ public interface PlayerService {
      */
     public boolean checkExistanceByName(String name);
     
-	
 }

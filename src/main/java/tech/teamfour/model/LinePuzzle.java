@@ -12,18 +12,21 @@ import java.util.*;
 @Data
 @NoArgsConstructor
 public class LinePuzzle {
-    
+
     /** The unique ID. */
     private String uniqueID = UUID.randomUUID().toString();
-    
+
     /** The main grid. */
     private TravelGrid mainGrid;
-    
+
     /** The inner grid. */
     private ZoneGrid innerGrid;
-    
+
     /** The path. */
     private Line path;
+
+    /** The score value. */
+    private int score_value;
 
     /**
      * Instantiates a new line puzzle.
@@ -35,6 +38,7 @@ public class LinePuzzle {
 	this.mainGrid = new TravelGrid(size);
 	this.innerGrid = new ZoneGrid(size);
 	this.path = new Line();
+	this.score_value = 0;
     }
 
     /**
@@ -122,8 +126,8 @@ public class LinePuzzle {
      */
     public void pointsAndZones() {
 	Line path = randomValidPath();
+	score_value = path.getLine().size();
 	int probability = 11 - (13 - mainGrid.getVertexes().size());
-	//probability = 1; // debug
 	for (Point point : path.getLine()) {
 	    Random rand = new Random();
 	    if (rand.nextInt(probability) == 0) {
@@ -486,9 +490,9 @@ public class LinePuzzle {
 		if (i != 0) display += "-----";
 		display += mainGrid.getVertexes().get(i).get(j);
 	    }
-	    //if (j < mainGrid.getVertexes().size() - 1) display += "\n|\s\s";
+	    if (j < mainGrid.getVertexes().size() - 1) display += "\n|\s\s";
 	    for (int k = 0; k < innerGrid.getVertexes().size(); k++) {
-		//if (j < innerGrid.getVertexes().size()) display += innerGrid.getVertexes().get(k).get(j) + "\s\s|\s\s";
+		if (j < innerGrid.getVertexes().size()) display += innerGrid.getVertexes().get(k).get(j) + "\s\s|\s\s";
 	    }
 	    display += "\n";
 	}

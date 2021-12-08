@@ -5,7 +5,7 @@ package tech.teamfour.events;
  * The Class TimerTickedEvent.
  */
 public class TimerTickedEvent {
-    
+
     /** The time. */
     private int time;
 
@@ -14,7 +14,6 @@ public class TimerTickedEvent {
      *
      * @param value the value
      */
-
     public TimerTickedEvent(int value) {
 	this.time = value;
     }
@@ -24,7 +23,6 @@ public class TimerTickedEvent {
      *
      * @return the only instance
      */
-
     public int getTimeValue() {
 	return time;
     }

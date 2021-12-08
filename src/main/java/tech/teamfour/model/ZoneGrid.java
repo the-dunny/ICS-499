@@ -11,7 +11,7 @@ import java.util.List;
  */
 @NoArgsConstructor
 public class ZoneGrid extends Grid {
-    
+
     /**
      * Instantiates a new zone grid.
      *
@@ -116,7 +116,7 @@ public class ZoneGrid extends Grid {
 
 	return temp;
     }
-    
+
     /**
      * Un visit.
      */
@@ -127,5 +127,5 @@ public class ZoneGrid extends Grid {
 	    }
 	}
     }
-    
+
 }

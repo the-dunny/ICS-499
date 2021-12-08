@@ -12,7 +12,6 @@ import tech.teamfour.model.Point;
 import tech.teamfour.timer.Notifiable;
 import tech.teamfour.timer.Timer;
 
-
 /**
  * The Class GameContext.
  */
@@ -22,16 +21,16 @@ public class GameContext implements Notifiable {
 
     /** The game. */
     private LinePuzzle game;
-    
+
     /** The path. */
     private Line path;
-    
+
     /** The location. */
     private Point location;
-    
+
     /** The end. */
     private Point end;
-    
+
     /** The timer. */
     private Timer timer;
 

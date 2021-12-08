@@ -12,7 +12,7 @@ import java.util.Random;
  */
 @NoArgsConstructor
 public class TravelGrid extends Grid {
-    
+
     /**
      * Instantiates a new travel grid.
      *
@@ -45,7 +45,7 @@ public class TravelGrid extends Grid {
 	    this.vertexes.add(row);
 	}
     }
-    
+
     /**
      * Check up.
      *

@@ -1,5 +1,7 @@
 package tech.teamfour.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,5 +37,5 @@ public class ScoreController {
      * @return the sorted scores
      */
     @GetMapping("score/highscores")
-    public ResponseEntity getSortedScores(){ return new ResponseEntity(ps.getHighScores(), HttpStatus.OK);}
+    public ResponseEntity<List<?>> getSortedScores(){ return new ResponseEntity<List<?>>(ps.getHighScores(), HttpStatus.OK);}
 }
