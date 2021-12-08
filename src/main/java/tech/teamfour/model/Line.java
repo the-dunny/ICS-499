@@ -10,7 +10,7 @@ import java.util.Stack;
  */
 @Data
 public class Line {
-    
+
     /** The line. */
     private Stack<Point> line;
 
@@ -20,5 +20,4 @@ public class Line {
     public Line() {
 	this.setLine(new Stack<Point>());
     }
-
 }

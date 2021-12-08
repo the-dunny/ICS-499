@@ -8,28 +8,28 @@ import lombok.Data;
  */
 @Data
 public class Point {
-    
+
     /** The x. */
     private int x;
-    
+
     /** The y. */
     private int y;
-    
+
     /** The visited. */
     private boolean visited;
-    
+
     /** The required. */
     private boolean required;
-    
+
     /** The dead. */
     private boolean dead;
-    
+
     /** The start. */
     private boolean start;
-    
+
     /** The end. */
     private boolean end;
-    
+
     /** The zone. */
     private int zone;
 
@@ -44,7 +44,7 @@ public class Point {
 	this.setEnd(false);
 	this.setZone(0);
     }
-    
+
     /**
      * Initialize the point.
      *
@@ -60,7 +60,7 @@ public class Point {
 	this.setEnd(false);
 	this.setZone(0);
     }
-    
+
     /**
      * Initialize the point.
      *

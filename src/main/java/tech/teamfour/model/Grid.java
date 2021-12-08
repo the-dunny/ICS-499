@@ -11,16 +11,16 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class Grid {
-    
+
     /** The vertexes. */
     protected List<List<Point>> vertexes;
-    
+
     /** The start. */
     protected Point start;
-    
+
     /** The end. */
     protected Point end;
-    
+
     /** The location. */
     protected Point location;
 

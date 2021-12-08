@@ -8,13 +8,13 @@ import java.beans.PropertyChangeSupport;
  * The Class Clock.
  */
 public class Clock implements Runnable {
-    
+
     /** The thread. */
     private Thread thread = new Thread(this);
-    
+
     /** The clock. */
     private static Clock clock;
-    
+
     /** The property change support. */
     private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
@@ -58,22 +58,22 @@ public class Clock implements Runnable {
      */
     public void run() {
 
-        try {
-            long oneTenthSecondAdjusted = 100L;
-            while (true) {
-                long timeBeforeSleep = System.currentTimeMillis();
-                Thread.sleep(oneTenthSecondAdjusted);
-                this.propertyChangeSupport.firePropertyChange(null, null, null);
-                long timeAfterSleep = System.currentTimeMillis();
-                long actualElapsedTime = timeAfterSleep - timeBeforeSleep;
+	try {
+	    long oneTenthSecondAdjusted = 100L;
+	    while (true) {
+		long timeBeforeSleep = System.currentTimeMillis();
+		Thread.sleep(oneTenthSecondAdjusted);
+		this.propertyChangeSupport.firePropertyChange(null, null, null);
+		long timeAfterSleep = System.currentTimeMillis();
+		long actualElapsedTime = timeAfterSleep - timeBeforeSleep;
 
-                //correct drift that comes from Thread's sleep method
-                if(actualElapsedTime > 100L){
-                    oneTenthSecondAdjusted = 100L - (actualElapsedTime - 100L);
-                }else {
-                    oneTenthSecondAdjusted = 100L;
-                }
-            }
-        } catch (InterruptedException ie) {}
+		//correct drift that comes from Thread's sleep method
+		if(actualElapsedTime > 100L){
+		    oneTenthSecondAdjusted = 100L - (actualElapsedTime - 100L);
+		}else {
+		    oneTenthSecondAdjusted = 100L;
+		}
+	    }
+	} catch (InterruptedException ie) {}
     }
 }

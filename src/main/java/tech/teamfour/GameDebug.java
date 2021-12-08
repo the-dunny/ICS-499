@@ -4,24 +4,23 @@ import java.util.Scanner;
 
 import tech.teamfour.model.*;
 
-
 /**
  * The Class GameDebug.
  */
 public class GameDebug {
-    
+
     /** The game. */
     LinePuzzle game;
-    
+
     /** The path. */
     Line path;
-    
+
     /** The location. */
     Point location;
-    
+
     /** The end. */
     Point end;
-    
+
     /** The scanner. */
     Scanner scanner = new Scanner(System.in);
 

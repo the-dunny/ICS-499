@@ -4,8 +4,6 @@ import org.springframework.stereotype.Service;
 import tech.teamfour.GameContext;
 import tech.teamfour.enums.GameStateEnum;
 import tech.teamfour.model.LinePuzzle;
-import tech.teamfour.model.Point;
-
 
 /**
  * The Class GameServceImpl.
@@ -13,10 +11,9 @@ import tech.teamfour.model.Point;
 @Service
 public class GameServceImpl implements GameServce {
 
-
     /** The game context. */
     private GameContext gameContext;
-    
+
     /** The puzzle state. */
     private GameStateEnum puzzleState;
 

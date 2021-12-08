@@ -2,10 +2,7 @@ package tech.teamfour;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -13,12 +10,10 @@ import org.springframework.web.filter.CorsFilter;
 import java.util.Arrays;
 import java.util.Collections;
 
-
-
 /**
  * The Class GameApplication.
  */
-@SpringBootApplication // (exclude = {SecurityAutoConfiguration.class})
+@SpringBootApplication
 public class GameApplication {
     
     /**
@@ -37,9 +32,7 @@ public class GameApplication {
      */
     @Bean
     public CorsFilter corsFilter() {
-
 	UrlBasedCorsConfigurationSource urlBasedCorsConifgSource = new UrlBasedCorsConfigurationSource();
-
 	CorsConfiguration corsConfig = new CorsConfiguration();
 	corsConfig.setAllowCredentials(true);
 	corsConfig.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
@@ -49,12 +42,8 @@ public class GameApplication {
 	corsConfig.setExposedHeaders(Arrays.asList("Origin", "Content-Type", "Accept", "Jwt-Token", "Authorization",
 		"Access-Control-Allow-Origin", "Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"));
 	corsConfig.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-
 	urlBasedCorsConifgSource.registerCorsConfiguration("/**", corsConfig);
-
 	return new CorsFilter(urlBasedCorsConifgSource);
-
-
     }
 
 }

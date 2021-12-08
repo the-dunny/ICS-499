@@ -8,7 +8,7 @@ import tech.teamfour.model.LinePuzzle;
  * The Interface GameServce.
  */
 public interface GameServce {
-    
+
     /**
      * Gets the new puzzle.
      *
@@ -16,14 +16,14 @@ public interface GameServce {
      * @return the new puzzle
      */
     public abstract LinePuzzle getNewPuzzle(int gridSize);
-    
+
     /**
      * Gets the updated puzzle.
      *
      * @return the updated puzzle
      */
     public abstract LinePuzzle getUpdatedPuzzle();
-    
+
     /**
      * Validate player move.
      *
@@ -31,21 +31,21 @@ public interface GameServce {
      * @return true, if successful
      */
     public abstract boolean validatePlayerMove(int keyPressed);
-    
+
     /**
      * Check game status.
      *
      * @return the game state enum
      */
     public abstract GameStateEnum checkGameStatus();
-    
+
     /**
      * Gets the game time.
      *
      * @return the game time
      */
     public abstract int getGameTime();
-    
+
     /**
      * Checks if is game active.
      *

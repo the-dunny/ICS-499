@@ -28,7 +28,7 @@ public class PlayerDetailsServiceImpl implements UserDetailsService {
      */
     @Autowired
     public PlayerDetailsServiceImpl(PlayerRepository pr){
-        this.playerRepository = pr;
+	this.playerRepository = pr;
     }
 
     /**
@@ -40,10 +40,10 @@ public class PlayerDetailsServiceImpl implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        Player player = playerRepository.findByUserName(name);
-        if(player == null){
-            throw new UsernameNotFoundException(name);
-        }
-        return new User(player.getUserName(), player.getPassword(), emptyList());
+	Player player = playerRepository.findByUserName(name);
+	if(player == null){
+	    throw new UsernameNotFoundException(name);
+	}
+	return new User(player.getUserName(), player.getPassword(), emptyList());
     }
 }

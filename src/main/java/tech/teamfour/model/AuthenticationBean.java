@@ -15,7 +15,7 @@ public class AuthenticationBean {
      * @param message the message
      */
     public AuthenticationBean(String message) {
-        this.message = message;
+	this.message = message;
     }
 
     /**
@@ -24,7 +24,7 @@ public class AuthenticationBean {
      * @return the message
      */
     public String getMessage() {
-        return message;
+	return message;
     }
 
     /**
@@ -33,7 +33,7 @@ public class AuthenticationBean {
      * @param message the new message
      */
     public void setMessage(String message) {
-        this.message = message;
+	this.message = message;
     }
 
     /**
@@ -43,6 +43,6 @@ public class AuthenticationBean {
      */
     @Override
     public String toString() {
-        return String.format("HellowWorldBean [message=%s]", message);
+	return String.format("HellowWorldBean [message=%s]", message);
     }
 }

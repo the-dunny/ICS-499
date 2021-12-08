@@ -20,5 +20,4 @@ public class Score {
     
     /** The best score. */
     private int bestScore;
-
 }

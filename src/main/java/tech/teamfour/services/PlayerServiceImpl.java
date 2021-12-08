@@ -3,7 +3,6 @@ package tech.teamfour.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import tech.teamfour.model.Player;
 import tech.teamfour.model.Score;
 import tech.teamfour.repositories.PlayerRepository;
@@ -29,7 +28,7 @@ public class PlayerServiceImpl implements PlayerService{
      */
     @Autowired
     public PlayerServiceImpl(PlayerRepository pr){
-        this.playerRepo = pr;
+	this.playerRepo = pr;
     }
 
     /**
@@ -39,9 +38,9 @@ public class PlayerServiceImpl implements PlayerService{
      */
     @Override
     public void addPlayer(Player player) {
-        if(player.playerID != null && player.getUserName() != null){
-            playerRepo.save(player);
-        }
+	if(player.playerID != null && player.getUserName() != null){
+	    playerRepo.save(player);
+	}
     }
 
     /**
@@ -52,10 +51,10 @@ public class PlayerServiceImpl implements PlayerService{
      */
     @Override
     public void updatePlayerPassword(String newPassword, Player player) {
-        Player updatedPlayer = playerRepo.getById(player.getPlayerID());
-        updatedPlayer.setPassword(newPassword);
-        playerRepo.deleteById(player.playerID);
-        addPlayer(updatedPlayer);
+	Player updatedPlayer = playerRepo.getById(player.getPlayerID());
+	updatedPlayer.setPassword(newPassword);
+	playerRepo.deleteById(player.playerID);
+	addPlayer(updatedPlayer);
     }
 
     /**
@@ -65,7 +64,7 @@ public class PlayerServiceImpl implements PlayerService{
      */
     @Override
     public void deleterPlayer(long id) {
-        if(checkExistance(id)) playerRepo.deleteById(id);
+	if(checkExistance(id)) playerRepo.deleteById(id);
     }
 
     /**
@@ -75,10 +74,8 @@ public class PlayerServiceImpl implements PlayerService{
      */
     @Override
     public List<Player> getPlayers() {
-        return playerRepo.findAll();
+	return playerRepo.findAll();
     }
-
-    
 
     /**
      * Gets the player.
@@ -88,7 +85,7 @@ public class PlayerServiceImpl implements PlayerService{
      */
     @Override
     public Player getPlayer(Long id) {
-        return playerRepo.getById(id);
+	return playerRepo.getById(id);
     }
 
     /**
@@ -98,19 +95,19 @@ public class PlayerServiceImpl implements PlayerService{
      */
     @Override
     public List<Score> getHighScores(){
-        List<Player> sortedPlayers = getPlayers();
-        sortedPlayers.sort((p1, p2)
-                -> ((Integer)p1.getBestScore()).compareTo((Integer)p2.getBestScore()));
-        
-        List<Score> sortedScores = new ArrayList<Score>();
-        ListIterator<Player> iter = sortedPlayers.listIterator();
-        
-        while (iter.hasNext()) {	
-        	Player nextPlayer = iter.next();
-        	Score nextScore = new Score(nextPlayer.getUserName(),nextPlayer.getBestScore());
-        	sortedScores.add(nextScore);
-        }               
-        return sortedScores;
+	List<Player> sortedPlayers = getPlayers();
+	sortedPlayers.sort((p1, p2)
+		-> ((Integer)p1.getBestScore()).compareTo((Integer)p2.getBestScore()));
+
+	List<Score> sortedScores = new ArrayList<Score>();
+	ListIterator<Player> iter = sortedPlayers.listIterator();
+
+	while (iter.hasNext()) {	
+	    Player nextPlayer = iter.next();
+	    Score nextScore = new Score(nextPlayer.getUserName(),nextPlayer.getBestScore());
+	    sortedScores.add(nextScore);
+	}               
+	return sortedScores;
     }
 
     /**
@@ -120,12 +117,12 @@ public class PlayerServiceImpl implements PlayerService{
      * @param id the id
      */
     @Override
-    public void setHighScore(int score, Long id) {
-        if(checkExistance(id)){
-            Player p = getPlayer(id);
-            p.setBestScore(score);
-            playerRepo.save(p);
-        }
+    public void setScore(int score, Long id) {
+	if(checkExistance(id)) {
+	    Player p = getPlayer(id);
+	    p.setBestScore(p.getBestScore() + score);
+	    playerRepo.save(p);
+	}
     }
 
     /**
@@ -136,7 +133,7 @@ public class PlayerServiceImpl implements PlayerService{
      */
     @Override
     public Player getPlayerByName(String name) {
-        return this.playerRepo.findByUserName(name);
+	return this.playerRepo.findByUserName(name);
     }
 
     /**
@@ -146,12 +143,12 @@ public class PlayerServiceImpl implements PlayerService{
      * @return true, if successful
      */
     private boolean checkExistance(long id){
-        if(playerRepo.existsById(id)){
-            return true;
-        }
-        return false;
+	if(playerRepo.existsById(id)){
+	    return true;
+	}
+	return false;
     }
-    
+
     /**
      * Check existance by name.
      *
@@ -159,28 +156,26 @@ public class PlayerServiceImpl implements PlayerService{
      * @return true, if successful
      */
     @Override
-	public boolean checkExistanceByName(String name){
-        if(this.playerRepo.findByUserName(name) != null){
-            return true;
-        }
-        return false;
+    public boolean checkExistanceByName(String name){
+	if(this.playerRepo.findByUserName(name) != null){
+	    return true;
+	}
+	return false;
     }
 
-	
-
-	/**
-	 * Change player role.
-	 *
-	 * @param id the id
-	 * @param newRole the new role
-	 */
-	@Override
-	public void changePlayerRole(long id, String newRole) {
-		if(checkExistance(id)) {
-		       Player p = getPlayer(id);
-	            p.setRoles(newRole);
-	            playerRepo.save(p);
-		}
-		
+    /**
+     * Change player role.
+     *
+     * @param id the id
+     * @param newRole the new role
+     */
+    @Override
+    public void changePlayerRole(long id, String newRole) {
+	if(checkExistance(id)) {
+	    Player p = getPlayer(id);
+	    p.setRoles(newRole);
+	    playerRepo.save(p);
 	}
+
+    }
 }

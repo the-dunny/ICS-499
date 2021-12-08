@@ -14,14 +14,13 @@ import tech.teamfour.enums.GameStateEnum;
 import tech.teamfour.services.GameServce;
 import tech.teamfour.services.GameServceImpl;
 
-
 /**
  * The Class GameController.
  */
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600, allowedHeaders={"x-auth-token", "x-requested-with", "x-xsrf-token"})
 public class GameController {
-    
+
     /** The game servce. */
     final GameServce gameServce;
 
@@ -42,7 +41,7 @@ public class GameController {
      * @return the new game
      */
     @GetMapping("game/newGame")
-    public ResponseEntity getNewGame(@RequestParam(defaultValue = "5", required = false) int gridSize) {
+    public ResponseEntity<?> getNewGame(@RequestParam(defaultValue = "5", required = false) int gridSize) {
 	return new ResponseEntity<>(gameServce.getNewPuzzle(gridSize), HttpStatus.OK);
     }
 
@@ -53,7 +52,7 @@ public class GameController {
      * @return the player move
      */
     @GetMapping("game/currentGame")
-    public ResponseEntity getPlayerMove(@RequestParam int keyPressed) {
+    public ResponseEntity<?> getPlayerMove(@RequestParam int keyPressed) {
 	boolean wasMoveSuccessful = gameServce.validatePlayerMove(keyPressed);
 	if(wasMoveSuccessful) {
 	    if(gameServce.checkGameStatus() == GameStateEnum.FINISHED) {
@@ -71,7 +70,7 @@ public class GameController {
      * @return the current time
      */
     @GetMapping("game/currentTime")
-    public ResponseEntity getCurrentTime() {
+    public ResponseEntity<?> getCurrentTime() {
 	if(this.gameServce.isGameActive())
 	    return new ResponseEntity<>(this.gameServce.getGameTime(), HttpStatus.OK);
 	return new ResponseEntity<>("No game running", HttpStatus.OK);

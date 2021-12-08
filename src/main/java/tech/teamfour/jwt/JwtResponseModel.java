@@ -12,10 +12,10 @@ import java.io.Serializable;
  */
 @AllArgsConstructor
 public class JwtResponseModel implements Serializable {
-    
+
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
-    
+
     /** The token. */
     @Getter
     private final String token;

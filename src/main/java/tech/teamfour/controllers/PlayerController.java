@@ -22,10 +22,10 @@ public class PlayerController {
 
     /** The player service. */
     final PlayerService playerService;
-    
-    /** The b crypt password encoder. */
+
+    /** The Bcrypt password encoder. */
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-    
+
     /** The pid. */
     private static long PID = 0;
 
@@ -77,21 +77,16 @@ public class PlayerController {
     }
 
     /**
-     * Sets the high score.
+     * Increments the player score.
      *
      * @param id the id
      * @param score the score
      * @return the response entity
      */
-    @RequestMapping("player/{id}/setHighScore")
-    public ResponseEntity<String> setHighScore(@PathVariable("id") long id, @RequestParam("score") int score) {
-	Player p = playerService.getPlayer(id);
-	if(p.getBestScore() > score) {
-	    playerService.setHighScore(score, id);
-	    return new ResponseEntity<>("Score updated", HttpStatus.OK);
-	}else{
-	    return new ResponseEntity<>("Didn't beat highscore", HttpStatus.OK);
-	}
+    @RequestMapping("player/{id}/setScore")
+    public ResponseEntity<String> setScore(@PathVariable("id") long id, @RequestParam("score") int score) {
+	playerService.setScore(score, id);
+	return new ResponseEntity<>(HttpStatus.OK);
     }
 
     /**

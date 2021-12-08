@@ -36,7 +36,7 @@ public class TokenManager implements Serializable {
      * @return the player from token
      */
     public String getPlayerFromToken(String token) {
-        return getClaimFromToken(token, Claims::getSubject);
+	return getClaimFromToken(token, Claims::getSubject);
     }
 
     /**
@@ -46,7 +46,7 @@ public class TokenManager implements Serializable {
      * @return the issued at date from token
      */
     public Date getIssuedAtDateFromToken(String token) {
-        return getClaimFromToken(token, Claims::getIssuedAt);
+	return getClaimFromToken(token, Claims::getIssuedAt);
     }
 
     /**
@@ -56,7 +56,7 @@ public class TokenManager implements Serializable {
      * @return the token expiration
      */
     public Date getTokenExpiration(String token) {
-        return getClaimFromToken(token, Claims::getExpiration);
+	return getClaimFromToken(token, Claims::getExpiration);
     }
 
     /**
@@ -68,8 +68,8 @@ public class TokenManager implements Serializable {
      * @return the claim from token
      */
     public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = getAllClaimsFromToken(token);
-        return claimsResolver.apply(claims);
+	final Claims claims = getAllClaimsFromToken(token);
+	return claimsResolver.apply(claims);
     }
 
     /**
@@ -79,7 +79,7 @@ public class TokenManager implements Serializable {
      * @return the all claims from token
      */
     private Claims getAllClaimsFromToken(String token) {
-        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
+	return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
     }
 
     /**
@@ -89,8 +89,8 @@ public class TokenManager implements Serializable {
      * @return the boolean
      */
     private Boolean isTokenExpired(String token) {
-        final Date expiration = getTokenExpiration(token);
-        return expiration.before(new Date());
+	final Date expiration = getTokenExpiration(token);
+	return expiration.before(new Date());
     }
 
     /**
@@ -100,8 +100,8 @@ public class TokenManager implements Serializable {
      * @return the string
      */
     public String generateToken(UserDetails userDetails) {
-        Map<String, Object> claims = new HashMap<>();
-        return doGenerateToken(claims, userDetails.getUsername());
+	Map<String, Object> claims = new HashMap<>();
+	return doGenerateToken(claims, userDetails.getUsername());
     }
 
     /**
@@ -112,8 +112,8 @@ public class TokenManager implements Serializable {
      * @return the string
      */
     private String doGenerateToken(Map<String, Object> claims, String subject) {
-        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + EXP * 1000)).signWith(SignatureAlgorithm.HS512, secret).compact();
+	return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
+		.setExpiration(new Date(System.currentTimeMillis() + EXP * 1000)).signWith(SignatureAlgorithm.HS512, secret).compact();
     }
 
     /**
@@ -124,7 +124,7 @@ public class TokenManager implements Serializable {
      * @return the boolean
      */
     public Boolean validateToken(String token, UserDetails userDetails) {
-        final String username = getPlayerFromToken(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+	final String username = getPlayerFromToken(token);
+	return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 }
