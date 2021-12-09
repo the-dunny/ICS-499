@@ -50,8 +50,8 @@ export class AuthServiceService {
   }
 
   isUserLoggedIn() {
-    let user = localStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
-    if (user === null) {
+    let token = localStorage.getItem('jwt-token');
+    if (token === null) {
       return false;
     }
     return true;

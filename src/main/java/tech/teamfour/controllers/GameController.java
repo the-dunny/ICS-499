@@ -1,5 +1,7 @@
 package tech.teamfour.controllers;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +24,8 @@ import tech.teamfour.services.GameServceImpl;
 @CrossOrigin(origins = "*", maxAge = 3600, allowedHeaders={"x-auth-token", "x-requested-with", "x-xsrf-token"})
 public class GameController {
 
-    /** The game servce. */
-    final GameServce gameServce;
+    /** The game services. */
+    Map<String, GameServce> gameServicesMap;
 
     /**
      * Instantiates a new game controller.
@@ -31,8 +33,8 @@ public class GameController {
      * @param gameServce the game servce
      */
     @Autowired
-    public GameController(GameServceImpl gameServce) {
-	this.gameServce = gameServce;
+    public GameController() {
+	this.gameServicesMap = new HashMap<String, GameServce>();
     }
 
     /**
@@ -43,7 +45,8 @@ public class GameController {
      */
     @GetMapping("game/{id}/newGame")
     public ResponseEntity<?> getNewGame(@PathVariable("id") String id, @RequestParam(defaultValue = "5", required = false) int gridSize) {
-	return new ResponseEntity<>(gameServce.getNewPuzzle(gridSize), HttpStatus.OK);
+	if (!this.gameServicesMap.containsKey(id)) this.gameServicesMap.put(id, new GameServceImpl());
+	return new ResponseEntity<>(this.gameServicesMap.get(id).getNewPuzzle(gridSize), HttpStatus.OK);
     }
 
     /**
@@ -54,12 +57,12 @@ public class GameController {
      */
     @GetMapping("game/{id}/currentGame")
     public ResponseEntity<?> getPlayerMove(@PathVariable("id") String id, @RequestParam int keyPressed) {
-	boolean wasMoveSuccessful = gameServce.validatePlayerMove(keyPressed);
+	boolean wasMoveSuccessful = this.gameServicesMap.get(id).validatePlayerMove(keyPressed);
 	if(wasMoveSuccessful) {
-	    if(gameServce.checkGameStatus() == GameStateEnum.FINISHED) {
-		return new ResponseEntity<>(gameServce.getNewPuzzle(ThreadLocalRandom.current().nextInt(3, 10)), HttpStatus.OK);
+	    if(this.gameServicesMap.get(id).checkGameStatus() == GameStateEnum.FINISHED) {
+		return new ResponseEntity<>(this.gameServicesMap.get(id).getNewPuzzle(ThreadLocalRandom.current().nextInt(3, 10)), HttpStatus.OK);
 	    }
-	    return new ResponseEntity<>(gameServce.getUpdatedPuzzle(), HttpStatus.OK);
+	    return new ResponseEntity<>(this.gameServicesMap.get(id).getUpdatedPuzzle(), HttpStatus.OK);
 	} else {
 	    return new ResponseEntity<>("Invalid Move", HttpStatus.OK);
 	}
@@ -72,8 +75,8 @@ public class GameController {
      */
     @GetMapping("game/{id}/currentTime")
     public ResponseEntity<?> getCurrentTime(@PathVariable("id") String id) {
-	if(this.gameServce.isGameActive())
-	    return new ResponseEntity<>(this.gameServce.getGameTime(), HttpStatus.OK);
+	if(this.gameServicesMap.get(id).isGameActive())
+	    return new ResponseEntity<>(this.gameServicesMap.get(id).getGameTime(), HttpStatus.OK);
 	return new ResponseEntity<>("No game running", HttpStatus.OK);
     }
 }
