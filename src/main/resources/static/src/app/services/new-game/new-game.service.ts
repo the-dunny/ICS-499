@@ -9,11 +9,13 @@ const baseUrl = 'http://localhost:8082/game/';
 @Injectable({
   providedIn: 'root'
 })
+
 export class NewGameService {
-  private displayName = localStorage.getItem('jwt-token')!.toString();
+  private displayName = localStorage.getItem('curr-user')!.toString();
   constructor(private http: HttpClient) { }
 
   getNewGame(gridSize: number): Observable<LinePuzzle> {
+    if (this.displayName == undefined) this.displayName = Math.random().toString(32).slice(2);
     return this.http.get<LinePuzzle>(baseUrl + this.displayName + "/newGame?gridSize=" + gridSize);
   }
 
