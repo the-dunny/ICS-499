@@ -16,6 +16,7 @@ export class NewGameComponent implements OnInit {
   linePuzzle?: LinePuzzle;
   travelVertexes?: Array<Array<Point>>;
   zoneVertexes?: Array<Array<Point>>;
+  displayName?: String;
 
   constructor(private newGameService: NewGameService) { }
   
@@ -24,6 +25,8 @@ export class NewGameComponent implements OnInit {
   }
 
   initGame(): void {
+    this.displayName = localStorage.getItem('curr-user')?.toString();
+    console.log(this.displayName);
     this.newGameService.getNewGame(this.gridSize!).forEach(element => {
         this.linePuzzle = element;
     }).then(() => {

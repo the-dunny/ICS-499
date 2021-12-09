@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,8 +41,8 @@ public class GameController {
      * @param gridSize the grid size
      * @return the new game
      */
-    @GetMapping("game/newGame")
-    public ResponseEntity<?> getNewGame(@RequestParam(defaultValue = "5", required = false) int gridSize) {
+    @GetMapping("game/{id}/newGame")
+    public ResponseEntity<?> getNewGame(@PathVariable("id") String id, @RequestParam(defaultValue = "5", required = false) int gridSize) {
 	return new ResponseEntity<>(gameServce.getNewPuzzle(gridSize), HttpStatus.OK);
     }
 
@@ -51,8 +52,8 @@ public class GameController {
      * @param keyPressed the key pressed
      * @return the player move
      */
-    @GetMapping("game/currentGame")
-    public ResponseEntity<?> getPlayerMove(@RequestParam int keyPressed) {
+    @GetMapping("game/{id}/currentGame")
+    public ResponseEntity<?> getPlayerMove(@PathVariable("id") String id, @RequestParam int keyPressed) {
 	boolean wasMoveSuccessful = gameServce.validatePlayerMove(keyPressed);
 	if(wasMoveSuccessful) {
 	    if(gameServce.checkGameStatus() == GameStateEnum.FINISHED) {
@@ -63,14 +64,14 @@ public class GameController {
 	    return new ResponseEntity<>("Invalid Move", HttpStatus.OK);
 	}
     }
-
+ 
     /**
      * Gets the current time.
      *
      * @return the current time
      */
-    @GetMapping("game/currentTime")
-    public ResponseEntity<?> getCurrentTime() {
+    @GetMapping("game/{id}/currentTime")
+    public ResponseEntity<?> getCurrentTime(@PathVariable("id") String id) {
 	if(this.gameServce.isGameActive())
 	    return new ResponseEntity<>(this.gameServce.getGameTime(), HttpStatus.OK);
 	return new ResponseEntity<>("No game running", HttpStatus.OK);
