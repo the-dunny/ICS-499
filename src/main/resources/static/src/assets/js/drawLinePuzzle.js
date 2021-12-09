@@ -45,6 +45,7 @@ export function drawLinePuzzle(LinePuzzle, service) {
         }).then(() => {
             if (LinePuzzle.uniqueID != uniqueID) {
                 play("complete");
+                service.updateScore();
             } else if (LinePuzzle.uniqueID == uniqueID && LinePuzzle.path.line.length == 1 && path.line.length != 2) {
                 play("restart");
             } else if (LinePuzzle.path.line.length != path.line.length) {
