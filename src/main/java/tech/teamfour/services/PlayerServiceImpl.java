@@ -89,12 +89,12 @@ public class PlayerServiceImpl implements PlayerService{
     }
 
     /**
-     * Gets the high scores.
+     * Gets the player scores.
      *
-     * @return the high scores
+     * @return the player scores
      */
     @Override
-    public List<Score> getHighScores(){
+    public List<Score> getScores() {
 	List<Player> sortedPlayers = getPlayers();
 	sortedPlayers.sort((p1, p2)
 		-> ((Integer)p1.getBestScore()).compareTo((Integer)p2.getBestScore()));

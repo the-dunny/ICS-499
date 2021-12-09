@@ -37,5 +37,5 @@ public class ScoreController {
      * @return the sorted scores
      */
     @GetMapping("score/highscores")
-    public ResponseEntity<List<?>> getSortedScores(){ return new ResponseEntity<List<?>>(ps.getHighScores(), HttpStatus.OK);}
+    public ResponseEntity<List<?>> getSortedScores(){ return new ResponseEntity<List<?>>(ps.getScores(), HttpStatus.OK);}
 }
