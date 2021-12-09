@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import tech.teamfour.enums.GameStateEnum;
 import tech.teamfour.services.GameServce;
 import tech.teamfour.services.GameServceImpl;
+import tech.teamfour.services.PlayerService;
+import tech.teamfour.services.PlayerServiceImpl;
 
 /**
  * The Class GameController.
@@ -26,6 +28,7 @@ public class GameController {
 
     /** The game services. */
     Map<String, GameServce> gameServicesMap;
+    PlayerService ps;
 
     /**
      * Instantiates a new game controller.
@@ -33,8 +36,9 @@ public class GameController {
      * @param gameServce the game servce
      */
     @Autowired
-    public GameController() {
+    public GameController(PlayerServiceImpl playerService) {
 	this.gameServicesMap = new HashMap<String, GameServce>();
+	this.ps = playerService;
     }
 
     /**
@@ -60,6 +64,9 @@ public class GameController {
 	boolean wasMoveSuccessful = this.gameServicesMap.get(id).validatePlayerMove(keyPressed);
 	if(wasMoveSuccessful) {
 	    if(this.gameServicesMap.get(id).checkGameStatus() == GameStateEnum.FINISHED) {
+		if (ps.checkExistanceByName(id)) {
+		    ps.setScore(this.gameServicesMap.get(id).getUpdatedPuzzle().getScore_value(), ps.getPlayerByName(id).getPlayerID());
+		}
 		return new ResponseEntity<>(this.gameServicesMap.get(id).getNewPuzzle(ThreadLocalRandom.current().nextInt(3, 10)), HttpStatus.OK);
 	    }
 	    return new ResponseEntity<>(this.gameServicesMap.get(id).getUpdatedPuzzle(), HttpStatus.OK);
