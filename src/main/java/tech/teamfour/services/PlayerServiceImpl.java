@@ -8,6 +8,7 @@ import tech.teamfour.model.Score;
 import tech.teamfour.repositories.PlayerRepository;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -106,7 +107,8 @@ public class PlayerServiceImpl implements PlayerService{
 	    Player nextPlayer = iter.next();
 	    Score nextScore = new Score(nextPlayer.getUserName(),nextPlayer.getBestScore());
 	    sortedScores.add(nextScore);
-	}               
+	}
+	Collections.reverse(sortedScores);
 	return sortedScores;
     }
 
