@@ -59,7 +59,7 @@ export class TokenStorageService {
 
   checkLoginStatus(): boolean {
 
-    let anyone = window.localStorage.getItem(USER);
+    let anyone = window.localStorage.getItem(TOKEN);
     if (anyone === null) {
       return false;
     }
