@@ -35,7 +35,7 @@ public class GameApplication {
 	UrlBasedCorsConfigurationSource urlBasedCorsConifgSource = new UrlBasedCorsConfigurationSource();
 	CorsConfiguration corsConfig = new CorsConfiguration();
 	corsConfig.setAllowCredentials(true);
-	corsConfig.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+	corsConfig.setAllowedOrigins(Collections.singletonList("http://24.7.224.238:4200"));
 	corsConfig.setAllowedHeaders(Arrays.asList("Origin", "Access-Control-Allow-Origin", "Content-Type",
 		"Accept", "Jwt-Token", "Authorization", "Origin, Accept", "X-Requested-With",
 		"Access-Control-Request-Method", "Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"));
