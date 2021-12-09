@@ -11,12 +11,17 @@ const baseUrl = 'http://localhost:8082/game/';
 })
 
 export class NewGameService {
-  private displayName = localStorage.getItem('curr-user')!.toString();
-  constructor(private http: HttpClient) { }
+  private displayName = Math.random().toString(32).slice(2);
 
+  constructor(private http: HttpClient) { }
   getNewGame(gridSize: number): Observable<LinePuzzle> {
-    if (this.displayName == undefined) this.displayName = Math.random().toString(32).slice(2);
+    try {
+      this.displayName = localStorage.getItem('curr-user')!.toString();
+    } catch (error) {
+      localStorage.setItem('curr-user', this.displayName);
+    }
     return this.http.get<LinePuzzle>(baseUrl + this.displayName + "/newGame?gridSize=" + gridSize);
+
   }
 
   updateCurrentGame(key: number): Observable<LinePuzzle> {
